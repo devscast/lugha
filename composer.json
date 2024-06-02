@@ -1,0 +1,41 @@
+{
+    "name": "devscast/lugha",
+    "description": "Lugha is a PHP Generative AI framework to build chatbot, RAG systems and AI-powered applications",
+    "keywords": ["ai", "chatbot", "rag", "llm", "generative", "openai", "embeddings", "nlp"],
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Devscast\\Lugha\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Devscast\\Lugha\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "bernard-ng",
+            "email": "bernard@devscast.tech"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=8.3",
+        "symfony/http-client": "^7.1",
+        "symfony/serializer": "^7.1",
+        "symfony/property-access": "^7.1",
+        "webmozart/assert": "^1.11"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.1",
+        "phpstan/phpstan": "^1.11",
+        "symplify/easy-coding-standard": "^12.2",
+        "symfony/var-dumper": "^7.1"
+    },
+    "scripts": {
+        "lint": "vendor/bin/ecs check --ansi",
+        "lint-fix": "vendor/bin/ecs check --fix --ansi"
+    }
+}
