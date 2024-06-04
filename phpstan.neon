@@ -5,5 +5,5 @@ parameters:
         - tests
 
     ignoreErrors:
-        - identifier: missingType.generics
+        #- identifier: missingType.generics
         - identifier: missingType.iterableValue
