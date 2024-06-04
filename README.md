@@ -1,7 +1,7 @@
 # Lugha - yet another PHP Generative AI Framework
 
-![Lint](https://github.com/devscast/lugha/actions/workflows/lint.yaml/badge.svg)
-![Test](https://github.com/devscast/lugha/actions/workflows/test.yaml/badge.svg)
+![Lint](https://github.com/devscast/lugha/actions/workflows/lint.yml/badge.svg)
+![Test](https://github.com/devscast/lugha/actions/workflows/test.yml/badge.svg)
 [![Latest Stable Version](https://poser.pugx.org/devscast/lugha/version)](https://packagist.org/packages/devscast/lugha)
 [![Total Downloads](https://poser.pugx.org/devscast/lugha/downloads)](https://packagist.org/packages/devscast/lugha)
 [![License](https://poser.pugx.org/devscast/lugha/license)](https://packagist.org/packages/devscast/lugha)
