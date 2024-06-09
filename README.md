@@ -6,6 +6,8 @@
 [![Total Downloads](https://poser.pugx.org/devscast/lugha/downloads)](https://packagist.org/packages/devscast/lugha)
 [![License](https://poser.pugx.org/devscast/lugha/license)](https://packagist.org/packages/devscast/lugha)
 
+> [!NOTE]  
+> Lugha was primarily designed to work with Symfony.
 
 ## Installation
 
