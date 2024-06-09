@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha;
+namespace Devscast\Lugha\Model\Prompt;
 
 use Webmozart\Assert\Assert;
 

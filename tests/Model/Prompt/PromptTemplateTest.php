@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Tests;
+namespace Devscast\Lugha\Tests\Model\Prompt;
 
-use Devscast\Lugha\PromptTemplate;
 use PHPUnit\Framework\TestCase;
+use Devscast\Lugha\Model\Prompt\PromptTemplate;
 
 /**
  * Class PromptTemplateTest.

@@ -27,7 +27,7 @@ interface EmbedderInterface
      * @param array<T> $documents
      * @return array<T>
      */
-    public function embedDocuments(array $documents): array;
+    public function embedDocuments(array $documents, array $modelOptions = []): array;
 
-    public function embedQuery(string $query): array;
+    public function embedQuery(string $query, array $modelOptions = []): array;
 }

@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Chat;
+namespace Devscast\Lugha\Model\Chat;
 
 /**
  * Class Message.
@@ -33,6 +33,7 @@ final readonly class Message implements \Stringable
 
     /**
      * Convert an array of messages to an array of Message objects.
+     * @param array<array{content: string, role: string}> $data
      */
     public static function fromArray(array $data): array
     {
@@ -44,6 +45,7 @@ final readonly class Message implements \Stringable
 
     /**
      * Convert a Message object to an array.
+     * @return array{content: string, role: string}
      */
     public function toArray(): array
     {
