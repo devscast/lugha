@@ -73,10 +73,13 @@ readonly class TextSplitter implements SplitterInterface
     #[\Override]
     public function createDocuments(string $text): iterable
     {
-        foreach ($this->splitText($text) as $i => $split) {
+        /**
+         * @var int $index
+         */
+        foreach ($this->splitText($text) as $index => $split) {
             yield new Document($split, metadata: new DocumentMetadata(
                 hash: md5($split),
-                chunkNumber: $i
+                chunkNumber: $index
             ));
         }
     }

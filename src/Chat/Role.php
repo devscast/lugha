@@ -11,17 +11,18 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Retrieval\VectorStore;
+namespace Devscast\Lugha\Chat;
 
 /**
- * Class Distance.
+ * Class Role.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-enum Distance
+enum Role: string
 {
-    case L1;
-    case L2;
-    case COSINE;
-    case INNER_PRODUCT;
+    case SYSTEM = 'system';
+    case USER = 'user';
+    case ASSISTANT = 'assistant';
+    case TOOL = 'tool';
+    case FUNCTION = 'function';
 }

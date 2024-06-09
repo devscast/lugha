@@ -11,24 +11,23 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Retrieval\Splitter;
+namespace Devscast\Lugha\Retrieval\Embedder;
 
 use Devscast\Lugha\Retrieval\Document;
 
 /**
- * Interface SplitterInterface.
+ * Interface EmbedderInterface.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-interface SplitterInterface
+interface EmbedderInterface
 {
     /**
-     * @return iterable<string>
+     * @template T of Document|string
+     * @param array<T> $documents
+     * @return array<T>
      */
-    public function splitText(string $text): iterable;
+    public function embedDocuments(array $documents): array;
 
-    /**
-     * @return iterable<Document>
-     */
-    public function createDocuments(string $text): iterable;
+    public function embedQuery(string $query): array;
 }

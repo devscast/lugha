@@ -11,23 +11,25 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Retrieval\Embedding;
+namespace Devscast\Lugha\Retrieval\Loader;
 
 use Devscast\Lugha\Retrieval\Document;
+use Devscast\Lugha\Retrieval\Splitter\SplitterInterface;
 
 /**
- * Interface EmbeddingInterface.
+ * Interface LoaderInterface.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-interface EmbeddingInterface
+interface LoaderInterface
 {
     /**
-     * @template T of Document|string
-     * @param array<T> $documents
-     * @return array<T>
+     * @return iterable<Document>
      */
-    public function embedDocuments(array $documents): array;
+    public function load(): iterable;
 
-    public function embedQuery(string $query): array;
+    /**
+     * @return iterable<Document>
+     */
+    public function loadAndSplit(SplitterInterface $splitter): iterable;
 }
