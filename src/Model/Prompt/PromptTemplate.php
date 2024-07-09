@@ -17,6 +17,7 @@ use Webmozart\Assert\Assert;
 
 /**
  * Class PromptTemplate.
+ * Lets you create a prompt template that can be formatted with values.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */

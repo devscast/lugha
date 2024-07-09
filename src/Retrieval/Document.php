@@ -15,6 +15,7 @@ namespace Devscast\Lugha\Retrieval;
 
 /**
  * Class Document.
+ * Represents a document that can be indexed and searched.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
@@ -23,7 +24,7 @@ class Document implements \Stringable
     public function __construct(
         public string $content,
         public array $embeddings = [],
-        public ?DocumentMetadata $metadata = null,
+        public ?Metadata $metadata = null,
     ) {
     }
 

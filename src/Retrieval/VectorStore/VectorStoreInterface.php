@@ -17,6 +17,7 @@ use Devscast\Lugha\Retrieval\Document;
 
 /**
  * Interface VectorStoreInterface.
+ * Represents a vector store that can be used to index and search documents.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
@@ -25,7 +26,7 @@ interface VectorStoreInterface
     public function addDocument(Document $document): void;
 
     /**
-     * @param array<Document> $documents
+     * @param iterable<Document> $documents
      */
     public function addDocuments(iterable $documents): void;
 
@@ -37,5 +38,5 @@ interface VectorStoreInterface
     /**
      * @return array<Document> $documents
      */
-    public function similaritySearchByVector(array $embedding, int $k = 4, Distance $distance = Distance::L2): array;
+    public function similaritySearchByVector(array $embeddings, int $k = 4, Distance $distance = Distance::L2): array;
 }

@@ -14,11 +14,13 @@ declare(strict_types=1);
 namespace Devscast\Lugha\Retrieval;
 
 /**
- * Class DocumentMetadata.
+ * Class Metadata.
+ * You can use this class to store metadata about a document.
+ * add your own metadata fields as needed by extending this class.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-class DocumentMetadata implements \Stringable
+class Metadata implements \Stringable
 {
     public function __construct(
         public ?string $hash = null,

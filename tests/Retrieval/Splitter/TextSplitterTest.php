@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Devscast\Lugha\Tests\Retrieval\Splitter;
 
 use Devscast\Lugha\Retrieval\Splitter\TextSplitter;
-
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -43,7 +42,7 @@ class TextSplitterTest extends TestCase
             'fghijklmno',
             'klmnopqrst',
             'pqrstuvwxy',
-            'uvwxyz'
+            'uvwxyz',
         ];
         $chunks = iterator_to_array($splitter->splitText($text));
 
@@ -67,7 +66,7 @@ class TextSplitterTest extends TestCase
         $expectedChunks = [
             'This ',
             'is a ',
-            'test.'
+            'test.',
         ];
         $chunks = iterator_to_array($splitter->splitText($text));
 

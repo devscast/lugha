@@ -14,14 +14,15 @@ declare(strict_types=1);
 namespace Devscast\Lugha\Retrieval\Splitter;
 
 use Devscast\Lugha\Retrieval\Document;
-use Devscast\Lugha\Retrieval\DocumentMetadata;
+use Devscast\Lugha\Retrieval\Metadata;
 
 /**
  * Class TextSplitter.
+ * Represents a text splitter that can be used to split text into chunks.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-readonly class TextSplitter implements SplitterInterface
+final readonly class TextSplitter implements SplitterInterface
 {
     public function __construct(
         public int $chunkSize = 200,
@@ -77,7 +78,7 @@ readonly class TextSplitter implements SplitterInterface
          * @var int $index
          */
         foreach ($this->splitText($text) as $index => $split) {
-            yield new Document($split, metadata: new DocumentMetadata(
+            yield new Document($split, metadata: new Metadata(
                 hash: md5($split),
                 chunkNumber: $index
             ));

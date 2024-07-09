@@ -18,6 +18,7 @@ use Devscast\Lugha\Retrieval\Splitter\SplitterInterface;
 
 /**
  * Class DirectoryLoader.
+ * Allows loading documents from a local directory.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */

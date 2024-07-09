@@ -17,6 +17,7 @@ use Devscast\Lugha\Retrieval\Document;
 
 /**
  * Interface EmbedderInterface.
+ * Actually creates embeddings for documents using a model.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */

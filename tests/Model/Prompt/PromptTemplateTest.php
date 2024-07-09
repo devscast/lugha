@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Tests\Model\Prompt;
 
-use PHPUnit\Framework\TestCase;
 use Devscast\Lugha\Model\Prompt\PromptTemplate;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class PromptTemplateTest.
@@ -33,19 +33,24 @@ final class PromptTemplateTest extends TestCase
     public function testItCanFormatAPromptTemplate(): void
     {
         $template = PromptTemplate::from('Hello {context}');
-        $prompt = $template->format(['{context}' => 'some context...']);
+        $prompt = $template->format([
+            '{context}' => 'some context...',
+        ]);
 
         $this->assertInstanceOf(PromptTemplate::class, $prompt);
-        $this->assertSame("Hello some context...", (string) $prompt);
+        $this->assertSame('Hello some context...', (string) $prompt);
     }
 
     public function testItCanFormatAPromptTemplateWithMultiplePlaceholders(): void
     {
         $template = PromptTemplate::from('Hello {context}, welcome to {place}');
-        $prompt = $template->format(['{context}' => 'some context...', '{place}' => 'some place...']);
+        $prompt = $template->format([
+            '{context}' => 'some context...',
+            '{place}' => 'some place...',
+        ]);
 
         $this->assertInstanceOf(PromptTemplate::class, $prompt);
-        $this->assertSame("Hello some context..., welcome to some place...", (string) $prompt);
+        $this->assertSame('Hello some context..., welcome to some place...', (string) $prompt);
     }
 
     public function testItFailsToCreateAPromptTemplateWithEmptyTemplate(): void
