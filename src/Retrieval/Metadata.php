@@ -33,6 +33,7 @@ class Metadata implements \Stringable
     /**
      * @throws \JsonException
      */
+    #[\Override]
     public function __toString(): string
     {
         return json_encode([

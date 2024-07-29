@@ -72,8 +72,12 @@ final readonly class TextSplitter implements SplitterInterface
     }
 
     #[\Override]
-    public function createDocuments(string $text): iterable
+    public function createDocuments(Document|string $text): iterable
     {
+        if ($text instanceof Document) {
+            $text = $text->content;
+        }
+
         /**
          * @var int $index
          */

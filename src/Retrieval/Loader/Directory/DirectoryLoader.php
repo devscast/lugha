@@ -11,9 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Retrieval\Loader;
+namespace Devscast\Lugha\Retrieval\Loader\Directory;
 
 use Devscast\Lugha\Retrieval\Document;
+use Devscast\Lugha\Retrieval\Loader\LoaderInterface;
+use Devscast\Lugha\Retrieval\Metadata;
 use Devscast\Lugha\Retrieval\Splitter\SplitterInterface;
 
 /**
@@ -25,24 +27,38 @@ use Devscast\Lugha\Retrieval\Splitter\SplitterInterface;
 readonly class DirectoryLoader implements LoaderInterface
 {
     public function __construct(
-        public string $directory,
-        public ?string $glob = null
+        public string $path
     ) {
     }
 
     /**
      * @return iterable<Document>
      */
+    #[\Override]
     public function load(): iterable
     {
-        return [];
+        /** @var RecursiveDirectoryIterator|\DirectoryIterator $file */
+        foreach (new WildcardDirectoryIterator($this->path) as $file) {
+            if ($file->isFile()) {
+                yield new Document(
+                    content: (string) file_get_contents($file->getPathname()),
+                    metadata: new Metadata(
+                        sourceType: 'file',
+                        sourceName: $file->getFilename(),
+                    ),
+                );
+            }
+        }
     }
 
     /**
      * @return iterable<Document>
      */
+    #[\Override]
     public function loadAndSplit(SplitterInterface $splitter): iterable
     {
-        return [];
+        foreach ($this->load() as $document) {
+            yield from $splitter->createDocuments($document);
+        }
     }
 }
