@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Tests\Retrieval\VectorStore;
 
-use PHPUnit\Framework\TestCase;
 use Devscast\Lugha\Retrieval\VectorStore\Distance;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class DistanceTest.
@@ -30,7 +30,7 @@ final class DistanceTest extends TestCase
     {
         $a = [2, 4, 1, 3];
         $b = [3, 5, 2, 1];
-        
+
         $this->assertEquals(0.0937, round(Distance::COSINE->compute($a, $b), 4));
         $this->assertEquals(2.6458, round(Distance::L2->compute($a, $b), 4));
         $this->assertEquals(5.0, round(Distance::L1->compute($a, $b), 4));
