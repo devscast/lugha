@@ -64,7 +64,7 @@ readonly class DirectoryLoader implements LoaderInterface
     public function loadAndSplit(SplitterInterface $splitter, AbstractReader $reader = new FileReader()): iterable
     {
         foreach ($this->load($reader) as $document) {
-            yield from $splitter->splitDocuments($document);
+            yield from $splitter->splitDocument($document);
         }
     }
 }

@@ -28,7 +28,8 @@ interface SplitterInterface
     public function splitText(string $text): iterable;
 
     /**
-     * @return iterable<Document>
+     * @param iterable<int, string> $splits
+     * @return iterable<int, Document>
      */
     public function createDocuments(iterable $splits): iterable;
 

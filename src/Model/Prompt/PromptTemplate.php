@@ -23,7 +23,7 @@ use Webmozart\Assert\Assert;
  */
 final class PromptTemplate implements \Stringable
 {
-    private readonly string $template;
+    private string $template;
 
     private ?string $prompt = null;
 

@@ -92,7 +92,7 @@ final readonly class TextSplitter implements SplitterInterface
     {
         foreach ($splits as $index => $chunk) {
             yield new Document($chunk, metadata: new Metadata(
-                hash: md5((string) $chunk),
+                hash: md5($chunk),
                 chunkNumber: $index
             ));
         }
