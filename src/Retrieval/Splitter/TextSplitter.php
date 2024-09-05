@@ -45,7 +45,7 @@ final readonly class TextSplitter implements SplitterInterface
             $bestSeparator = '';
 
             foreach ($this->separators as $separator) {
-                $separatorPos = strrpos(substr($text, $currentPosition, $chunkEnd - $currentPosition), $separator);
+                $separatorPos = strrpos(substr($text, $currentPosition, $chunkEnd - $currentPosition), (string) $separator);
                 if ($separatorPos !== false && ($bestSeparatorPos === -1 || $separatorPos > $bestSeparatorPos)) {
                     $bestSeparatorPos = $separatorPos;
                     $bestSeparator = $separator;
@@ -54,7 +54,7 @@ final readonly class TextSplitter implements SplitterInterface
 
             // If a separator is found, adjust chunk end
             if ($bestSeparatorPos !== -1) {
-                $chunkEnd = $currentPosition + $bestSeparatorPos + strlen($bestSeparator);
+                $chunkEnd = $currentPosition + $bestSeparatorPos + strlen((string) $bestSeparator);
             }
 
             // Create the chunk and add to the list
@@ -72,18 +72,27 @@ final readonly class TextSplitter implements SplitterInterface
     }
 
     #[\Override]
-    public function createDocuments(Document|string $text): iterable
+    public function splitDocument(Document $document): iterable
     {
-        if ($text instanceof Document) {
-            $text = $text->content;
-        }
-
         /**
          * @var int $index
          */
-        foreach ($this->splitText($text) as $index => $split) {
+        foreach ($this->splitText($document->content) as $index => $split) {
             yield new Document($split, metadata: new Metadata(
                 hash: md5($split),
+                sourceType: $document->metadata?->sourceType,
+                sourceName: $document->metadata?->sourceName,
+                chunkNumber: $index,
+            ));
+        }
+    }
+
+    #[\Override]
+    public function createDocuments(iterable $splits): iterable
+    {
+        foreach ($splits as $index => $chunk) {
+            yield new Document($chunk, metadata: new Metadata(
+                hash: md5((string) $chunk),
                 chunkNumber: $index
             ));
         }

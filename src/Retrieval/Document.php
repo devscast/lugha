@@ -28,8 +28,23 @@ class Document implements \Stringable
     ) {
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->content;
+    }
+
+    public static function from(array $document): self
+    {
+        return new self(
+            $document['content'],
+            $document['embeddings'],
+            Metadata::from($document['metadata']),
+        );
+    }
+
+    public function hasEmbeddings(): bool
+    {
+        return count($this->embeddings) !== 0;
     }
 }

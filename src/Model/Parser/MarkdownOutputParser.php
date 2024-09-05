@@ -62,6 +62,7 @@ final readonly class MarkdownOutputParser implements OutputParserInterface
     /**
      * @throws CommonMarkException
      */
+    #[\Override]
     public function __invoke(string $output): string
     {
         return trim($this->converter->convert($output)->getContent());

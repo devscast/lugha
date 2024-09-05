@@ -35,7 +35,8 @@
         "phpunit/phpunit": "^11.1",
         "phpstan/phpstan": "^1.11",
         "symplify/easy-coding-standard": "^12.2",
-        "symfony/var-dumper": "^7.1"
+        "symfony/var-dumper": "^7.1",
+        "rector/rector": "^1.2"
     },
     "scripts": {
         "lint": "vendor/bin/ecs check --ansi",

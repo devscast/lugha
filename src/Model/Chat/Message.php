@@ -26,6 +26,7 @@ final readonly class Message implements \Stringable
     ) {
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->content;

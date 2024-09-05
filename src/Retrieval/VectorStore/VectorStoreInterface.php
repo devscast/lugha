@@ -26,17 +26,17 @@ interface VectorStoreInterface
     public function addDocument(Document $document): void;
 
     /**
-     * @param iterable<Document> $documents
+     * @param iterable<int, Document> $documents
      */
     public function addDocuments(iterable $documents): void;
 
     /**
-     * @return array<Document> $documents
+     * @return array<int, Document> $documents
      */
-    public function similaritySearch(string $query, int $k = 4, Distance $distance = Distance::L2): array;
+    public function similaritySearch(string $query, int $k = 4, Distance $distance = Distance::COSINE): array;
 
     /**
-     * @return array<Document> $documents
+     * @return array<int, Document> $documents
      */
-    public function similaritySearchByVector(array $embeddings, int $k = 4, Distance $distance = Distance::L2): array;
+    public function similaritySearchByVector(array $embeddings, int $k = 4, Distance $distance = Distance::COSINE): array;
 }

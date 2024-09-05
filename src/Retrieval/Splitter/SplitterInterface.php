@@ -30,5 +30,10 @@ interface SplitterInterface
     /**
      * @return iterable<Document>
      */
-    public function createDocuments(Document|string $text): iterable;
+    public function createDocuments(iterable $splits): iterable;
+
+    /**
+     * @return iterable<Document>
+     */
+    public function splitDocument(Document $document): iterable;
 }

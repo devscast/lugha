@@ -24,11 +24,12 @@ use Devscast\Lugha\Retrieval\Document;
 interface EmbedderInterface
 {
     /**
-     * @template T of Document|string
-     * @param array<T> $documents
-     * @return array<T>
+     * @param iterable<int, Document> $documents
+     * @return iterable<int, Document>
      */
-    public function embedDocuments(array $documents, array $modelOptions = []): array;
+    public function embedDocuments(iterable $documents): iterable;
 
-    public function embedQuery(string $query, array $modelOptions = []): array;
+    public function embedDocument(Document $document): Document;
+
+    public function embedQuery(string $query): array;
 }

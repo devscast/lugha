@@ -21,10 +21,13 @@ namespace Devscast\Lugha\Model\Chat;
 class History
 {
     /**
-     * @param array<Message> $messages
+     * @param Message[] $messages
      */
     private array $messages = [];
 
+    /**
+     * @param Message[] $messages
+     */
     public function fromMessages(array $messages): void
     {
         $this->messages = $messages;

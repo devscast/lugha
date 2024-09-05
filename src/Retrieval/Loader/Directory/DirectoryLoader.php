@@ -15,6 +15,8 @@ namespace Devscast\Lugha\Retrieval\Loader\Directory;
 
 use Devscast\Lugha\Retrieval\Document;
 use Devscast\Lugha\Retrieval\Loader\LoaderInterface;
+use Devscast\Lugha\Retrieval\Loader\Reader\AbstractReader;
+use Devscast\Lugha\Retrieval\Loader\Reader\FileReader;
 use Devscast\Lugha\Retrieval\Metadata;
 use Devscast\Lugha\Retrieval\Splitter\SplitterInterface;
 
@@ -35,16 +37,20 @@ readonly class DirectoryLoader implements LoaderInterface
      * @return iterable<Document>
      */
     #[\Override]
-    public function load(): iterable
+    public function load(AbstractReader $reader = new FileReader()): iterable
     {
         /** @var RecursiveDirectoryIterator|\DirectoryIterator $file */
         foreach (new WildcardDirectoryIterator($this->path) as $file) {
             if ($file->isFile()) {
+                $content = $reader->readContent($file->getPathname());
+                $contentHash = md5($file->getPathname());
+
                 yield new Document(
-                    content: (string) file_get_contents($file->getPathname()),
+                    content: $content,
                     metadata: new Metadata(
+                        hash: $contentHash,
                         sourceType: 'file',
-                        sourceName: $file->getFilename(),
+                        sourceName: $file->getBasename(),
                     ),
                 );
             }
@@ -55,10 +61,10 @@ readonly class DirectoryLoader implements LoaderInterface
      * @return iterable<Document>
      */
     #[\Override]
-    public function loadAndSplit(SplitterInterface $splitter): iterable
+    public function loadAndSplit(SplitterInterface $splitter, AbstractReader $reader = new FileReader()): iterable
     {
-        foreach ($this->load() as $document) {
-            yield from $splitter->createDocuments($document);
+        foreach ($this->load($reader) as $document) {
+            yield from $splitter->splitDocuments($document);
         }
     }
 }

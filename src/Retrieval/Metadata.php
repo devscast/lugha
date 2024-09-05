@@ -20,7 +20,7 @@ namespace Devscast\Lugha\Retrieval;
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-class Metadata implements \Stringable
+class Metadata
 {
     public function __construct(
         public ?string $hash = null,
@@ -30,33 +30,13 @@ class Metadata implements \Stringable
     ) {
     }
 
-    /**
-     * @throws \JsonException
-     */
-    #[\Override]
-    public function __toString(): string
+    public static function from(array $metadata): self
     {
-        return json_encode([
-            'hash' => $this->hash,
-            'sourceType' => $this->sourceType,
-            'sourceName' => $this->sourceName,
-            'chunkNumber' => $this->chunkNumber,
-        ], JSON_THROW_ON_ERROR);
-    }
-
-    /**
-     * @throws \JsonException
-     */
-    public static function fromJson(string $metadata): self
-    {
-        /** @var array $data */
-        $data = json_decode($metadata, true, flags: JSON_THROW_ON_ERROR);
-
         return new self(
-            $data['hash'] ?? null,
-            $data['sourceType'] ?? null,
-            $data['sourceName'] ?? null,
-            $data['chunkNumber'] ?? null,
+            $metadata['hash'],
+            $metadata['sourceType'],
+            $metadata['sourceName'],
+            $metadata['chunkNumber'],
         );
     }
 }

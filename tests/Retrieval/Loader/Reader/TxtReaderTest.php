@@ -28,6 +28,7 @@ final class TxtReaderTest extends TestCase
 {
     private TxtReader $reader;
 
+    #[\Override]
     protected function setUp(): void
     {
         $this->reader = new TxtReader();

@@ -27,6 +27,7 @@ final class FileReaderTest extends TestCase
 {
     private FileReader $reader;
 
+    #[\Override]
     protected function setUp(): void
     {
         $this->reader = new FileReader();

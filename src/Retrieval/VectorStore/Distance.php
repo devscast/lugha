@@ -44,4 +44,51 @@ enum Distance
      * @see https://en.wikipedia.org/wiki/Dot_product
      */
     case INNER_PRODUCT;
+
+    public function compute(array $a, array $b): float
+    {
+        if (count($a) !== count($b)) {
+            throw new \InvalidArgumentException('Vectors must have the same dimension.');
+        }
+
+        return match ($this) {
+            Distance::COSINE => $this->cosine($a, $b),
+            Distance::L2 => $this->l2($a, $b),
+            Distance::L1 => $this->l1($a, $b),
+            Distance::INNER_PRODUCT => $this->dotProduct($a, $b)
+        };
+    }
+
+    private function cosine(array $a, array $b): float
+    {
+        $dotProduct = $this->dotProduct($a, $b);
+        $x = $this->magnitude($a);
+        $y = $this->magnitude($b);
+
+        if ($x * $y == 0) {
+            return 0;
+        }
+
+        return 1 - $dotProduct / ($x * $y);
+    }
+
+    private function l2(array $a, array $b): float
+    {
+        return sqrt(array_sum(array_map(fn (float $x, float $y): float => ($x - $y) ** 2, $a, $b)));
+    }
+
+    private function l1(array $a, array $b): float
+    {
+        return (float) array_sum(array_map(fn (float $x, float $y): float => abs($x - $y), $a, $b));
+    }
+
+    private function dotProduct(array $a, array $b): float
+    {
+        return (float) array_sum(array_map(fn (float $x, float $y): float => $x * $y, $a, $b));
+    }
+
+    private function magnitude(array $vector): float
+    {
+        return sqrt(array_sum(array_map(fn (float $x): float => $x * $x, $vector)));
+    }
 }

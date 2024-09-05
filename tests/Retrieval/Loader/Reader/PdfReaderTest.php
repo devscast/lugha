@@ -28,6 +28,7 @@ final class PdfReaderTest extends TestCase
 {
     private PdfReader $reader;
 
+    #[\Override]
     protected function setUp(): void
     {
         $this->reader = new PdfReader();
