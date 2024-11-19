@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Tests\Model\Prompt;
+namespace Devscast\Lugha\Tests\Model\Chat\Prompt;
 
-use Devscast\Lugha\Model\Prompt\PromptTemplate;
+use Devscast\Lugha\Model\Chat\Prompt\PromptTemplate;
 use PHPUnit\Framework\TestCase;
 
 /**

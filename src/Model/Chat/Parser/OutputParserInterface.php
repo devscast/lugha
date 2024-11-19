@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Model\Parser;
+namespace Devscast\Lugha\Model\Chat\Parser;
 
 /**
  * Interface OutputParserInterface.

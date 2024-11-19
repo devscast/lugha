@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Tests\Model\Parser;
+namespace Devscast\Lugha\Tests\Model\Chat\Parser;
 
-use Devscast\Lugha\Model\Parser\MarkdownOutputParser;
+use Devscast\Lugha\Model\Chat\Parser\MarkdownOutputParser;
 use PHPUnit\Framework\TestCase;
 
 /**

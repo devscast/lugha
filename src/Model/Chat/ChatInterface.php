@@ -15,7 +15,7 @@ namespace Devscast\Lugha\Model\Chat;
 
 use Devscast\Lugha\Model\Chat\Completion\History;
 use Devscast\Lugha\Model\Chat\Completion\Message;
-use Devscast\Lugha\Model\Prompt\PromptTemplate;
+use Devscast\Lugha\Model\Chat\Prompt\PromptTemplate;
 
 /**
  * Interface ChatInterface.
