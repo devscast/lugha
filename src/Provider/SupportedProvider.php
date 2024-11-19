@@ -11,18 +11,19 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Model\Chat;
+namespace Devscast\Lugha\Provider;
 
 /**
- * Class Role.
+ * Class SupportedProvider.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-enum Role: string
+enum SupportedProvider: string
 {
-    case SYSTEM = 'system';
-    case USER = 'user';
-    case ASSISTANT = 'assistant';
-    case TOOL = 'tool';
-    case FUNCTION = 'function';
+    case GOOGLE = 'google';
+    case MISTRAL = 'mistral';
+    case OPENAI = 'openai';
+    case OLLAMA = 'ollama';
+    case GITHUB = 'github';
+    case ANTHROPIC = 'anthropic';
 }

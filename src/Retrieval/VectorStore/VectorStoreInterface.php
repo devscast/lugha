@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Retrieval\VectorStore;
 
+use Devscast\Lugha\Model\Embedding\Distance;
 use Devscast\Lugha\Retrieval\Document;
 
 /**

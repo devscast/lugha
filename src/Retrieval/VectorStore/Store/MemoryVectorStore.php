@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Retrieval\VectorStore\Store;
 
+use Devscast\Lugha\Model\Embedding\Distance;
+use Devscast\Lugha\Model\Embedding\EmbeddingInterface;
 use Devscast\Lugha\Retrieval\Document;
-use Devscast\Lugha\Retrieval\Embedder\EmbedderInterface;
-use Devscast\Lugha\Retrieval\VectorStore\Distance;
 use Devscast\Lugha\Retrieval\VectorStore\VectorStoreInterface;
 
 /**
@@ -26,7 +26,7 @@ use Devscast\Lugha\Retrieval\VectorStore\VectorStoreInterface;
 class MemoryVectorStore implements VectorStoreInterface
 {
     public function __construct(
-        protected readonly EmbedderInterface $embedder,
+        protected readonly EmbeddingInterface $embedding,
         protected array $pool = []
     ) {
     }
@@ -35,7 +35,7 @@ class MemoryVectorStore implements VectorStoreInterface
     public function addDocument(Document $document): void
     {
         if ($document->hasEmbeddings() === false) {
-            $document = $this->embedder->embedDocument($document);
+            $document = $this->embedding->embedDocument($document);
         }
 
         $this->pool[] = $document;
@@ -47,7 +47,7 @@ class MemoryVectorStore implements VectorStoreInterface
         $documents = iterator_to_array($documents);
         foreach ($documents as $index => $document) {
             if ($document->hasEmbeddings() === false) {
-                $documents[$index] = $this->embedder->embedDocument($document);
+                $documents[$index] = $this->embedding->embedDocument($document);
             }
         }
 
@@ -57,7 +57,7 @@ class MemoryVectorStore implements VectorStoreInterface
     #[\Override]
     public function similaritySearch(string $query, int $k = 4, Distance $distance = Distance::COSINE): array
     {
-        $queryEmbeddings = $this->embedder->embedQuery($query);
+        $queryEmbeddings = $this->embedding->embedQuery($query);
 
         return $this->search($queryEmbeddings, $k, $distance);
     }

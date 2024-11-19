@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Tests\Retrieval\VectorStore;
+namespace Devscast\Lugha\Tests\Model\Embedding;
 
-use Devscast\Lugha\Retrieval\VectorStore\Distance;
+use Devscast\Lugha\Model\Embedding\Distance;
 use PHPUnit\Framework\TestCase;
 
 /**

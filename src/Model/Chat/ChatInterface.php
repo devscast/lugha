@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Model\Chat;
 
+use Devscast\Lugha\Model\Chat\Completion\History;
+use Devscast\Lugha\Model\Chat\Completion\Message;
 use Devscast\Lugha\Model\Prompt\PromptTemplate;
 
 /**

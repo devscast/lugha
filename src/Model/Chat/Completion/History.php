@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Model\Chat;
+namespace Devscast\Lugha\Model\Chat\Completion;
 
 /**
  * Class History.
@@ -56,11 +56,6 @@ class History
     public function addToolMessage(string $message): void
     {
         $this->addMessage(new Message($message, Role::TOOL));
-    }
-
-    public function addFunctionMessage(string $message): void
-    {
-        $this->addMessage(new Message($message, Role::FUNCTION));
     }
 
     private function addMessage(Message $message): void

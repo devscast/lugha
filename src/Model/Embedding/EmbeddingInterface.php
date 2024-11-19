@@ -11,17 +11,17 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Retrieval\Embedder;
+namespace Devscast\Lugha\Model\Embedding;
 
 use Devscast\Lugha\Retrieval\Document;
 
 /**
- * Interface EmbedderInterface.
+ * Interface EmbeddingInterface.
  * Actually creates embeddings for documents using a model.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-interface EmbedderInterface
+interface EmbeddingInterface
 {
     /**
      * @param iterable<int, Document> $documents

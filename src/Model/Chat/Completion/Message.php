@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Model\Chat;
+namespace Devscast\Lugha\Model\Chat\Completion;
 
 /**
  * Class Message.

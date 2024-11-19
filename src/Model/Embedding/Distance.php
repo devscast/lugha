@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Retrieval\VectorStore;
+namespace Devscast\Lugha\Model\Embedding;
 
 /**
  * Class Distance.

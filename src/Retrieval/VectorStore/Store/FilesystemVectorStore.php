@@ -1,11 +1,20 @@
 <?php
 
+/*
+ * This file is part of the Lugha package.
+ *
+ * (c) Bernard Ngandu <bernard@devscast.tech>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Devscast\Lugha\Retrieval\VectorStore\Store;
 
+use Devscast\Lugha\Model\Embedding\EmbeddingInterface;
 use Devscast\Lugha\Retrieval\Document;
-use Devscast\Lugha\Retrieval\Embedder\EmbedderInterface;
 
 /**
  * Class FilesystemVectorStore.
@@ -16,9 +25,9 @@ class FilesystemVectorStore extends MemoryVectorStore
 {
     public function __construct(
         private readonly string $path,
-        EmbedderInterface $embedder,
+        EmbeddingInterface $embedding,
     ) {
-        parent::__construct($embedder);
+        parent::__construct($embedding);
         $this->read();
     }
 
