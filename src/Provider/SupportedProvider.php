@@ -26,4 +26,5 @@ enum SupportedProvider: string
     case OLLAMA = 'ollama';
     case GITHUB = 'github';
     case ANTHROPIC = 'anthropic';
+    case VOYAGER = 'voyager';
 }

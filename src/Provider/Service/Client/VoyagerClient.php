@@ -34,21 +34,19 @@ final class VoyagerClient extends AbstractClient implements HasRerankingSupport,
         Assert::notEmpty($prompt);
         Assert::allNotEmpty($documents);
 
-        $mapper = function (Document|string $document): string {
-            if ($document instanceof Document) {
-                return $document->content;
-            }
-
-            return $document;
-        };
-
         try {
             /** @var array{results: array<array{document: string, relevance_score: float}>} $response */
             $response = $this->http->request('POST', 'rerank', [
                 'json' => [
                     'model' => $config->model,
                     'top_k' => $config->topK,
-                    'documents' => array_map($mapper(...), $documents),
+                    'documents' => array_map(
+                        fn (Document|string $document): string => match (true) {
+                            $document instanceof Document => $document->content,
+                            default => $document,
+                        },
+                        $documents
+                    ),
                     'query' => $prompt,
                 ],
             ])->toArray();
