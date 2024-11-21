@@ -11,29 +11,26 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Model\Embedding;
+namespace Devscast\Lugha\Model\Reranking;
 
 use Webmozart\Assert\Assert;
 
 /**
- * Class EmbeddingConfig.
+ * Class RerankingConfig.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final readonly class EmbeddingConfig
+final readonly class RerankingConfig
 {
     /**
      * @param string $model The model to use for generating the embeddings.
-     * @param int|null $dimensions The dimensionality of the embeddings to generate.
-     * @param string $encodingFormat The encoding format to use for the embeddings.
+     * @param int $topK The number of top results to return.
      */
     public function __construct(
         public string $model,
-        public ?int $dimensions = null,
-        public string $encodingFormat = 'float',
+        public int $topK
     ) {
         Assert::notEmpty($this->model);
-        Assert::nullOrPositiveInteger($this->dimensions);
-        Assert::oneOf($this->encodingFormat, ['float', 'base64']);
+        Assert::positiveInteger($this->topK);
     }
 }

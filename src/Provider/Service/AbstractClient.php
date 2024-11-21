@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Provider\Service;
 
-use Devscast\Lugha\Provider\Config\ProviderConfig;
+use Devscast\Lugha\Provider\ProviderConfig;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpClient\Retry\GenericRetryStrategy;
 use Symfony\Component\HttpClient\RetryableHttpClient;
