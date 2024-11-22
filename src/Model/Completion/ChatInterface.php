@@ -26,5 +26,5 @@ interface ChatInterface
 {
     public function setSystemMessage(PromptTemplate|Message $message): void;
 
-    public function completion(PromptTemplate|string $prompt, ?History $history = null): string;
+    public function completion(PromptTemplate|History|string $input): string;
 }

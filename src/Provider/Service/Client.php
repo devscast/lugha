@@ -20,11 +20,11 @@ use Symfony\Component\HttpClient\RetryableHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
- * Class AbstractClient.
+ * Class Client.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-abstract class AbstractClient
+abstract class Client
 {
     protected const string BASE_URI = '';
 

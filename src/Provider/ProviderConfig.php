@@ -22,22 +22,22 @@ use Webmozart\Assert\Assert;
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final readonly class ProviderConfig
+final class ProviderConfig
 {
     /**
-     * @param string $apiKey The API key to use for the provider.
+     * @param string|null $apiKey The API key to use for the provider.
      * @param string|null $baseUri The base URI for the provider.
      * @param int|null $maxRetries The maximum number of retries to attempt in case of failure.
      * @param bool $providerResponse Whether to return the full provider's response along with the result.
      */
     public function __construct(
         #[\SensitiveParameter]
-        public string $apiKey,
-        public ?string $baseUri = null,
-        public ?int $maxRetries = 2,
-        public bool $providerResponse = false,
+        public ?string $apiKey = null,
+        public readonly ?string $baseUri = null,
+        public readonly ?int $maxRetries = 2,
+        public readonly bool $providerResponse = false,
     ) {
-        Assert::notEmpty($this->apiKey);
+        Assert::nullOrNotEmpty($this->apiKey);
         Assert::nullOrNotEmpty($this->baseUri);
         Assert::positiveInteger($this->maxRetries);
     }

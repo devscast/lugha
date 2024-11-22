@@ -16,16 +16,17 @@ namespace Devscast\Lugha\Provider\Service\Client;
 use Devscast\Lugha\Model\Completion\Chat\History;
 use Devscast\Lugha\Model\Completion\CompletionConfig;
 use Devscast\Lugha\Model\Embedding\EmbeddingConfig;
+use Devscast\Lugha\Provider\Provider;
 use Devscast\Lugha\Provider\Response\CompletionResponse;
 use Devscast\Lugha\Provider\Response\EmbeddingResponse;
-use Devscast\Lugha\Provider\Service\AbstractClient;
+use Devscast\Lugha\Provider\Service\Client;
 use Devscast\Lugha\Provider\Service\HasCompletionSupport;
 use Devscast\Lugha\Provider\Service\HasEmbeddingSupport;
 use Devscast\Lugha\Provider\Service\IntegrationException;
 use Webmozart\Assert\Assert;
 
 /**
- * Class OllamaClient.
+ * Class OpenAIClient.
  *
  * @see https://platform.openai.com/docs/api-reference/introduction
  * @see https://platform.openai.com/docs/api-reference/embeddings/create
@@ -33,7 +34,7 @@ use Webmozart\Assert\Assert;
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final class OpenAIClient extends AbstractClient implements HasEmbeddingSupport, HasCompletionSupport
+final class OpenAIClient extends Client implements HasEmbeddingSupport, HasCompletionSupport
 {
     protected const string BASE_URI = 'https://api.openai.com/v1/';
 
@@ -62,8 +63,9 @@ final class OpenAIClient extends AbstractClient implements HasEmbeddingSupport, 
             ])->toArray();
 
             return new EmbeddingResponse(
+                provider: Provider::OPENAI,
                 model: $config->model,
-                embedding: $response['data']['embedding'],
+                embedding: $response['data'][0]['embedding'],
                 providerResponse: $this->config->providerResponse ? $response : [],
             );
         } catch (\Throwable $e) {
@@ -123,6 +125,7 @@ final class OpenAIClient extends AbstractClient implements HasEmbeddingSupport, 
             ])->toArray();
 
             return new CompletionResponse(
+                provider: Provider::OPENAI,
                 model: $config->model,
                 completion: $response['choices'][0]['message']['content'],
                 providerResponse: $this->config->providerResponse ? $response : [],

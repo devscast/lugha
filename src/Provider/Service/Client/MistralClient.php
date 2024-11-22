@@ -16,23 +16,24 @@ namespace Devscast\Lugha\Provider\Service\Client;
 use Devscast\Lugha\Model\Completion\Chat\History;
 use Devscast\Lugha\Model\Completion\CompletionConfig;
 use Devscast\Lugha\Model\Embedding\EmbeddingConfig;
+use Devscast\Lugha\Provider\Provider;
 use Devscast\Lugha\Provider\Response\CompletionResponse;
 use Devscast\Lugha\Provider\Response\EmbeddingResponse;
-use Devscast\Lugha\Provider\Service\AbstractClient;
+use Devscast\Lugha\Provider\Service\Client;
 use Devscast\Lugha\Provider\Service\HasCompletionSupport;
 use Devscast\Lugha\Provider\Service\HasEmbeddingSupport;
 use Devscast\Lugha\Provider\Service\IntegrationException;
 use Webmozart\Assert\Assert;
 
 /**
- * Class OllamaClient.
+ * Class MistralClient.
  *
  * @see https://docs.mistral.ai/getting-started/quickstart/
  * @see https://docs.mistral.ai/api/#tag/embeddings/operation/embeddings_v1_embeddings_post
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final class MistralClient extends AbstractClient implements HasEmbeddingSupport, HasCompletionSupport
+final class MistralClient extends Client implements HasEmbeddingSupport, HasCompletionSupport
 {
     protected const string BASE_URI = 'https://api.mistral.ai/v1/';
 
@@ -61,8 +62,9 @@ final class MistralClient extends AbstractClient implements HasEmbeddingSupport,
             ])->toArray();
 
             return new EmbeddingResponse(
+                provider: Provider::MISTRAL,
                 model: $config->model,
-                embedding: $response['data']['embedding'],
+                embedding: $response['data'][0]['embedding'],
                 providerResponse: $this->config->providerResponse ? $response : [],
             );
         } catch (\Throwable $e) {
@@ -107,8 +109,8 @@ final class MistralClient extends AbstractClient implements HasEmbeddingSupport,
                     },
                     'max_tokens' => $config->maxTokens,
                     'temperature' => $config->temperature,
-                    'top_p' => $config->topP,
-                    'stop' => $config->stopSequences,
+                    'top_p' => $config->topP ?? 1,
+                    'stop' => $config->stopSequences ?? [],
                     'presence_penalty' => $config->presencePenalty ?? 0,
                     'frequency_penalty' => $config->frequencyPenalty ?? 0,
                     ...$config->additionalParameters,
@@ -116,6 +118,7 @@ final class MistralClient extends AbstractClient implements HasEmbeddingSupport,
             ])->toArray();
 
             return new CompletionResponse(
+                provider: Provider::MISTRAL,
                 model: $config->model,
                 completion: $response['choices'][0]['message']['content'],
                 providerResponse: $this->config->providerResponse ? $response : [],

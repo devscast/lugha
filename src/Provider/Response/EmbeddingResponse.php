@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Provider\Response;
 
+use Devscast\Lugha\Provider\Provider;
+
 /**
  * Class EmbeddingResponse.
  *
@@ -21,6 +23,7 @@ namespace Devscast\Lugha\Provider\Response;
 final readonly class EmbeddingResponse
 {
     public function __construct(
+        public Provider $provider,
         public string $model,
         public array $embedding,
         public array $providerResponse = [],

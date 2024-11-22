@@ -16,9 +16,10 @@ namespace Devscast\Lugha\Provider\Service\Client;
 use Devscast\Lugha\Model\Completion\Chat\History;
 use Devscast\Lugha\Model\Completion\CompletionConfig;
 use Devscast\Lugha\Model\Embedding\EmbeddingConfig;
+use Devscast\Lugha\Provider\Provider;
 use Devscast\Lugha\Provider\Response\CompletionResponse;
 use Devscast\Lugha\Provider\Response\EmbeddingResponse;
-use Devscast\Lugha\Provider\Service\AbstractClient;
+use Devscast\Lugha\Provider\Service\Client;
 use Devscast\Lugha\Provider\Service\HasCompletionSupport;
 use Devscast\Lugha\Provider\Service\HasEmbeddingSupport;
 use Devscast\Lugha\Provider\Service\IntegrationException;
@@ -31,7 +32,7 @@ use Webmozart\Assert\Assert;
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final class OllamaClient extends AbstractClient implements HasEmbeddingSupport, HasCompletionSupport
+final class OllamaClient extends Client implements HasEmbeddingSupport, HasCompletionSupport
 {
     protected const string BASE_URI = 'http://localhost:11434/api/';
 
@@ -48,9 +49,13 @@ final class OllamaClient extends AbstractClient implements HasEmbeddingSupport, 
                     'prompt' => $prompt,
                     ...$config->additionalParameters,
                 ],
-            ])->getContent();
+            ])->toArray();
 
-            return new EmbeddingResponse($config->model, $response['embedding']);
+            return new EmbeddingResponse(
+                provider: Provider::OLLAMA,
+                model: $config->model,
+                embedding: $response['embedding']
+            );
         } catch (\Throwable $e) {
             throw new IntegrationException('Unable to generate embeddings.', previous: $e);
         }
@@ -76,7 +81,8 @@ final class OllamaClient extends AbstractClient implements HasEmbeddingSupport, 
              *     eval_duration: int
              * } $response
              */
-            $response = $this->http->request('POST', 'chat/completions', [
+            $response = $this->http->request('POST', 'chat', [
+                'timeout' => -1,
                 'json' => [
                     'stream' => false, // TODO: add support for streaming
                     'model' => $config->model,
@@ -99,6 +105,7 @@ final class OllamaClient extends AbstractClient implements HasEmbeddingSupport, 
             ])->toArray();
 
             return new CompletionResponse(
+                provider: Provider::OLLAMA,
                 model: $config->model,
                 completion: $response['message']['content'],
                 providerResponse: $this->config->providerResponse ? $response : [],

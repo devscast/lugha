@@ -13,16 +13,16 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Provider\Service\Client;
 
-use Devscast\Lugha\Provider\Service\AbstractClient;
+use Devscast\Lugha\Provider\Service\Client;
 
 /**
- * Class OllamaClient.
+ * Class GithubClient.
  *
  * @see https://github.com/marketplace/models/
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final class GithubClient extends AbstractClient
+final class GithubClient extends Client
 {
     protected const string BASE_URI = 'https://models.inference.ai.azure.com/';
 }

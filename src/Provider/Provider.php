@@ -14,17 +14,17 @@ declare(strict_types=1);
 namespace Devscast\Lugha\Provider;
 
 /**
- * Class SupportedProvider.
+ * Class Provider.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-enum SupportedProvider: string
+enum Provider: string
 {
-    case GOOGLE = 'google';
-    case MISTRAL = 'mistral';
-    case OPENAI = 'openai';
-    case OLLAMA = 'ollama';
-    case GITHUB = 'github';
-    case ANTHROPIC = 'anthropic';
-    case VOYAGER = 'voyager';
+    case GOOGLE = 'GOOGLE';
+    case MISTRAL = 'MISTRAL';
+    case OPENAI = 'OPENAI';
+    case OLLAMA = 'OLLAMA';
+    case GITHUB = 'GITHUB';
+    case ANTHROPIC = 'ANTHROPIC';
+    case VOYAGER = 'VOYAGER';
 }

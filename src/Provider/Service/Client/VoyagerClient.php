@@ -7,9 +7,10 @@ namespace Devscast\Lugha\Provider\Service\Client;
 use Devscast\Lugha\Model\Embedding\EmbeddingConfig;
 use Devscast\Lugha\Model\Reranking\RankedDocument;
 use Devscast\Lugha\Model\Reranking\RerankingConfig;
+use Devscast\Lugha\Provider\Provider;
 use Devscast\Lugha\Provider\Response\EmbeddingResponse;
 use Devscast\Lugha\Provider\Response\RerankingResponse;
-use Devscast\Lugha\Provider\Service\AbstractClient;
+use Devscast\Lugha\Provider\Service\Client;
 use Devscast\Lugha\Provider\Service\HasEmbeddingSupport;
 use Devscast\Lugha\Provider\Service\HasRerankingSupport;
 use Devscast\Lugha\Provider\Service\IntegrationException;
@@ -24,7 +25,7 @@ use Webmozart\Assert\Assert;
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final class VoyagerClient extends AbstractClient implements HasRerankingSupport, HasEmbeddingSupport
+final class VoyagerClient extends Client implements HasRerankingSupport, HasEmbeddingSupport
 {
     protected const string BASE_URI = 'https://api.voyageai.com/v1/';
 
@@ -53,6 +54,7 @@ final class VoyagerClient extends AbstractClient implements HasRerankingSupport,
             ])->toArray();
 
             return new RerankingResponse(
+                provider: Provider::VOYAGER,
                 model: $config->model,
                 documents: array_map(
                     fn ($ranking) => new RankedDocument($ranking['document'], $ranking['relevance_score']),
@@ -81,7 +83,11 @@ final class VoyagerClient extends AbstractClient implements HasRerankingSupport,
                 ],
             ])->getContent();
 
-            return new EmbeddingResponse($config->model, $response['embeddings'][0]);
+            return new EmbeddingResponse(
+                provider: Provider::VOYAGER,
+                model: $config->model,
+                embedding: $response['embeddings'][0]
+            );
         } catch (\Throwable $e) {
             throw new IntegrationException('Unable to generate embeddings.', previous: $e);
         }

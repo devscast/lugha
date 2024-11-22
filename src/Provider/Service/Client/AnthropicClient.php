@@ -13,16 +13,16 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Provider\Service\Client;
 
-use Devscast\Lugha\Provider\Service\AbstractClient;
+use Devscast\Lugha\Provider\Service\Client;
 
 /**
- * Class OllamaClient.
+ * Class AnthropicClient.
  *
  * @see https://docs.anthropic.com/en/api/getting-started
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final class AnthropicClient extends AbstractClient
+final class AnthropicClient extends Client
 {
     protected const string BASE_URI = 'https://api.anthropic.com/v1/';
 }

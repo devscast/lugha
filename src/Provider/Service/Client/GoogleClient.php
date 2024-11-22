@@ -14,26 +14,26 @@ declare(strict_types=1);
 namespace Devscast\Lugha\Provider\Service\Client;
 
 use Devscast\Lugha\Model\Completion\Chat\History;
-use Devscast\Lugha\Model\Completion\Chat\Role;
 use Devscast\Lugha\Model\Completion\CompletionConfig;
 use Devscast\Lugha\Model\Embedding\EmbeddingConfig;
+use Devscast\Lugha\Provider\Provider;
 use Devscast\Lugha\Provider\Response\CompletionResponse;
 use Devscast\Lugha\Provider\Response\EmbeddingResponse;
-use Devscast\Lugha\Provider\Service\AbstractClient;
+use Devscast\Lugha\Provider\Service\Client;
 use Devscast\Lugha\Provider\Service\HasCompletionSupport;
 use Devscast\Lugha\Provider\Service\HasEmbeddingSupport;
 use Devscast\Lugha\Provider\Service\IntegrationException;
 use Webmozart\Assert\Assert;
 
 /**
- * Class OllamaClient.
+ * Class GoogleClient.
  *
  * @see https://ai.google.dev/api
  * @see https://ai.google.dev/gemini-api/docs/embeddings#curl
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final class GoogleClient extends AbstractClient implements HasEmbeddingSupport, HasCompletionSupport
+final class GoogleClient extends Client implements HasEmbeddingSupport, HasCompletionSupport
 {
     protected const string BASE_URI = 'https://generativelanguage.googleapis.com/v1beta/';
 
@@ -45,20 +45,20 @@ final class GoogleClient extends AbstractClient implements HasEmbeddingSupport, 
         try {
             /** @var array{embedding: array{values: array<float>}} $response */
             $response = $this->http->request('POST', "models/{$config->model}:embedContent?key={$this->config->apiKey}", [
+                'auth_bearer' => null, // Google uses API key in query instead of Bearer token (Come on Google!)
                 'json' => [
                     'model' => "models/{$config->model}",
                     'content' => [
-                        'parts' => [
-                            [
-                                'text' => $prompt,
-                            ],
-                        ],
+                        'parts' => [[
+                            'text' => $prompt,
+                        ]],
                     ],
                     ...$config->additionalParameters,
                 ],
             ])->toArray();
 
             return new EmbeddingResponse(
+                provider: Provider::GOOGLE,
                 model: $config->model,
                 embedding: $response['embedding']['values'],
                 providerResponse: $this->config->providerResponse ? $response : [],
@@ -91,6 +91,7 @@ final class GoogleClient extends AbstractClient implements HasEmbeddingSupport, 
              * } $response
              */
             $response = $this->http->request('POST', "models/{$config->model}:generateContent?key={$this->config->apiKey}", [
+                'auth_bearer' => null,
                 'json' => [
                     ...$this->buildCompletionContents($input),
                     ...$config->additionalParameters,
@@ -98,6 +99,7 @@ final class GoogleClient extends AbstractClient implements HasEmbeddingSupport, 
             ])->toArray();
 
             return new CompletionResponse(
+                provider: Provider::GOOGLE,
                 model: $config->model,
                 completion: $response['candidates'][0]['content']['parts'][0]['text'],
                 providerResponse: $this->config->providerResponse ? $response : [],
