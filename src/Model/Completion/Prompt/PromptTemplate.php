@@ -23,7 +23,7 @@ use Webmozart\Assert\Assert;
  */
 final class PromptTemplate implements \Stringable
 {
-    private string $template;
+    private readonly string $template;
 
     private ?string $prompt = null;
 
@@ -31,11 +31,10 @@ final class PromptTemplate implements \Stringable
     {
         Assert::notEmpty($template, 'Template cannot be empty');
 
+        $this->template = $template;
         if (! empty($values)) {
             $this->format($values);
         }
-
-        $this->template = $template;
     }
 
     #[\Override]

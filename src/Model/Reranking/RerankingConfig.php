@@ -25,10 +25,12 @@ final readonly class RerankingConfig
     /**
      * @param string $model The model to use for generating the embeddings.
      * @param int $topK The number of top results to return.
+     * @param array $additionalParameters Additional parameters to pass to the model.
      */
     public function __construct(
         public string $model,
-        public int $topK
+        public int $topK,
+        public array $additionalParameters = []
     ) {
         Assert::notEmpty($this->model);
         Assert::positiveInteger($this->topK);

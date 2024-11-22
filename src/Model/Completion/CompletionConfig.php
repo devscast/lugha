@@ -37,6 +37,7 @@ final readonly class CompletionConfig
      * @param float|null $frequencyPenalty The value used to penalize new tokens based on their frequency in the training data.
      * @param float|null $presencePenalty The value used to penalize new tokens based on whether they are already present in the text.
      * @param array|null $stopSequences A list of sequences where the model should stop generating the text.
+     * @param array $additionalParameters Additional parameters to pass to the API.
      */
     public function __construct(
         public string $model,
@@ -47,6 +48,7 @@ final readonly class CompletionConfig
         public ?float $frequencyPenalty = null,
         public ?float $presencePenalty = null,
         public ?array $stopSequences = null,
+        public array $additionalParameters = []
     ) {
         Assert::notEmpty($this->model);
         Assert::nullOrRange($this->temperature, 0, 2);

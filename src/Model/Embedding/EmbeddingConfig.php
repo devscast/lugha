@@ -26,11 +26,13 @@ final readonly class EmbeddingConfig
      * @param string $model The model to use for generating the embeddings.
      * @param int|null $dimensions The dimensionality of the embeddings to generate.
      * @param string $encodingFormat The encoding format to use for the embeddings.
+     * @param array $additionalParameters Additional parameters to pass to the model.
      */
     public function __construct(
         public string $model,
         public ?int $dimensions = null,
         public string $encodingFormat = 'float',
+        public array $additionalParameters = []
     ) {
         Assert::notEmpty($this->model);
         Assert::nullOrPositiveInteger($this->dimensions);

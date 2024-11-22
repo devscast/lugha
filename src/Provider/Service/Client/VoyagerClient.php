@@ -48,6 +48,7 @@ final class VoyagerClient extends AbstractClient implements HasRerankingSupport,
                         $documents
                     ),
                     'query' => $prompt,
+                    ...$config->additionalParameters,
                 ],
             ])->toArray();
 
@@ -76,6 +77,7 @@ final class VoyagerClient extends AbstractClient implements HasRerankingSupport,
                     'model' => $config->model,
                     'input' => $prompt,
                     'input_type' => 'document',
+                    ...$config->additionalParameters,
                 ],
             ])->getContent();
 

@@ -33,33 +33,32 @@ class History
         $this->messages = $messages;
     }
 
-    public function getHistory(): array
+    public function getHistory(bool $excludeSystemInstruction = false): array
     {
-        return $this->messages;
+        return array_map(
+            callback: fn (Message $message) => [
+                'role' => $message->role->value,
+                'content' => $message->content,
+            ],
+            array: $excludeSystemInstruction ?
+                array_filter($this->messages, fn (Message $message) => $message->role !== Role::SYSTEM) :
+                $this->messages
+        );
     }
 
-    public function addUserMessage(string $message): void
+    /**
+     * @todo to be replaced with `array_find` in PHP 8.4
+     */
+    public function getSystemInstruction(): ?Message
     {
-        $this->addMessage(new Message($message, Role::USER));
-    }
+        $instruction = null;
+        foreach ($this->messages as $message) {
+            if ($message->role === Role::SYSTEM) {
+                $instruction = $message;
+                break;
+            }
+        }
 
-    public function addAssistantMessage(string $message): void
-    {
-        $this->addMessage(new Message($message, Role::ASSISTANT));
-    }
-
-    public function addSystemMessage(string $message): void
-    {
-        $this->addMessage(new Message($message, Role::SYSTEM));
-    }
-
-    public function addToolMessage(string $message): void
-    {
-        $this->addMessage(new Message($message, Role::TOOL));
-    }
-
-    private function addMessage(Message $message): void
-    {
-        $this->messages[] = $message;
+        return $instruction;
     }
 }
