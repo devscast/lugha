@@ -14,19 +14,10 @@ use Devscast\Lugha\Provider\ProviderConfig;
  */
 abstract readonly class ClientFactory
 {
-    public static function create(Provider $provider, ProviderConfig $config): Client
+    public static function create(Provider $provider, ?ProviderConfig $config = null): Client
     {
-        if ($config->apiKey === null) {
-            $apiKey = getenv("{$provider->value}_API_KEY");
-
-            if (! is_string($apiKey)) {
-                throw new \RuntimeException(
-                    "Missing API key. Please define the {$provider->value}_API_KEY environment variable."
-                );
-            }
-
-            $config->apiKey = $apiKey;
-        }
+        $config ??= new ProviderConfig();
+        self::ensureApiKeyDefined($provider, $config);
 
         return match ($provider) {
             Provider::OLLAMA => new Client\OllamaClient($config),
@@ -37,5 +28,20 @@ abstract readonly class ClientFactory
             Provider::VOYAGER => new Client\VoyagerClient($config),
             Provider::MISTRAL => new Client\MistralClient($config),
         };
+    }
+
+    private static function ensureApiKeyDefined(Provider $provider, ProviderConfig $config): void
+    {
+        if ($config->apiKey === null) {
+            $apiKey = getenv($provider->getEnvName());
+
+            if (! is_string($apiKey)) {
+                throw new \RuntimeException(
+                    "Missing API key. Please define the {$provider->getEnvName()} environment variable."
+                );
+            }
+
+            $config->apiKey = $apiKey;
+        }
     }
 }

@@ -27,4 +27,9 @@ enum Provider: string
     case GITHUB = 'GITHUB';
     case ANTHROPIC = 'ANTHROPIC';
     case VOYAGER = 'VOYAGER';
+
+    public function getEnvName(): string
+    {
+        return "{$this->value}_API_KEY";
+    }
 }
