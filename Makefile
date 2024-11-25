@@ -1,22 +1,6 @@
 .DEFAULT_GOAL := help
-
-# -----------------------------------
-# Variables
-# -----------------------------------
-is_docker := $(shell docker info > /dev/null 2>&1 && echo 1)
-user := $(shell id -u)
-group := $(shell id -g)
-
 php := php
 composer := composer
-
-#ifeq ($(is_docker), 1)
-#	php := USER_ID=$(user) GROUP_ID=$(group) docker-compose run --rm --no-deps php
-#	composer := $(php) composer
-#else
-#	php := php
-#	composer := composer
-#endif
 
 # -----------------------------------
 # Recipes
@@ -29,6 +13,7 @@ help: ## affiche cet aide
 lint: vendor/autoload.php ## affiche les erreurs de formatage de code
 	$(php) vendor/bin/ecs
 	$(php) vendor/bin/phpstan
+	$(php) vendor/bin/rector --dry-run
 
 .PHONY: test
 test: vendor/autoload.php ## lance les tests
@@ -37,6 +22,7 @@ test: vendor/autoload.php ## lance les tests
 .PHONY: lint-fix
 lint-fix: vendor/autoload.php ## corrige les erreurs de formatage de code
 	$(php) vendor/bin/ecs --fix
+	$(php) vendor/bin/rector
 
 vendor/autoload.php: composer.lock # installe les dépendances PHP
 	$(composer) install
