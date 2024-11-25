@@ -60,6 +60,23 @@ final class PromptTemplate implements \Stringable
     }
 
     /**
+     * Create a new prompt from the given file.
+     *
+     * <code>
+     *     $template = PromptTemplate::fromFile("/path/to/file.txt");
+     * </code>
+     */
+    public static function fromFile(string $path): self
+    {
+        $content = file_get_contents($path);
+        if ($content === false) {
+            throw new \RuntimeException("Could not read the file at path: {$path}");
+        }
+
+        return new self($content, []);
+    }
+
+    /**
      * Format the prompt with the given values.
      * The values should be an associative array where the key is the placeholder
      *
