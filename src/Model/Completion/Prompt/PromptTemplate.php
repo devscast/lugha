@@ -33,7 +33,7 @@ final class PromptTemplate implements \Stringable
 
         $this->template = $template;
         if (! empty($values)) {
-            $this->format($values);
+            $this->setParameters($values);
         }
     }
 
@@ -81,12 +81,12 @@ final class PromptTemplate implements \Stringable
      * The values should be an associative array where the key is the placeholder
      *
      * <code>
-     *     $template->format(["{context}" => "some context..."]);
+     *     $template->setParameters(["{context}" => "some context..."]);
      * </code>
      *
      * @param array<string, string> $values
      */
-    public function format(array $values): self
+    public function setParameters(array $values): self
     {
         Assert::notEmpty($values, 'Values cannot be empty');
 
@@ -95,6 +95,21 @@ final class PromptTemplate implements \Stringable
             replace: array_values($values),
             subject: $this->template,
         );
+
+        return $this;
+    }
+
+    /**
+     * Format the prompt with a single given value.
+     * Useful when programmatically building the prompt
+     *
+     * <code>
+     *     $template->setParameter(':username', 'bernard-ng')
+     * </code>
+     */
+    public function setParameter(string $name, string $value): self
+    {
+        $this->prompt = str_replace($name, $value, $this->template);
 
         return $this;
     }

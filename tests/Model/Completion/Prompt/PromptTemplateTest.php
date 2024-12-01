@@ -33,7 +33,7 @@ final class PromptTemplateTest extends TestCase
     public function testItCanFormatAPromptTemplate(): void
     {
         $template = PromptTemplate::from('Hello {context}');
-        $prompt = $template->format([
+        $prompt = $template->setParameters([
             '{context}' => 'some context...',
         ]);
 
@@ -44,7 +44,7 @@ final class PromptTemplateTest extends TestCase
     public function testItCanFormatAPromptTemplateWithMultiplePlaceholders(): void
     {
         $template = PromptTemplate::from('Hello {context}, welcome to {place}');
-        $prompt = $template->format([
+        $prompt = $template->setParameters([
             '{context}' => 'some context...',
             '{place}' => 'some place...',
         ]);
@@ -67,7 +67,7 @@ final class PromptTemplateTest extends TestCase
         $this->expectExceptionMessage('Values cannot be empty');
 
         $template = PromptTemplate::from('Hello {context}');
-        $template->format([]);
+        $template->setParameters([]);
     }
 
     public function testItFailsToFormatAPromptTemplateWithoutFormatting(): void
