@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Provider\Service\Client;
 
+use Devscast\Lugha\Assert;
 use Devscast\Lugha\Exception\ServiceIntegrationException;
 use Devscast\Lugha\Model\Embedding\EmbeddingConfig;
 use Devscast\Lugha\Model\Reranking\RankedDocument;
@@ -24,7 +25,6 @@ use Devscast\Lugha\Provider\Service\Client;
 use Devscast\Lugha\Provider\Service\HasEmbeddingSupport;
 use Devscast\Lugha\Provider\Service\HasRerankingSupport;
 use Devscast\Lugha\Retrieval\Document;
-use Webmozart\Assert\Assert;
 
 /**
  * Class VoyagerClient.

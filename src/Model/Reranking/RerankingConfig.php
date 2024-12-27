@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Model\Reranking;
 
-use Webmozart\Assert\Assert;
+use Devscast\Lugha\Assert;
 
 /**
  * Class RerankingConfig.

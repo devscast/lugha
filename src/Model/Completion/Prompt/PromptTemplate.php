@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Model\Completion\Prompt;
 
+use Devscast\Lugha\Assert;
 use Devscast\Lugha\Exception\UnformattedPromptTemplateException;
 use Devscast\Lugha\Exception\UnreadableFileException;
-use Webmozart\Assert\Assert;
 
 /**
  * Class PromptTemplate.

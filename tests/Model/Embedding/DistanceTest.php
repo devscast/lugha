@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Tests\Model\Embedding;
 
+use Devscast\Lugha\Exception\InvalidArgumentException;
 use Devscast\Lugha\Model\Embedding\Distance;
 use PHPUnit\Framework\TestCase;
 
@@ -25,7 +26,7 @@ final class DistanceTest extends TestCase
 {
     public function testVectorWithDifferentDimensions(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Vectors must have the same dimension.');
 
         $distance = Distance::COSINE;

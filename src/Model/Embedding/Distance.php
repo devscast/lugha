@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Model\Embedding;
 
+use Devscast\Lugha\Exception\InvalidArgumentException;
+
 /**
  * Class Distance.
  * Represents the distance metric to use when comparing vectors.
@@ -48,7 +50,7 @@ enum Distance
     public function compute(array $a, array $b): float
     {
         if (count($a) !== count($b)) {
-            throw new \InvalidArgumentException('Vectors must have the same dimension.');
+            throw new InvalidArgumentException('Vectors must have the same dimension.');
         }
 
         return match ($this) {

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Tests\Model\Completion\Prompt;
 
+use Devscast\Lugha\Exception\InvalidArgumentException;
 use Devscast\Lugha\Exception\UnformattedPromptTemplateException;
 use Devscast\Lugha\Model\Completion\Prompt\PromptTemplate;
 use PHPUnit\Framework\TestCase;
@@ -56,7 +57,7 @@ final class PromptTemplateTest extends TestCase
 
     public function testItFailsToCreateAPromptTemplateWithEmptyTemplate(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Template cannot be empty');
 
         new PromptTemplate('');
@@ -64,7 +65,7 @@ final class PromptTemplateTest extends TestCase
 
     public function testItFailsToFormatAPromptTemplateWithEmptyValues(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Values cannot be empty');
 
         $template = PromptTemplate::from('Hello {context}');
