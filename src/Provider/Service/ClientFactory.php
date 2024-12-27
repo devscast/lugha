@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Provider\Service;
 
+use Devscast\Lugha\Exception\RuntimeException;
 use Devscast\Lugha\Provider\Provider;
 use Devscast\Lugha\Provider\ProviderConfig;
 
@@ -45,7 +46,7 @@ abstract readonly class ClientFactory
             $apiKey = getenv($provider->getEnvName());
 
             if (! is_string($apiKey)) {
-                throw new \RuntimeException(
+                throw new RuntimeException(
                     "Missing API key. Please define the {$provider->getEnvName()} environment variable."
                 );
             }

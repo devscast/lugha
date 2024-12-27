@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Provider\Service;
 
+use Devscast\Lugha\Exception\ServiceIntegrationException;
 use Devscast\Lugha\Model\Reranking\RerankingConfig;
 use Devscast\Lugha\Provider\Response\RerankingResponse;
 use Devscast\Lugha\Retrieval\Document;
@@ -29,7 +30,7 @@ interface HasRerankingSupport
      * @param array<Document|string> $documents documents to be reranked.
      * @param RerankingConfig $config The configuration to use for reranking.
      *
-     * @throws IntegrationException when any error occurs during the request.
+     * @throws ServiceIntegrationException when any error occurs during the request.
      * @throws \InvalidArgumentException when the prompt or documents are empty.
      */
     public function rerank(string $prompt, array $documents, RerankingConfig $config): RerankingResponse;

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Tests\Model\Completion\Prompt;
 
+use Devscast\Lugha\Exception\UnformattedPromptTemplateException;
 use Devscast\Lugha\Model\Completion\Prompt\PromptTemplate;
 use PHPUnit\Framework\TestCase;
 
@@ -72,8 +73,8 @@ final class PromptTemplateTest extends TestCase
 
     public function testItFailsToFormatAPromptTemplateWithoutFormatting(): void
     {
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('The template has not been formatted yet');
+        $this->expectException(UnformattedPromptTemplateException::class);
+        $this->expectExceptionMessage('The prompt template has not been formatted yet');
         $template = PromptTemplate::from('Hello {context}');
         $prompt = (string) $template;
     }

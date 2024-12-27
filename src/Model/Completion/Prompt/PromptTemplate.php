@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Model\Completion\Prompt;
 
+use Devscast\Lugha\Exception\UnformattedPromptTemplateException;
+use Devscast\Lugha\Exception\UnreadableFileException;
 use Webmozart\Assert\Assert;
 
 /**
@@ -37,11 +39,14 @@ final class PromptTemplate implements \Stringable
         }
     }
 
+    /**
+     * @throws UnformattedPromptTemplateException If the prompt has not been formatted yet
+     */
     #[\Override]
     public function __toString(): string
     {
         if ($this->prompt === null) {
-            throw new \RuntimeException('The template has not been formatted yet');
+            throw new UnformattedPromptTemplateException();
         }
 
         return $this->prompt;
@@ -65,12 +70,14 @@ final class PromptTemplate implements \Stringable
      * <code>
      *     $template = PromptTemplate::fromFile("/path/to/file.txt");
      * </code>
+     *
+     * @throws UnreadableFileException If the file cannot be read
      */
     public static function fromFile(string $path): self
     {
         $content = file_get_contents($path);
         if ($content === false) {
-            throw new \RuntimeException("Could not read the file at path: {$path}");
+            throw new UnreadableFileException($path);
         }
 
         return new self($content, []);

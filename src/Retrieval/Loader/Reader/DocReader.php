@@ -16,6 +16,7 @@ namespace Devscast\Lugha\Retrieval\Loader\Reader;
 /**
  * Class DocReader.
  *
+ * @todo Implement the readContent method
  * @author bernard-ng <bernard@devscast.tech>
  */
 final readonly class DocReader extends AbstractReader

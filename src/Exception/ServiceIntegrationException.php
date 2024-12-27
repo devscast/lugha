@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Lugha package.
+ *  This file is part of the Lugha package.
  *
  * (c) Bernard Ngandu <bernard@devscast.tech>
  *
@@ -11,17 +11,17 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Provider\Service;
+namespace Devscast\Lugha\Exception;
 
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 
 /**
- * Class IntegrationException.
+ * Class ServiceIntegrationException.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-class IntegrationException extends \Exception
+class ServiceIntegrationException extends \Exception
 {
     public function __construct(string $message = '', int $code = 0, ?\Throwable $previous = null)
     {

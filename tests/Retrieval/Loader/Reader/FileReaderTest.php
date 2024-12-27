@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Tests\Retrieval\Loader\Reader;
 
-use Devscast\Lugha\Retrieval\Loader\Reader\Exception\FileNotFoundException;
-use Devscast\Lugha\Retrieval\Loader\Reader\Exception\UnsupportedFileException;
+use Devscast\Lugha\Exception\FileNotFoundException;
+use Devscast\Lugha\Exception\UnsupportedFileException;
 use Devscast\Lugha\Retrieval\Loader\Reader\FileReader;
 use PHPUnit\Framework\TestCase;
 

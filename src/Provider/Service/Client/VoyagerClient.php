@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Provider\Service\Client;
 
+use Devscast\Lugha\Exception\ServiceIntegrationException;
 use Devscast\Lugha\Model\Embedding\EmbeddingConfig;
 use Devscast\Lugha\Model\Reranking\RankedDocument;
 use Devscast\Lugha\Model\Reranking\RerankingConfig;
@@ -22,7 +23,6 @@ use Devscast\Lugha\Provider\Response\RerankingResponse;
 use Devscast\Lugha\Provider\Service\Client;
 use Devscast\Lugha\Provider\Service\HasEmbeddingSupport;
 use Devscast\Lugha\Provider\Service\HasRerankingSupport;
-use Devscast\Lugha\Provider\Service\IntegrationException;
 use Devscast\Lugha\Retrieval\Document;
 use Webmozart\Assert\Assert;
 
@@ -72,7 +72,7 @@ final class VoyagerClient extends Client implements HasRerankingSupport, HasEmbe
                 providerResponse: $this->config->providerResponse ? $response : [],
             );
         } catch (\Throwable $e) {
-            throw new IntegrationException('Unable to rerank documents.', previous: $e);
+            throw new ServiceIntegrationException('Unable to rerank documents.', previous: $e);
         }
     }
 
@@ -98,7 +98,7 @@ final class VoyagerClient extends Client implements HasRerankingSupport, HasEmbe
                 embedding: $response['embeddings'][0]
             );
         } catch (\Throwable $e) {
-            throw new IntegrationException('Unable to generate embeddings.', previous: $e);
+            throw new ServiceIntegrationException('Unable to generate embeddings.', previous: $e);
         }
     }
 }

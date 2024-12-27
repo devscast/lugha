@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Provider\Service\Client;
 
+use Devscast\Lugha\Exception\ServiceIntegrationException;
 use Devscast\Lugha\Model\Completion\Chat\History;
 use Devscast\Lugha\Model\Completion\CompletionConfig;
 use Devscast\Lugha\Model\Embedding\EmbeddingConfig;
@@ -22,7 +23,6 @@ use Devscast\Lugha\Provider\Response\EmbeddingResponse;
 use Devscast\Lugha\Provider\Service\Client;
 use Devscast\Lugha\Provider\Service\HasCompletionSupport;
 use Devscast\Lugha\Provider\Service\HasEmbeddingSupport;
-use Devscast\Lugha\Provider\Service\IntegrationException;
 use Webmozart\Assert\Assert;
 
 /**
@@ -68,7 +68,7 @@ final class MistralClient extends Client implements HasEmbeddingSupport, HasComp
                 providerResponse: $this->config->providerResponse ? $response : [],
             );
         } catch (\Throwable $e) {
-            throw new IntegrationException('Unable to generate embeddings.', previous: $e);
+            throw new ServiceIntegrationException('Unable to generate embeddings.', previous: $e);
         }
     }
 
@@ -124,7 +124,7 @@ final class MistralClient extends Client implements HasEmbeddingSupport, HasComp
                 providerResponse: $this->config->providerResponse ? $response : [],
             );
         } catch (\Throwable $e) {
-            throw new IntegrationException('Unable to generate completion.', previous: $e);
+            throw new ServiceIntegrationException('Unable to generate completion.', previous: $e);
         }
     }
 }

@@ -11,21 +11,18 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Retrieval\Loader\Reader\Exception;
+namespace Devscast\Lugha\Exception;
 
 /**
  * Class UnsupportedFileException.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final class UnsupportedFileException extends \RuntimeException
+final class FileNotFoundException extends \RuntimeException
 {
-    public function __construct(
-        array $extensions = [],
-        int $code = 0,
-        \Throwable $previous = null
-    ) {
-        $message = vsprintf('The given %s file is not supported, this reader supports %s files', $extensions);
+    public function __construct(string $file, int $code = 0, \Throwable $previous = null)
+    {
+        $message = sprintf('Failed to open stream: No such file %s', $file);
         parent::__construct($message, $code, $previous);
     }
 }

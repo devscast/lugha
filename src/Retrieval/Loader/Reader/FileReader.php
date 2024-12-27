@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Retrieval\Loader\Reader;
 
-use Devscast\Lugha\Retrieval\Loader\Reader\Exception\UnsupportedFileException;
+use Devscast\Lugha\Exception\UnsupportedFileException;
 use Symfony\Component\Filesystem\Path;
 
 /**
