@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Retrieval\VectorStore\Store;
 
-use Devscast\Lugha\Exception\UnreadableFileException;
+use Devscast\Lugha\Exception\IOException;
 use Devscast\Lugha\Model\Embedding\EmbeddingInterface;
 use Devscast\Lugha\Retrieval\Document;
 
@@ -50,7 +50,7 @@ class FilesystemVectorStore extends MemoryVectorStore
     {
         $content = file_get_contents($this->path);
         if ($content === false) {
-            throw new UnreadableFileException($this->path);
+            throw new IOException($this->path);
         }
 
         /** @var array<array{content: string, embeddings: array, metadata: array}> $data */
@@ -64,7 +64,7 @@ class FilesystemVectorStore extends MemoryVectorStore
         $written = file_put_contents($this->path, $data);
 
         if ($written === false) {
-            throw new UnreadableFileException($this->path);
+            throw new IOException($this->path);
         }
     }
 }

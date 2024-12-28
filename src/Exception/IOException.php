@@ -18,7 +18,7 @@ namespace Devscast\Lugha\Exception;
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final class UnreadableFileException extends \RuntimeException
+final class IOException extends \RuntimeException
 {
     public function __construct(string $file, int $code = 0, \Throwable $previous = null)
     {

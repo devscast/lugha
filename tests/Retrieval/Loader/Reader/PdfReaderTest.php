@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Devscast\Lugha\Tests\Retrieval\Loader\Reader;
 
 use Devscast\Lugha\Exception\FileNotFoundException;
-use Devscast\Lugha\Exception\UnreadableFileException;
+use Devscast\Lugha\Exception\IOException;
 use Devscast\Lugha\Exception\UnsupportedFileException;
 use Devscast\Lugha\Retrieval\Loader\Reader\PdfReader;
 use PHPUnit\Framework\TestCase;
@@ -52,7 +52,7 @@ final class PdfReaderTest extends TestCase
         touch('/tmp/test.pdf');
         chmod('/tmp/test.pdf', 000);
 
-        $this->expectException(UnreadableFileException::class);
+        $this->expectException(IOException::class);
         $content = $this->reader->readContent('/tmp/test.pdf');
     }
 

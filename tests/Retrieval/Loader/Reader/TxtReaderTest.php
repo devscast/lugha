@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Devscast\Lugha\Tests\Retrieval\Loader\Reader;
 
 use Devscast\Lugha\Exception\FileNotFoundException;
-use Devscast\Lugha\Exception\UnreadableFileException;
+use Devscast\Lugha\Exception\IOException;
 use Devscast\Lugha\Exception\UnsupportedFileException;
 use Devscast\Lugha\Retrieval\Loader\Reader\TxtReader;
 use PHPUnit\Framework\TestCase;
@@ -52,7 +52,7 @@ final class TxtReaderTest extends TestCase
         touch('/tmp/test.txt');
         chmod('/tmp/test.txt', 000);
 
-        $this->expectException(UnreadableFileException::class);
+        $this->expectException(IOException::class);
         $content = $this->reader->readContent('/tmp/test.txt');
     }
 

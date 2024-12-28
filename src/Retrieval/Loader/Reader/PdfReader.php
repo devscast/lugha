@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Retrieval\Loader\Reader;
 
-use Devscast\Lugha\Exception\UnreadableFileException;
+use Devscast\Lugha\Exception\IOException;
 use Smalot\PdfParser\{Config, Parser};
 
 /**
@@ -49,7 +49,7 @@ final readonly class PdfReader extends AbstractReader
         try {
             $pdf = $this->parser->parseFile($path);
         } catch (\Exception $e) {
-            throw new UnreadableFileException($path, previous: $e);
+            throw new IOException($path, previous: $e);
         }
 
         return $pdf->getText();

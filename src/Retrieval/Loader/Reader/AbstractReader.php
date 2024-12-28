@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Devscast\Lugha\Retrieval\Loader\Reader;
 
 use Devscast\Lugha\Exception\FileNotFoundException;
-use Devscast\Lugha\Exception\UnreadableFileException;
+use Devscast\Lugha\Exception\IOException;
 use Devscast\Lugha\Exception\UnsupportedFileException;
 use Symfony\Component\Filesystem\Path;
 
@@ -32,7 +32,7 @@ abstract readonly class AbstractReader
 
     /**
      * @throws UnsupportedFileException If the file extension is not supported and the check is not skipped.
-     * @throws UnreadableFileException When the content cannot be read for any other reason
+     * @throws IOException When the content cannot be read for any other reason
      * @throws FileNotFoundException When the given file does not exist
      */
     abstract public function readContent(string $path, bool $skipExtensionCheck = false): string;
@@ -58,7 +58,7 @@ abstract readonly class AbstractReader
         }
 
         if (is_readable($path) === false) {
-            throw new UnreadableFileException($path);
+            throw new IOException($path);
         }
     }
 }

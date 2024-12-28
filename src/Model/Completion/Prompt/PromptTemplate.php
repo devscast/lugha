@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Devscast\Lugha\Model\Completion\Prompt;
 
 use Devscast\Lugha\Assert;
+use Devscast\Lugha\Exception\IOException;
 use Devscast\Lugha\Exception\UnformattedPromptTemplateException;
-use Devscast\Lugha\Exception\UnreadableFileException;
 
 /**
  * Class PromptTemplate.
@@ -71,13 +71,13 @@ final class PromptTemplate implements \Stringable
      *     $template = PromptTemplate::fromFile("/path/to/file.txt");
      * </code>
      *
-     * @throws UnreadableFileException If the file cannot be read
+     * @throws IOException If the file cannot be read
      */
     public static function fromFile(string $path): self
     {
         $content = file_get_contents($path);
         if ($content === false) {
-            throw new UnreadableFileException($path);
+            throw new IOException($path);
         }
 
         return new self($content, []);

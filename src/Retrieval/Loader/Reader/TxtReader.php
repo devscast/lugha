@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Retrieval\Loader\Reader;
 
-use Devscast\Lugha\Exception\UnreadableFileException;
+use Devscast\Lugha\Exception\IOException;
 
 /**
  * Class TxtReader.
@@ -35,7 +35,7 @@ final readonly class TxtReader extends AbstractReader
         $content = file_get_contents($path);
 
         if ($content === false) {
-            throw new UnreadableFileException($path);
+            throw new IOException($path);
         }
 
         return $content;
