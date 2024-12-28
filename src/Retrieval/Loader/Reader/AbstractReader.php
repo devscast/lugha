@@ -40,7 +40,7 @@ abstract readonly class AbstractReader
     final public function supports(string $path): bool
     {
         $extension = Path::getExtension($path, forceLowerCase: true);
-        return (bool) preg_match(static::SUPPORTED_EXTENSIONS_PATTERN, $extension);
+        return (bool) \preg_match(static::SUPPORTED_EXTENSIONS_PATTERN, $extension);
     }
 
     final public function ensureSupported(string $path): void
@@ -53,11 +53,11 @@ abstract readonly class AbstractReader
 
     final public function ensureFileExists(string $path): void
     {
-        if (file_exists($path) === false) {
+        if (\file_exists($path) === false) {
             throw new FileNotFoundException($path);
         }
 
-        if (is_readable($path) === false) {
+        if (\is_readable($path) === false) {
             throw new IOException($path);
         }
     }

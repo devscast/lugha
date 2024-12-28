@@ -31,14 +31,14 @@ final class WildcardDirectoryIterator extends FilterIterator
     {
         $recursive = false;
 
-        if (str_starts_with($path, '-R ')) {
+        if (\str_starts_with($path, '-R ')) {
             $recursive = true;
-            $path = substr($path, 3);
+            $path = \substr($path, 3);
         }
 
-        if (preg_match('~/?([^/]*\*[^/]*)$~', $path, $matches)) { // matched wildcards in filename
-            $path = substr($path, 0, -strlen($matches[1]) - 1); // strip wildcards part from path
-            $this->regex = '~^' . str_replace('*', '.*', str_replace('.', '\.', $matches[1])) . '$~'; // convert wildcards to regex
+        if (\preg_match('~/?([^/]*\*[^/]*)$~', $path, $matches)) { // matched wildcards in filename
+            $path = \substr($path, 0, -\mb_strlen($matches[1]) - 1); // strip wildcards part from path
+            $this->regex = '~^' . \str_replace('*', '.*', \str_replace('.', '\.', $matches[1])) . '$~'; // convert wildcards to regex
 
             if (! $path) {
                 $path = '.'; // if no path given, we assume CWD;
@@ -57,6 +57,6 @@ final class WildcardDirectoryIterator extends FilterIterator
         /** @var RecursiveDirectoryIterator|DirectoryIterator $iterator */
         $iterator = $this->getInnerIterator();
 
-        return (bool) preg_match($this->regex, $iterator->getFilename());
+        return (bool) \preg_match($this->regex, $iterator->getFilename());
     }
 }

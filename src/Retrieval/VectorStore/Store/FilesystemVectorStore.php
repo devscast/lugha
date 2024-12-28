@@ -48,14 +48,14 @@ class FilesystemVectorStore extends MemoryVectorStore
 
     private function read(): void
     {
-        $content = file_get_contents($this->path);
+        $content = \file_get_contents($this->path);
         if ($content === false) {
             throw new IOException($this->path);
         }
 
         /** @var array<array{content: string, embeddings: array, metadata: array}> $data */
         $data = json_decode($content, true);
-        $this->pool = array_map(fn (array $document) => Document::from($document), $data);
+        $this->pool = \array_map(fn (array $document) => Document::from($document), $data);
     }
 
     private function write(): void

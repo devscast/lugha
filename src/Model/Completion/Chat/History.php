@@ -35,7 +35,7 @@ class History
 
     public function getHistory(bool $excludeSystemInstruction = false): array
     {
-        return array_map(
+        return \array_map(
             callback: fn (Message $message) => [
                 'role' => $message->role->value,
                 'content' => $message->content,

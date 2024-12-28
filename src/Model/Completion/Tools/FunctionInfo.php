@@ -38,7 +38,7 @@ readonly class FunctionInfo
 
     public function getRequiredParameters(): array
     {
-        return array_map(
+        return \array_map(
             fn (Parameter $parameter) => $parameter->name,
             array_filter($this->parameters, fn (Parameter $parameter) => $parameter->required)
         );

@@ -111,7 +111,7 @@ final class GoogleClient extends Client implements HasEmbeddingSupport, HasCompl
 
     private function buildCompletionContents(History|string $input): array
     {
-        if (is_string($input)) {
+        if (\is_string($input)) {
             return [
                 'contents' => [
                     'parts' => [[
@@ -133,7 +133,7 @@ final class GoogleClient extends Client implements HasEmbeddingSupport, HasCompl
             ];
         }
 
-        $result['contents'] = array_map(
+        $result['contents'] = \array_map(
             fn ($message) => [
                 'role' => $message['role'] === 'assistant' ? 'model' : 'user',
                 'parts' => [[

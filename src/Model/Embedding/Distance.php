@@ -49,7 +49,7 @@ enum Distance
 
     public function compute(array $a, array $b): float
     {
-        if (count($a) !== count($b)) {
+        if (\count($a) !== \count($b)) {
             throw new InvalidArgumentException('Vectors must have the same dimension.');
         }
 
@@ -76,21 +76,21 @@ enum Distance
 
     private function l2(array $a, array $b): float
     {
-        return sqrt(array_sum(array_map(fn (float $x, float $y): float => ($x - $y) ** 2, $a, $b)));
+        return \sqrt(\array_sum(\array_map(fn (float $x, float $y): float => ($x - $y) ** 2, $a, $b)));
     }
 
     private function l1(array $a, array $b): float
     {
-        return (float) array_sum(array_map(fn (float $x, float $y): float => abs($x - $y), $a, $b));
+        return (float) \array_sum(\array_map(fn (float $x, float $y): float => \abs($x - $y), $a, $b));
     }
 
     private function dotProduct(array $a, array $b): float
     {
-        return (float) array_sum(array_map(fn (float $x, float $y): float => $x * $y, $a, $b));
+        return (float) \array_sum(\array_map(fn (float $x, float $y): float => $x * $y, $a, $b));
     }
 
     private function magnitude(array $vector): float
     {
-        return sqrt(array_sum(array_map(fn (float $x): float => $x * $x, $vector)));
+        return \sqrt(\array_sum(\array_map(fn (float $x): float => $x * $x, $vector)));
     }
 }

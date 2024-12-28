@@ -38,7 +38,7 @@ final readonly class Message implements \Stringable
      */
     public static function fromArray(array $data): array
     {
-        return array_map(fn (array $message) => new self(
+        return \array_map(fn (array $message) => new self(
             content: $message['content'],
             role: Role::from($message['role'])
         ), $data);

@@ -43,7 +43,7 @@ readonly class DirectoryLoader implements LoaderInterface
         foreach (new WildcardDirectoryIterator($this->path) as $file) {
             if ($file->isFile()) {
                 $content = $reader->readContent($file->getPathname());
-                $contentHash = md5($file->getPathname());
+                $contentHash = \md5($file->getPathname());
 
                 yield new Document(
                     content: $content,

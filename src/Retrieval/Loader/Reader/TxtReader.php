@@ -32,7 +32,7 @@ final readonly class TxtReader extends AbstractReader
             $this->ensureFileExists($path);
         }
 
-        $content = file_get_contents($path);
+        $content = \file_get_contents($path);
 
         if ($content === false) {
             throw new IOException($path);

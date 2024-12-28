@@ -36,19 +36,19 @@ final readonly class DimensionReducer
 
         if ($this->isMultiDimensional($vector)) {
             Assert::allIsArray($vector);
-            Assert::allCount($vector, count($vector[0]));
-            if (count($vector[0]) <= $dimensions) {
+            Assert::allCount($vector, \count($vector[0]));
+            if (\count($vector[0]) <= $dimensions) {
                 return $vector;
             }
 
-            $vector = array_map(fn (array $v): array => array_slice($v, 0, $dimensions), $vector);
+            $vector = \array_map(fn (array $v): array => \array_slice($v, 0, $dimensions), $vector);
         } else {
             Assert::allFloat($vector);
-            if (count($vector) <= $dimensions) {
+            if (\count($vector) <= $dimensions) {
                 return $vector;
             }
 
-            $vector = array_slice($vector, 0, $dimensions);
+            $vector = \array_slice($vector, 0, $dimensions);
         }
 
         return $this->normalizeL2($vector);
@@ -61,22 +61,22 @@ final readonly class DimensionReducer
 
             return match (true) {
                 $norm == 0 => $vector,
-                default => array_map(fn (float $x): float => $x / $norm, $vector)
+                default => \array_map(fn (float $x): float => $x / $norm, $vector)
             };
         }
-        return array_map(function (array $v): array {
+        return \array_map(function (array $v): array {
             $norm = $this->magnitude($v);
-            return $norm == 0 ? $v : array_map(fn (float $x): float => $x / $norm, $v);
+            return $norm == 0 ? $v : \array_map(fn (float $x): float => $x / $norm, $v);
         }, $vector);
     }
 
     private function isMultiDimensional(array $vector): bool
     {
-        return count($vector) !== count($vector, COUNT_RECURSIVE);
+        return \count($vector) !== \count($vector, COUNT_RECURSIVE);
     }
 
     private function magnitude(array $vector): float
     {
-        return sqrt(array_sum(array_map(fn (float $x): float => $x * $x, $vector)));
+        return \sqrt(\array_sum(\array_map(fn (float $x): float => $x * $x, $vector)));
     }
 }

@@ -50,7 +50,7 @@ final class VoyagerClient extends Client implements HasRerankingSupport, HasEmbe
                 'json' => [
                     'model' => $config->model,
                     'top_k' => $config->topK,
-                    'documents' => array_map(
+                    'documents' => \array_map(
                         fn (Document|string $document): string => match (true) {
                             $document instanceof Document => $document->content,
                             default => $document,
@@ -65,7 +65,7 @@ final class VoyagerClient extends Client implements HasRerankingSupport, HasEmbe
             return new RerankingResponse(
                 provider: Provider::VOYAGER,
                 model: $config->model,
-                documents: array_map(
+                documents: \array_map(
                     fn ($ranking) => new RankedDocument($ranking['document'], $ranking['relevance_score']),
                     $response['results']
                 ),

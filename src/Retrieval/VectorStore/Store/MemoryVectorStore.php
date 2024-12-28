@@ -84,8 +84,8 @@ class MemoryVectorStore implements VectorStoreInterface
         }
 
         asort($distances); // Sort by distance (ascending).
-        $topK = array_slice(array_keys($distances), 0, $k, true);
+        $topK = \array_slice(\array_keys($distances), 0, $k, true);
 
-        return array_map(fn (int $index) => $this->pool[$index], $topK);
+        return \array_map(fn (int $index) => $this->pool[$index], $topK);
     }
 }

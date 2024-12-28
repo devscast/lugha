@@ -41,10 +41,10 @@ final class DistanceTest extends TestCase
         $a = [2, 4, 1, 3];
         $b = [3, 5, 2, 1];
 
-        $this->assertEquals(0.0937, round(Distance::COSINE->compute($a, $b), 4));
-        $this->assertEquals(2.6458, round(Distance::L2->compute($a, $b), 4));
-        $this->assertEquals(5.0, round(Distance::L1->compute($a, $b), 4));
-        $this->assertEquals(31.0, round(Distance::INNER_PRODUCT->compute($a, $b), 4));
+        $this->assertEquals(0.0937, \round(Distance::COSINE->compute($a, $b), 4));
+        $this->assertEquals(2.6458, \round(Distance::L2->compute($a, $b), 4));
+        $this->assertEquals(5.0, \round(Distance::L1->compute($a, $b), 4));
+        $this->assertEquals(31.0, \round(Distance::INNER_PRODUCT->compute($a, $b), 4));
     }
 
     public function testSimilarVectorDistances(): void
@@ -52,10 +52,10 @@ final class DistanceTest extends TestCase
         $a = [2, 4, 1, 3];
         $b = [2, 4, 1, 2];
 
-        $this->assertEquals(0.0141, round(Distance::COSINE->compute($a, $b), 4));
-        $this->assertEquals(1.0, round(Distance::L2->compute($a, $b), 4));
-        $this->assertEquals(1.0, round(Distance::L1->compute($a, $b), 4));
-        $this->assertEquals(27.0, round(Distance::INNER_PRODUCT->compute($a, $b), 4));
+        $this->assertEquals(0.0141, \round(Distance::COSINE->compute($a, $b), 4));
+        $this->assertEquals(1.0, \round(Distance::L2->compute($a, $b), 4));
+        $this->assertEquals(1.0, \round(Distance::L1->compute($a, $b), 4));
+        $this->assertEquals(27.0, \round(Distance::INNER_PRODUCT->compute($a, $b), 4));
     }
 
     public function testSameVectorDistances(): void
@@ -63,9 +63,9 @@ final class DistanceTest extends TestCase
         $a = [2, 4, 1, 3];
         $b = [2, 4, 1, 3];
 
-        $this->assertEquals(0.0, round(Distance::COSINE->compute($a, $b), 4));
-        $this->assertEquals(0.0, round(Distance::L2->compute($a, $b), 4));
-        $this->assertEquals(0.0, round(Distance::L1->compute($a, $b), 4));
-        $this->assertEquals(30.0, round(Distance::INNER_PRODUCT->compute($a, $b), 4));
+        $this->assertEquals(0.0, \round(Distance::COSINE->compute($a, $b), 4));
+        $this->assertEquals(0.0, \round(Distance::L2->compute($a, $b), 4));
+        $this->assertEquals(0.0, \round(Distance::L1->compute($a, $b), 4));
+        $this->assertEquals(30.0, \round(Distance::INNER_PRODUCT->compute($a, $b), 4));
     }
 }

@@ -25,7 +25,7 @@ final class UnsupportedFileException extends \RuntimeException
         int $code = 0,
         \Throwable $previous = null
     ) {
-        $message = vsprintf('The given %s file is not supported, this reader supports %s files', $extensions);
+        $message = \vsprintf('The given %s file is not supported, this reader supports %s files', $extensions);
         parent::__construct($message, $code, $previous);
     }
 }

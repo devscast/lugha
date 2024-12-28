@@ -45,7 +45,7 @@ abstract readonly class ClientFactory
         if ($config->apiKey === null) {
             $apiKey = getenv($provider->getEnvName());
 
-            if (! is_string($apiKey)) {
+            if (! \is_string($apiKey)) {
                 throw new RuntimeException(
                     "Missing API key. Please define the {$provider->getEnvName()} environment variable."
                 );

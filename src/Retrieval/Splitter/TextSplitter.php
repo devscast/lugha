@@ -35,17 +35,17 @@ final readonly class TextSplitter implements SplitterInterface
     public function splitText(string $text): iterable
     {
         $currentPosition = 0;
-        $textLength = strlen($text);
+        $textLength = \mb_strlen($text);
 
         while ($currentPosition < $textLength) {
-            $chunkEnd = min($currentPosition + $this->chunkSize, $textLength);
+            $chunkEnd = \min($currentPosition + $this->chunkSize, $textLength);
 
             // Try to find the best separator within the chunk
             $bestSeparatorPos = -1;
             $bestSeparator = '';
 
             foreach ($this->separators as $separator) {
-                $separatorPos = strrpos(substr($text, $currentPosition, $chunkEnd - $currentPosition), (string) $separator);
+                $separatorPos = \strrpos(\substr($text, $currentPosition, $chunkEnd - $currentPosition), (string) $separator);
                 if ($separatorPos !== false && ($bestSeparatorPos === -1 || $separatorPos > $bestSeparatorPos)) {
                     $bestSeparatorPos = $separatorPos;
                     $bestSeparator = $separator;
@@ -54,11 +54,11 @@ final readonly class TextSplitter implements SplitterInterface
 
             // If a separator is found, adjust chunk end
             if ($bestSeparatorPos !== -1) {
-                $chunkEnd = $currentPosition + $bestSeparatorPos + strlen((string) $bestSeparator);
+                $chunkEnd = $currentPosition + $bestSeparatorPos + \mb_strlen((string) $bestSeparator);
             }
 
             // Create the chunk and add to the list
-            $chunk = substr($text, $currentPosition, $chunkEnd - $currentPosition);
+            $chunk = \substr($text, $currentPosition, $chunkEnd - $currentPosition);
             yield $chunk;
 
             // Move the current position forward by chunk size minus overlap
@@ -79,7 +79,7 @@ final readonly class TextSplitter implements SplitterInterface
          */
         foreach ($this->splitText($document->content) as $index => $split) {
             yield new Document($split, metadata: new Metadata(
-                hash: md5($split),
+                hash: \md5($split),
                 sourceType: $document->metadata?->sourceType,
                 sourceName: $document->metadata?->sourceName,
                 chunkNumber: $index,
@@ -92,7 +92,7 @@ final readonly class TextSplitter implements SplitterInterface
     {
         foreach ($splits as $index => $chunk) {
             yield new Document($chunk, metadata: new Metadata(
-                hash: md5($chunk),
+                hash: \md5($chunk),
                 chunkNumber: $index
             ));
         }

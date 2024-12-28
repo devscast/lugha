@@ -75,7 +75,7 @@ final class PromptTemplate implements \Stringable
      */
     public static function fromFile(string $path): self
     {
-        $content = file_get_contents($path);
+        $content = \file_get_contents($path);
         if ($content === false) {
             throw new IOException($path);
         }
@@ -97,9 +97,9 @@ final class PromptTemplate implements \Stringable
     {
         Assert::notEmpty($values, 'Values cannot be empty');
 
-        $this->prompt = str_replace(
-            search: array_keys($values),
-            replace: array_values($values),
+        $this->prompt = \str_replace(
+            search: \array_keys($values),
+            replace: \array_values($values),
             subject: $this->template,
         );
 
@@ -116,7 +116,7 @@ final class PromptTemplate implements \Stringable
      */
     public function setParameter(string $name, string $value): self
     {
-        $this->prompt = str_replace($name, $value, $this->template);
+        $this->prompt = \str_replace($name, $value, $this->template);
 
         return $this;
     }

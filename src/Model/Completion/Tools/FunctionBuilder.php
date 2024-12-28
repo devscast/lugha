@@ -47,7 +47,7 @@ abstract class FunctionBuilder
                 'parameters' => [
                     'type' => 'object',
                     'required' => $functionInfo->getRequiredParameters(),
-                    'properties' => array_map(
+                    'properties' => \array_map(
                         fn (Parameter $parameter): array => $parameter->build(),
                         $functionInfo->parameters
                     ),
@@ -66,9 +66,9 @@ abstract class FunctionBuilder
             $attributes = $class->getAttributes(FunctionInfo::class);
 
             if (! isset($attributes[0])) {
-                $functionFqcn = is_string($function) ? $function : $function::class;
+                $functionFqcn = \is_string($function) ? $function : $function::class;
                 throw new InvalidArgumentException(
-                    sprintf('%s does not have the required %s attribute.', $functionFqcn, FunctionInfo::class)
+                    \sprintf('%s does not have the required %s attribute.', $functionFqcn, FunctionInfo::class)
                 );
             }
 

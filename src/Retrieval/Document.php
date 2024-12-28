@@ -45,6 +45,6 @@ class Document implements \Stringable
 
     public function hasEmbeddings(): bool
     {
-        return count($this->embeddings) !== 0;
+        return \count($this->embeddings) !== 0;
     }
 }
