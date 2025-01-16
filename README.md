@@ -56,8 +56,10 @@ Completion models are designed to generate human-like text based on the input pr
 
 ```php
 $client = ClientFactory::create(Provider::OPENAI);
+```
 
-// from a prompt
+- completion from a single prompt
+```php
 $completion = $client->completion(
     input: 'Hello, world!', 
     config: new CompletionConfig(
@@ -68,20 +70,42 @@ $completion = $client->completion(
         presencePenalty: 0.5
     )
 )->completion;
+```
 
-// from a chat history
-$chat = $client->chat(
+- completion from a chat history (conversation)
+```php
+$completion = $client->chat(
     input: History::fromMessages([
         new Message('You are a chatbot, expert in philosophy', Role::SYSTEM),
         new Message('what is the meaning of life ?', Role::USER)
     ]),
-    config: new ChatConfig(
-        model: 'gpt-4-turbo',
-        temperature: 0.5,
-        maxTokens: 100,
-        frequencyPenalty: 0.5,
-        presencePenalty: 0.5
-    )
+    config: new ChatConfig(model: 'gpt-4-turbo')
+)->completion;
+```
+
+- completion with tool calling
+```php
+#[ToolDefinition(
+    name: 'get_weather',
+    description: 'Get the weather for a location on a specific date.',
+    parameters: [
+        new ToolParameter('location', 'string', 'The location to get the weather for.', required: true),
+        new ToolParameter('date', 'string', 'The date to get the weather for.', required: true),
+    ],
+    strict: true
+)]
+class WeatherProvider
+{
+    public function __invoke(string $location, string $date): string
+    {
+        return "The weather in $location on $date is sunny.";
+    }
+}
+
+$completion = $client->completion(
+    input: 'What is the weather in Lubumbashi on January 16th ?',
+    config: new CompletionConfig(model: 'gpt-4-turbo'),
+    tools: [new WeatherProvider()] 
 )->completion;
 ```
 
@@ -92,18 +116,15 @@ useful for search engines, recommendation systems, and information retrieval.
 ```php  
 $client = ClientFactory::create(Provider::VOYAGER);
 
-$ranking = $client->reranking(
+$reRankedDocuments = $client->reranking(
     prompt: 'What is the meaning of life ?',
     documents: [
-        new Document('The best way to predict the future is to create it.')
-        new Document('The only way to do great work is to love what you do.')
+        new Document('The best way to predict the future is to create it.'),
+        new Document('The only way to do great work is to love what you do.'),
         new Document('Life is short, smile while you still have teeth.'),
         new Document('The best time to plant a tree was 20 years ago. The second best time is now.')
     ],
-    config: new RerankingConfig(
-        model: 'voyager-1.0',
-        topK: 3
-    )
+    config: new RerankingConfig(model: 'voyager-1.0', topK: 3)
 )->documents;
 ```
 
