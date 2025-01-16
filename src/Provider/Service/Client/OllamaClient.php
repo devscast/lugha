@@ -22,6 +22,8 @@ use Devscast\Lugha\Provider\Provider;
 use Devscast\Lugha\Provider\Response\CompletionResponse;
 use Devscast\Lugha\Provider\Response\EmbeddingResponse;
 use Devscast\Lugha\Provider\Service\Client;
+use Devscast\Lugha\Provider\Service\Common\OpenAICompatibilitySupport;
+use Devscast\Lugha\Provider\Service\Common\ToolCallingSupport;
 use Devscast\Lugha\Provider\Service\HasCompletionSupport;
 use Devscast\Lugha\Provider\Service\HasEmbeddingSupport;
 
@@ -34,7 +36,12 @@ use Devscast\Lugha\Provider\Service\HasEmbeddingSupport;
  */
 final class OllamaClient extends Client implements HasEmbeddingSupport, HasCompletionSupport
 {
+    use ToolCallingSupport;
+    use OpenAICompatibilitySupport;
+
     protected const string BASE_URI = 'http://localhost:11434/api/';
+
+    protected Provider $provider = Provider::OLLAMA;
 
     #[\Override]
     public function embeddings(string $prompt, EmbeddingConfig $config): EmbeddingResponse
@@ -52,7 +59,7 @@ final class OllamaClient extends Client implements HasEmbeddingSupport, HasCompl
             ])->toArray();
 
             return new EmbeddingResponse(
-                provider: Provider::OLLAMA,
+                provider: $this->provider,
                 model: $config->model,
                 embedding: $response['embedding']
             );
@@ -62,25 +69,12 @@ final class OllamaClient extends Client implements HasEmbeddingSupport, HasCompl
     }
 
     #[\Override]
-    public function completion(History|string $input, CompletionConfig $config): CompletionResponse
+    public function completion(History|string $input, CompletionConfig $config, array $tools = []): CompletionResponse
     {
         Assert::notEmpty($input);
+        $this->buildReferences($tools);
 
         try {
-            /**
-             * @var array{
-             *     model: string,
-             *     created_at: string,
-             *     message: array{role: string, content: string},
-             *     done: bool,
-             *     total_duration: int,
-             *     load_duration: int,
-             *     prompt_eval_count: int,
-             *     prompt_eval_duration: int,
-             *     eval_count: int,
-             *     eval_duration: int
-             * } $response
-             */
             $response = $this->http->request('POST', 'chat', [
                 'timeout' => -1,
                 'json' => [
@@ -93,6 +87,7 @@ final class OllamaClient extends Client implements HasEmbeddingSupport, HasCompl
                             'role' => 'user',
                         ]],
                     },
+                    'tools' => $this->getToolDefinitions(),
                     'options' => [
                         'temperature' => $config->temperature,
                         'top_p' => $config->topP ?? 0.9,
@@ -104,12 +99,7 @@ final class OllamaClient extends Client implements HasEmbeddingSupport, HasCompl
                 ],
             ])->toArray();
 
-            return new CompletionResponse(
-                provider: Provider::OLLAMA,
-                model: $config->model,
-                completion: $response['message']['content'],
-                providerResponse: $this->config->providerResponse ? $response : [],
-            );
+            return $this->handleToolCalls($response, $config);
         } catch (\Throwable $e) {
             throw new ServiceIntegrationException('Unable to generate completion.', previous: $e);
         }

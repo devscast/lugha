@@ -15,7 +15,6 @@ namespace Devscast\Lugha\Model\Completion\Tools;
 
 use Devscast\Lugha\Exception\InvalidArgumentException;
 use Devscast\Lugha\Exception\RuntimeException;
-use Devscast\Lugha\Model\Completion\Chat\History;
 use Devscast\Lugha\Model\Completion\Chat\Message;
 use Devscast\Lugha\Model\Completion\Chat\Role;
 use Devscast\Lugha\Model\Completion\Chat\ToolCalled;
@@ -30,7 +29,7 @@ abstract class ToolRunner
 {
     public static function build(object $tool, Provider $provider = Provider::OPENAI): ToolReference
     {
-        $definition = self::getToolDefinition($tool);
+        $definition = self::getDefinition($tool);
 
         return new ToolReference($definition->name, $tool, $definition->format($provider));
     }
@@ -38,10 +37,8 @@ abstract class ToolRunner
     /**
      * @param array<ToolReference> $references
      */
-    public static function run(ToolCalled $tool, array $references): History
+    public static function run(ToolCalled $tool, array $references): ?Message
     {
-        $history = new History();
-
         foreach ($references as $reference) {
             if ($reference->definition['function']['name'] === $tool->name) {
                 try {
@@ -51,18 +48,18 @@ abstract class ToolRunner
                         );
                     }
 
-                    $result = ($reference->instance)(...$tool->arguments);
-                    $history->append(new Message($result, Role::TOOL, $tool->id));
+                    $result = (string) ($reference->instance)(...$tool->arguments);
+                    return new Message($result, Role::TOOL, $tool->id);
                 } catch (\Throwable $e) {
                     throw new RuntimeException($e->getMessage(), previous: $e);
                 }
             }
         }
 
-        return $history;
+        return null;
     }
 
-    public static function getToolDefinition(object $tool): ToolDefinition
+    private static function getDefinition(object $tool): ToolDefinition
     {
         $class = new \ReflectionClass($tool);
         $attributes = $class->getAttributes(ToolDefinition::class);

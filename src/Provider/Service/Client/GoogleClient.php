@@ -37,13 +37,14 @@ final class GoogleClient extends Client implements HasEmbeddingSupport, HasCompl
 {
     protected const string BASE_URI = 'https://generativelanguage.googleapis.com/v1beta/';
 
+    protected Provider $provider = Provider::GOOGLE;
+
     #[\Override]
     public function embeddings(string $prompt, EmbeddingConfig $config): EmbeddingResponse
     {
         Assert::notEmpty($prompt);
 
         try {
-            /** @var array{embedding: array{values: array<float>}} $response */
             $response = $this->http->request('POST', "models/{$config->model}:embedContent?key={$this->config->apiKey}", [
                 'auth_bearer' => null, // Google uses API key in query instead of Bearer token (Come on Google!)
                 'json' => [
@@ -58,7 +59,7 @@ final class GoogleClient extends Client implements HasEmbeddingSupport, HasCompl
             ])->toArray();
 
             return new EmbeddingResponse(
-                provider: Provider::GOOGLE,
+                provider: $this->provider,
                 model: $config->model,
                 embedding: $response['embedding']['values'],
                 providerResponse: $this->config->providerResponse ? $response : [],
@@ -69,27 +70,9 @@ final class GoogleClient extends Client implements HasEmbeddingSupport, HasCompl
     }
 
     #[\Override]
-    public function completion(string|History $input, CompletionConfig $config): CompletionResponse
+    public function completion(string|History $input, CompletionConfig $config, array $tools = []): CompletionResponse
     {
         try {
-            /**
-             * @var array{
-             *     candidates: array<array{
-             *         content: array{
-             *              parts: array<array{text: string}>,
-             *              role: string
-             *         },
-             *         finishReason: string,
-             *         avgLogprobs: float
-             *     }>,
-             *     usageMetadata: array{
-             *         promptTokenCount: int,
-             *         candidatesTokenCount: int,
-             *         totalTokenCount: int,
-             *     },
-             *     modelVersion: string,
-             * } $response
-             */
             $response = $this->http->request('POST', "models/{$config->model}:generateContent?key={$this->config->apiKey}", [
                 'auth_bearer' => null,
                 'json' => [
@@ -99,7 +82,7 @@ final class GoogleClient extends Client implements HasEmbeddingSupport, HasCompl
             ])->toArray();
 
             return new CompletionResponse(
-                provider: Provider::GOOGLE,
+                provider: $this->provider,
                 model: $config->model,
                 completion: $response['candidates'][0]['content']['parts'][0]['text'],
                 providerResponse: $this->config->providerResponse ? $response : [],

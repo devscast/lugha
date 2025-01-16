@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Provider\Service;
 
+use Devscast\Lugha\Provider\Provider;
 use Devscast\Lugha\Provider\ProviderConfig;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpClient\Retry\GenericRetryStrategy;
@@ -27,6 +28,8 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 abstract class Client
 {
     protected const string BASE_URI = '';
+
+    protected Provider $provider;
 
     protected HttpClientInterface $http;
 
@@ -47,5 +50,13 @@ abstract class Client
             strategy: new GenericRetryStrategy(delayMs: 200),
             maxRetries: $this->config->maxRetries ?? 1
         );
+    }
+
+    public function getLastMessage(array $response): array
+    {
+        return match ($this->provider) {
+            Provider::OLLAMA => $response['message'],
+            default => $response['choices'][0]['message']
+        };
     }
 }

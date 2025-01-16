@@ -30,9 +30,10 @@ interface HasCompletionSupport
      *
      * @param History|string $input The prompt to use for completion.
      * @param CompletionConfig $config The configuration to use for completion.
+     * @param array<object> $tools The tools to use for completion (optional).
      *
      * @throws ServiceIntegrationException when any error occurs during the request.
      * @throws \InvalidArgumentException when the prompt is empty.
      */
-    public function completion(History|string $input, CompletionConfig $config): CompletionResponse;
+    public function completion(History|string $input, CompletionConfig $config, array $tools = []): CompletionResponse;
 }

@@ -22,7 +22,7 @@ use Devscast\Lugha\Assert;
  */
 final readonly class ToolParameter
 {
-    public const array SUPPORTED_TYPES = ['string', 'integer', 'number', 'boolean', 'array'];
+    public const array SUPPORTED_TYPES = ['null', 'string', 'integer', 'number', 'boolean', 'array'];
 
     public function __construct(
         public string $name,
@@ -36,10 +36,9 @@ final readonly class ToolParameter
         Assert::notEmpty($description);
     }
 
-    public function build(): array
+    public function definition(): array
     {
         return \array_filter([
-            'name' => $this->name,
             'type' => $this->type,
             'enum' => $this->enum,
             'description' => $this->description,

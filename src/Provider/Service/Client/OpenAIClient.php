@@ -22,10 +22,10 @@ use Devscast\Lugha\Provider\Provider;
 use Devscast\Lugha\Provider\Response\CompletionResponse;
 use Devscast\Lugha\Provider\Response\EmbeddingResponse;
 use Devscast\Lugha\Provider\Service\Client;
-use Devscast\Lugha\Provider\Service\Common\ToolCallingSupportedFeature;
+use Devscast\Lugha\Provider\Service\Common\OpenAICompatibilitySupport;
+use Devscast\Lugha\Provider\Service\Common\ToolCallingSupport;
 use Devscast\Lugha\Provider\Service\HasCompletionSupport;
 use Devscast\Lugha\Provider\Service\HasEmbeddingSupport;
-use Devscast\Lugha\Provider\Service\HasToolCallingSupport;
 
 /**
  * Class OpenAIClient.
@@ -37,11 +37,14 @@ use Devscast\Lugha\Provider\Service\HasToolCallingSupport;
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final class OpenAIClient extends Client implements HasEmbeddingSupport, HasCompletionSupport, HasToolCallingSupport
+final class OpenAIClient extends Client implements HasEmbeddingSupport, HasCompletionSupport
 {
-    use ToolCallingSupportedFeature;
+    use ToolCallingSupport;
+    use OpenAICompatibilitySupport;
 
     protected const string BASE_URI = 'https://api.openai.com/v1/';
+
+    protected Provider $provider = Provider::OPENAI;
 
     #[\Override]
     public function embeddings(string $prompt, EmbeddingConfig $config): EmbeddingResponse
@@ -49,14 +52,6 @@ final class OpenAIClient extends Client implements HasEmbeddingSupport, HasCompl
         Assert::notEmpty($prompt);
 
         try {
-            /**
-             * @var array{
-             *     object: string,
-             *     model: string,
-             *     data: array<array{object: string, index: int, embedding: array<float>}>,
-             *     usage: array{prompt_tokens: int, total_tokens: int}
-             * } $response
-             */
             $response = $this->http->request('POST', 'embeddings', [
                 'json' => [
                     'model' => $config->model,
@@ -68,7 +63,7 @@ final class OpenAIClient extends Client implements HasEmbeddingSupport, HasCompl
             ])->toArray();
 
             return new EmbeddingResponse(
-                provider: Provider::OPENAI,
+                provider: $this->provider,
                 model: $config->model,
                 embedding: $response['data'][0]['embedding'],
                 providerResponse: $this->config->providerResponse ? $response : [],
@@ -79,36 +74,12 @@ final class OpenAIClient extends Client implements HasEmbeddingSupport, HasCompl
     }
 
     #[\Override]
-    public function completion(History|string $input, CompletionConfig $config): CompletionResponse
+    public function completion(History|string $input, CompletionConfig $config, array $tools = []): CompletionResponse
     {
         Assert::notEmpty($input);
+        $this->buildReferences($tools);
 
         try {
-            /**
-             * @var array{
-             *     id: string,
-             *     object: string,
-             *     created: int,
-             *     model: string,
-             *     system_fingerprint: string,
-             *     choices: array<array{
-             *          index: int,
-             *          logprobs: ?float,
-             *          finish_reason: string,
-             *          message: array{role: string, content: string}
-             *     }>,
-             *     usage: array{
-             *          prompt_tokens: int,
-             *          completion_tokens: int,
-             *          total_tokens: int,
-             *          completion_tokens_details: array{
-             *              reasoning_tokens: int,
-             *              accepted_prediction_tokens: int,
-             *              rejected_prediction_tokens: int
-             *          }
-             *     }
-             * } $response
-             */
             $response = $this->http->request('POST', 'chat/completions', [
                 'json' => [
                     'model' => $config->model,
@@ -119,6 +90,7 @@ final class OpenAIClient extends Client implements HasEmbeddingSupport, HasCompl
                             'role' => 'user',
                         ]],
                     },
+                    'tools' => $this->getToolDefinitions(),
                     'max_completion_tokens' => $config->maxTokens,
                     'temperature' => $config->temperature,
                     'top_p' => $config->topP,
@@ -129,12 +101,7 @@ final class OpenAIClient extends Client implements HasEmbeddingSupport, HasCompl
                 ],
             ])->toArray();
 
-            return new CompletionResponse(
-                provider: Provider::OPENAI,
-                model: $config->model,
-                completion: $response['choices'][0]['message']['content'],
-                providerResponse: $this->config->providerResponse ? $response : [],
-            );
+            return $this->handleToolCalls($response, $config);
         } catch (\Throwable $e) {
             throw new ServiceIntegrationException('Unable to generate completion.', previous: $e);
         }

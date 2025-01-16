@@ -21,41 +21,36 @@ namespace Devscast\Lugha\Model\Completion\Chat;
 final readonly class Message implements \Stringable
 {
     public function __construct(
-        public string $content,
+        public ?string $content,
         public Role $role = Role::USER,
         public ?string $toolCallId = null,
+        public ?array $toolCalls = null
     ) {
     }
 
     #[\Override]
     public function __toString(): string
     {
-        return $this->content;
+        return (string) $this->content;
     }
 
-    /**
-     * Convert an array of messages to an array of Message objects.
-     * @param array<array{content: string, role: string, tool_call_id?: string}> $data
-     */
-    public static function fromArray(array $data): array
+    public static function fromResponse(array $message): self
     {
-        return \array_map(fn (array $message) => new self(
+        return new self(
             content: $message['content'],
             role: Role::from($message['role']),
-            toolCallId: $message['tool_call_id'] ?? null
-        ), $data);
+            toolCallId: $message['tool_call_id'] ?? null,
+            toolCalls: $message['tool_calls'] ?? null
+        );
     }
 
-    /**
-     * Convert a Message object to an array.
-     * @return array{content: string, role: string, tool_call_id?: string}
-     */
     public function toArray(): array
     {
         return \array_filter([
             'content' => $this->content,
             'role' => $this->role->value,
             'tool_call_id' => $this->toolCallId,
+            'tool_calls' => $this->toolCalls,
         ], fn ($value) => $value !== null);
     }
 }

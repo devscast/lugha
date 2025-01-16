@@ -31,7 +31,9 @@ readonly class ToolDefinition
         public string $name,
         public string $description,
         public array $parameters,
-        public string $type = 'function'
+        public string $type = 'function',
+        public bool $strict = true,
+        public bool $additionalProperties = false
     ) {
         Assert::notEmpty($name);
         Assert::notEmpty($description);
@@ -56,12 +58,22 @@ readonly class ToolDefinition
                 'parameters' => [
                     'type' => 'object',
                     'required' => $this->getRequiredParameters(),
-                    'properties' => \array_map(
-                        fn (ToolParameter $parameter): array => $parameter->build(),
-                        $this->parameters
-                    ),
+                    'properties' => $this->getProperties(),
+                    'additionalProperties' => $this->additionalProperties,
                 ],
+                'strict' => $this->strict,
             ],
         ];
+    }
+
+    private function getProperties(): array|\stdClass
+    {
+        $properties = \array_combine(
+            \array_map(fn ($property) => $property->name, $this->parameters),
+            \array_map(fn ($property) => $property->definition(), $this->parameters)
+        );
+
+        // returning stdClass to avoid empty array in JSON
+        return empty($properties) ? new \stdClass() : $properties;
     }
 }

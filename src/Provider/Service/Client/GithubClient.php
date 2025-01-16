@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Provider\Service\Client;
 
+use Devscast\Lugha\Provider\Provider;
 use Devscast\Lugha\Provider\Service\Client;
 
 /**
@@ -25,4 +26,6 @@ use Devscast\Lugha\Provider\Service\Client;
 final class GithubClient extends Client
 {
     protected const string BASE_URI = 'https://models.inference.ai.azure.com/';
+
+    protected Provider $provider = Provider::GITHUB;
 }

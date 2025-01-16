@@ -36,11 +36,7 @@ class History
     public function getHistory(bool $excludeSystemInstruction = false): array
     {
         return \array_map(
-            callback: fn (Message $message) => [
-                'role' => $message->role->value,
-                'tool_call_id' => $message->toolCallId,
-                'content' => $message->content,
-            ],
+            callback: fn (Message $message) => $message->toArray(),
             array: $excludeSystemInstruction ?
                 array_filter($this->messages, fn (Message $message) => $message->role !== Role::SYSTEM) :
                 $this->messages
@@ -63,8 +59,15 @@ class History
         return $instruction;
     }
 
-    public function append(Message $message): void
+    public function append(?Message $message): void
     {
-        $this->messages[] = $message;
+        if ($message !== null) {
+            $this->messages[] = $message;
+        }
+    }
+
+    public function merge(self $history): void
+    {
+        $this->messages = \array_merge($this->messages, $history->messages);
     }
 }

@@ -33,12 +33,9 @@ final readonly class ToolCalled
         Assert::notEmpty($name);
     }
 
-    public static function fromResponse(string $response): self
+    public static function fromResponse(array $data): self
     {
         try {
-            /** @var array{id: string, type: string, function: array{name: string, arguments: string}} $data */
-            $data = json_decode($response, true, flags: JSON_THROW_ON_ERROR);
-
             /** @var array<string, mixed> $arguments */
             $arguments = json_decode($data['function']['arguments'], true, flags: JSON_THROW_ON_ERROR);
 

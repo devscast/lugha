@@ -38,6 +38,8 @@ final class VoyagerClient extends Client implements HasRerankingSupport, HasEmbe
 {
     protected const string BASE_URI = 'https://api.voyageai.com/v1/';
 
+    protected Provider $provider = Provider::VOYAGER;
+
     #[\Override]
     public function rerank(string $prompt, array $documents, RerankingConfig $config): RerankingResponse
     {
@@ -45,7 +47,6 @@ final class VoyagerClient extends Client implements HasRerankingSupport, HasEmbe
         Assert::allNotEmpty($documents);
 
         try {
-            /** @var array{results: array<array{document: string, relevance_score: float}>} $response */
             $response = $this->http->request('POST', 'rerank', [
                 'json' => [
                     'model' => $config->model,
@@ -63,7 +64,7 @@ final class VoyagerClient extends Client implements HasRerankingSupport, HasEmbe
             ])->toArray();
 
             return new RerankingResponse(
-                provider: Provider::VOYAGER,
+                provider: $this->provider,
                 model: $config->model,
                 documents: \array_map(
                     fn ($ranking) => new RankedDocument($ranking['document'], $ranking['relevance_score']),
@@ -82,7 +83,6 @@ final class VoyagerClient extends Client implements HasRerankingSupport, HasEmbe
         Assert::notEmpty($prompt);
 
         try {
-            /** @var array{embeddings: array<array<float>>} $response */
             $response = $this->http->request('POST', 'embeddings', [
                 'json' => [
                     'model' => $config->model,
@@ -90,10 +90,10 @@ final class VoyagerClient extends Client implements HasRerankingSupport, HasEmbe
                     'input_type' => 'document',
                     ...$config->additionalParameters,
                 ],
-            ])->getContent();
+            ])->toArray();
 
             return new EmbeddingResponse(
-                provider: Provider::VOYAGER,
+                provider: $this->provider,
                 model: $config->model,
                 embedding: $response['embeddings'][0]
             );

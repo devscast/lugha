@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Provider\Service\Client;
 
+use Devscast\Lugha\Provider\Provider;
 use Devscast\Lugha\Provider\Service\Client;
 
 /**
@@ -25,4 +26,6 @@ use Devscast\Lugha\Provider\Service\Client;
 final class AnthropicClient extends Client
 {
     protected const string BASE_URI = 'https://api.anthropic.com/v1/';
+
+    protected Provider $provider = Provider::ANTHROPIC;
 }
