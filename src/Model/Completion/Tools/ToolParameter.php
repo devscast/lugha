@@ -26,14 +26,18 @@ final readonly class ToolParameter
 
     public function __construct(
         public string $name,
-        public string $type,
+        public string|array $type,
         public ?string $description = null,
         public ?array $enum = null,
         public bool $required = false
     ) {
         Assert::notEmpty($name);
-        Assert::oneOf($type, self::SUPPORTED_TYPES);
         Assert::notEmpty($description);
+
+        match (\is_array($type)) {
+            true => Assert::allInArray($type, self::SUPPORTED_TYPES),
+            default => Assert::oneOf($type, self::SUPPORTED_TYPES)
+        };
     }
 
     public function definition(): array
