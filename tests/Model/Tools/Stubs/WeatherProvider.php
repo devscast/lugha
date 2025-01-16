@@ -13,15 +13,15 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Tests\Model\Tools\Stubs;
 
-use Devscast\Lugha\Model\Completion\Tools\FunctionInfo;
-use Devscast\Lugha\Model\Completion\Tools\Parameter;
+use Devscast\Lugha\Model\Completion\Tools\ToolDefinition;
+use Devscast\Lugha\Model\Completion\Tools\ToolParameter;
 
-#[FunctionInfo(
+#[ToolDefinition(
     name: 'get_weather',
     description: 'Get the weather for a location on a specific date.',
     parameters: [
-        new Parameter('location', 'string', 'The location to get the weather for.', required: true),
-        new Parameter('date', 'string', 'The date to get the weather for.', required: true),
+        new ToolParameter('location', 'string', 'The location to get the weather for.', required: true),
+        new ToolParameter('date', 'string', 'The date to get the weather for.', required: true),
     ]
 )]
 final readonly class WeatherProvider

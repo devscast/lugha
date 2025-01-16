@@ -22,8 +22,10 @@ use Devscast\Lugha\Provider\Provider;
 use Devscast\Lugha\Provider\Response\CompletionResponse;
 use Devscast\Lugha\Provider\Response\EmbeddingResponse;
 use Devscast\Lugha\Provider\Service\Client;
+use Devscast\Lugha\Provider\Service\Common\ToolCallingSupportedFeature;
 use Devscast\Lugha\Provider\Service\HasCompletionSupport;
 use Devscast\Lugha\Provider\Service\HasEmbeddingSupport;
+use Devscast\Lugha\Provider\Service\HasToolCallingSupport;
 
 /**
  * Class OpenAIClient.
@@ -31,11 +33,14 @@ use Devscast\Lugha\Provider\Service\HasEmbeddingSupport;
  * @see https://platform.openai.com/docs/api-reference/introduction
  * @see https://platform.openai.com/docs/api-reference/embeddings/create
  * @see https://platform.openai.com/docs/api-reference/chat/create
+ * @see https://platform.openai.com/docs/guides/function-calling
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final class OpenAIClient extends Client implements HasEmbeddingSupport, HasCompletionSupport
+final class OpenAIClient extends Client implements HasEmbeddingSupport, HasCompletionSupport, HasToolCallingSupport
 {
+    use ToolCallingSupportedFeature;
+
     protected const string BASE_URI = 'https://api.openai.com/v1/';
 
     #[\Override]

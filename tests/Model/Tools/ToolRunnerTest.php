@@ -12,25 +12,27 @@
 namespace Devscast\Lugha\Tests\Model\Tools;
 
 use Devscast\Lugha\Exception\InvalidArgumentException;
-use Devscast\Lugha\Model\Completion\Tools\FunctionBuilder;
+use Devscast\Lugha\Model\Completion\Tools\ToolReference;
+use Devscast\Lugha\Model\Completion\Tools\ToolRunner;
 use Devscast\Lugha\Tests\Model\Tools\Stubs\WeatherProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class FunctionBuilderTest.
+ * Class ToolRunnerTest.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-class FunctionBuilderTest extends TestCase
+class ToolRunnerTest extends TestCase
 {
-    public function testBuildsOpenAICompatibleFunction(): void
+    public function testBuild(): void
     {
-        $result = FunctionBuilder::build(WeatherProvider::class);
+        $result = ToolRunner::build(new WeatherProvider());
 
-        $this->assertIsArray($result);
-        $this->assertEquals('function', $result['type']);
-        $this->assertEquals('get_weather', $result['function']['name']);
-        $this->assertEquals('Get the weather for a location on a specific date.', $result['function']['description']);
+        $this->assertInstanceOf(ToolReference::class, $result);
+        $this->assertInstanceOf(WeatherProvider::class, $result->instance);
+        $this->assertEquals('function', $result->definition['type']);
+        $this->assertEquals('get_weather', $result->definition['function']['name']);
+        $this->assertEquals('Get the weather for a location on a specific date.', $result->definition['function']['description']);
     }
 
     public function testTrowsExceptionForMissingFunctionInfoAttribute(): void
@@ -44,6 +46,6 @@ class FunctionBuilderTest extends TestCase
             }
         };
 
-        FunctionBuilder::build($function);
+        ToolRunner::build($function);
     }
 }

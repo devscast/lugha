@@ -38,6 +38,7 @@ class History
         return \array_map(
             callback: fn (Message $message) => [
                 'role' => $message->role->value,
+                'tool_call_id' => $message->toolCallId,
                 'content' => $message->content,
             ],
             array: $excludeSystemInstruction ?
@@ -60,5 +61,10 @@ class History
         }
 
         return $instruction;
+    }
+
+    public function append(Message $message): void
+    {
+        $this->messages[] = $message;
     }
 }

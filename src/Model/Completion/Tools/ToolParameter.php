@@ -16,11 +16,11 @@ namespace Devscast\Lugha\Model\Completion\Tools;
 use Devscast\Lugha\Assert;
 
 /**
- * Class Parameter.
+ * Class ToolParameter.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final readonly class Parameter
+final readonly class ToolParameter
 {
     public const array SUPPORTED_TYPES = ['string', 'integer', 'number', 'boolean', 'array'];
 
@@ -38,7 +38,7 @@ final readonly class Parameter
 
     public function build(): array
     {
-        return array_filter([
+        return \array_filter([
             'name' => $this->name,
             'type' => $this->type,
             'enum' => $this->enum,
