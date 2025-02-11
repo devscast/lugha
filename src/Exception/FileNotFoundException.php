@@ -20,7 +20,7 @@ namespace Devscast\Lugha\Exception;
  */
 final class FileNotFoundException extends \RuntimeException
 {
-    public function __construct(string $file, int $code = 0, \Throwable $previous = null)
+    public function __construct(string $file, int $code = 0, ?\Throwable $previous = null)
     {
         $message = \sprintf('Failed to open stream: No such file %s', $file);
         parent::__construct($message, $code, $previous);

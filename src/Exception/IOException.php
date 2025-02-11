@@ -20,7 +20,7 @@ namespace Devscast\Lugha\Exception;
  */
 final class IOException extends \RuntimeException
 {
-    public function __construct(string $file, int $code = 0, \Throwable $previous = null)
+    public function __construct(string $file, int $code = 0, ?\Throwable $previous = null)
     {
         $message = \sprintf('Unable to read or write the content of %s', $file);
         parent::__construct($message, $code, $previous);

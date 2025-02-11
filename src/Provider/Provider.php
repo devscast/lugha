@@ -27,6 +27,7 @@ enum Provider: string
     case GITHUB = 'GITHUB';
     case ANTHROPIC = 'ANTHROPIC';
     case VOYAGER = 'VOYAGER';
+    case DEEPSEEK = 'DEEPSEEK';
 
     public function getEnvName(): string
     {

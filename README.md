@@ -17,15 +17,17 @@ for Chatbot, RAG (Retrieval-Augmented Generation) based applications with integr
 
 *supported providers:*
 
-| Provider      | Link                                                  | Features                     |
-|---------------|-------------------------------------------------------|------------------------------|
-| OpenAI        | [openai.com](https://openai.com)                      | Completion, Embeddings       |
-| Mistral       | [mistral.ai](https://mistral.ai/)                     | Completion, Embeddings       |
-| Google        | [ai.google](https://ai.google/)                       | Completion, Embeddings       |
-| GitHub        | [github.com](https://github.com/marketplace/models)   | Completion, Embeddings       |
-| Anthropic     | [anthropic.com](https://www.anthropic.com/)           | Completion                   |
-| Voyager.ai    | [voyageai.com](https://www.voyageai.com/)             | Embeddings, Reranking        |
-| Ollama        | [ollama.com](https://ollama.com/)                     | Completion, Embeddings       |
+| Provider   | Link                                                | Features               |
+|------------|-----------------------------------------------------|------------------------|
+| OpenAI     | [openai.com](https://openai.com)                    | Completion, Embeddings |
+| Mistral    | [mistral.ai](https://mistral.ai/)                   | Completion, Embeddings |
+| Google     | [ai.google](https://ai.google/)                     | Completion, Embeddings |
+| GitHub     | [github.com](https://github.com/marketplace/models) | Completion, Embeddings |
+| Anthropic  | [anthropic.com](https://www.anthropic.com/)         | Completion             |
+| Voyager.ai | [voyageai.com](https://www.voyageai.com/)           | Embeddings, Reranking  |
+| Ollama     | [ollama.com](https://ollama.com/)                   | Completion, Embeddings | 
+| Deepseek   | [deepseek.com](https://deepseek.com)                | completion             |
+
 
 
 ## Installation

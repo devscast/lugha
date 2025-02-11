@@ -37,6 +37,7 @@ abstract readonly class ClientFactory
             Provider::ANTHROPIC => new Client\AnthropicClient($config),
             Provider::VOYAGER => new Client\VoyagerClient($config),
             Provider::MISTRAL => new Client\MistralClient($config),
+            Provider::DEEPSEEK => new Client\DeepSeekClient($config)
         };
     }
 
