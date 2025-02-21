@@ -19,7 +19,7 @@ namespace Devscast\Lugha\Retrieval;
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-class Document implements \Stringable
+class Document implements \Stringable, \JsonSerializable
 {
     public function __construct(
         public string $content,
@@ -46,5 +46,18 @@ class Document implements \Stringable
     public function hasEmbeddings(): bool
     {
         return \count($this->embeddings) !== 0;
+    }
+
+    /**
+     * @throws \JsonException
+     */
+    #[\Override]
+    public function jsonSerialize(): string
+    {
+        return \json_encode([
+            'content' => $this->content,
+            'embeddings' => $this->embeddings,
+            'metadata' => $this->metadata,
+        ], \JSON_THROW_ON_ERROR);
     }
 }

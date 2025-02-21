@@ -20,7 +20,7 @@ namespace Devscast\Lugha\Retrieval;
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-class Metadata
+class Metadata implements \JsonSerializable
 {
     public function __construct(
         public ?string $hash = null,
@@ -38,5 +38,19 @@ class Metadata
             $metadata['sourceName'],
             $metadata['chunkNumber'],
         );
+    }
+
+    /**
+     * @throws \JsonException
+     */
+    #[\Override]
+    public function jsonSerialize(): string
+    {
+        return \json_encode([
+            'hash' => $this->hash,
+            'sourceType' => $this->sourceType,
+            'sourceName' => $this->sourceName,
+            'chunkNumber' => $this->chunkNumber,
+        ], \JSON_THROW_ON_ERROR);
     }
 }

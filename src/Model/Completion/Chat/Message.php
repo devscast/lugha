@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Model\Completion\Chat;
 
+use Devscast\Lugha\Assert;
+
 /**
  * Class Message.
  *
@@ -21,17 +23,18 @@ namespace Devscast\Lugha\Model\Completion\Chat;
 final readonly class Message implements \Stringable
 {
     public function __construct(
-        public ?string $content,
+        public string $content,
         public Role $role = Role::USER,
         public ?string $toolCallId = null,
         public ?array $toolCalls = null
     ) {
+        Assert::notEmpty($content);
     }
 
     #[\Override]
     public function __toString(): string
     {
-        return (string) $this->content;
+        return $this->content;
     }
 
     public static function fromResponse(array $message): self

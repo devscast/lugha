@@ -15,6 +15,7 @@ namespace Devscast\Lugha\Provider\Service\Common;
 
 use Devscast\Lugha\Assert;
 use Devscast\Lugha\Model\Completion\Chat\History;
+use Devscast\Lugha\Model\Completion\Chat\Message;
 use Devscast\Lugha\Model\Completion\Chat\ToolCalled;
 use Devscast\Lugha\Model\Completion\Tools\ToolReference;
 use Devscast\Lugha\Model\Completion\Tools\ToolRunner;
@@ -55,11 +56,12 @@ trait ToolCallingSupport
             $message['tool_calls']
         );
 
-        $history = new History();
-        foreach ($tools as $tool) {
-            $history->append(ToolRunner::run($tool, $this->references));
-        }
+        $messages = \array_map(
+            fn (ToolCalled $tool): ?Message => ToolRunner::run($tool, $this->references),
+            $tools
+        );
+        $messages = \array_filter($message, fn (?Message $message): bool => $message !== null);
 
-        return $history;
+        return History::fromMessages($messages);
     }
 }

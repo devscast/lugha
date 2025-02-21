@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Model\Completion\Chat;
 
+use Devscast\Lugha\Assert;
+
 /**
  * Class History.
  *
@@ -23,14 +25,18 @@ class History
     /**
      * @param Message[] $messages
      */
-    private array $messages = [];
+    private function __construct(
+        private array $messages = []
+    ) {
+        Assert::allIsInstanceOf($messages, Message::class);
+    }
 
     /**
      * @param Message[] $messages
      */
-    public function fromMessages(array $messages): void
+    public static function fromMessages(array $messages): self
     {
-        $this->messages = $messages;
+        return new self($messages);
     }
 
     public function getHistory(bool $excludeSystemInstruction = false): array
@@ -38,7 +44,7 @@ class History
         return \array_map(
             callback: fn (Message $message) => $message->toArray(),
             array: $excludeSystemInstruction ?
-                array_filter($this->messages, fn (Message $message) => $message->role !== Role::SYSTEM) :
+                \array_filter($this->messages, fn (Message $message) => $message->role !== Role::SYSTEM) :
                 $this->messages
         );
     }

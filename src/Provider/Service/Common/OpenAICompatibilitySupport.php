@@ -27,8 +27,7 @@ trait OpenAICompatibilitySupport
             return $this->handleCompletion($response, $config);
         }
 
-        $history = new History();
-        $history->append(Message::fromResponse($message));
+        $history = History::fromMessages([Message::fromResponse($message)]);
         $history->merge($this->callTools($message['tool_calls']));
 
         return $this->completion($history, $config);

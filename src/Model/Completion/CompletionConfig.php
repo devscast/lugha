@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Devscast\Lugha\Model\Completion;
 
 use Devscast\Lugha\Assert;
+use Devscast\Lugha\Model\Embedding\Distance;
 
 /**
  * Class CompletionConfig.
@@ -37,6 +38,8 @@ final readonly class CompletionConfig
      * @param float|null $frequencyPenalty The value used to penalize new tokens based on their frequency in the training data.
      * @param float|null $presencePenalty The value used to penalize new tokens based on whether they are already present in the text.
      * @param array|null $stopSequences A list of sequences where the model should stop generating the text.
+     * @param int $similarityK The number of similar examples to use for retrieval-augmented generation.
+     * @param Distance $similarityDistance The distance metric to use for retrieval-augmented generation.
      * @param array $additionalParameters Additional parameters to pass to the API.
      */
     public function __construct(
@@ -48,6 +51,8 @@ final readonly class CompletionConfig
         public ?float $frequencyPenalty = null,
         public ?float $presencePenalty = null,
         public ?array $stopSequences = null,
+        public int $similarityK = 4,
+        public Distance $similarityDistance = Distance::L2,
         public array $additionalParameters = []
     ) {
         Assert::notEmpty($this->model);
@@ -57,5 +62,6 @@ final readonly class CompletionConfig
         Assert::nullOrPositiveInteger($this->topK);
         Assert::nullOrRange($this->frequencyPenalty, -2, 2);
         Assert::nullOrRange($this->presencePenalty, -2, 2);
+        Assert::greaterThan($this->similarityK, 0);
     }
 }

@@ -37,7 +37,7 @@ final readonly class ToolCalled
     {
         try {
             /** @var array<string, mixed> $arguments */
-            $arguments = json_decode($data['function']['arguments'], true, flags: JSON_THROW_ON_ERROR);
+            $arguments = \json_decode($data['function']['arguments'], true, flags: \JSON_THROW_ON_ERROR);
 
             return new self($data['id'], $data['type'], $data['function']['name'], $arguments);
         } catch (\JsonException $e) {

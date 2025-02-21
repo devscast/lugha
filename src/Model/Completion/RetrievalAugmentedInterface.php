@@ -14,15 +14,16 @@ declare(strict_types=1);
 namespace Devscast\Lugha\Model\Completion;
 
 use Devscast\Lugha\Model\Completion\Chat\History;
+use Devscast\Lugha\Model\Completion\Prompt\PromptTemplate;
 
 /**
- * Interface ChatInterface.
+ * Interface RagInterface.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-interface ChatInterface
+interface RetrievalAugmentedInterface
 {
-    public function completion(string $input, array $tools = []): string;
+    public function augmentedCompletion(string $query, PromptTemplate $prompt): string;
 
-    public function completionWithHistory(string $input, History $history, array $tools = []): string;
+    public function augmentedCompletionWithHistory(string $query, PromptTemplate $prompt, History $history): string;
 }
