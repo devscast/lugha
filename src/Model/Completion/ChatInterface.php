@@ -22,7 +22,7 @@ use Devscast\Lugha\Model\Completion\Chat\History;
  */
 interface ChatInterface
 {
-    public function completion(string $input, array $tools = []): string;
+    public function completion(string $input, ?array $tools = null): string;
 
-    public function completionWithHistory(string $input, History $history, array $tools = []): string;
+    public function completionWithHistory(string $input, History $history, ?array $tools = null): string;
 }

@@ -70,7 +70,7 @@ final class GoogleClient extends Client implements HasEmbeddingSupport, HasCompl
     }
 
     #[\Override]
-    public function completion(string|History $input, CompletionConfig $config, array $tools = []): CompletionResponse
+    public function completion(string|History $input, CompletionConfig $config, ?array $tools = null): CompletionResponse
     {
         try {
             $response = $this->http->request('POST', "models/{$config->model}:generateContent?key={$this->config->apiKey}", [

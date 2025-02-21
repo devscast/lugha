@@ -32,15 +32,21 @@ trait ToolCallingSupport
      */
     private array $references = [];
 
-    public function buildReferences(array $tools): void
+    public function buildReferences(?array $tools = null): void
     {
-        foreach ($tools as $tool) {
-            $this->references[] = ToolRunner::build($tool, $this->provider);
+        if ($tools !== null) {
+            foreach ($tools as $tool) {
+                $this->references[] = ToolRunner::build($tool, $this->provider);
+            }
         }
     }
 
-    public function getToolDefinitions(): array
+    public function getToolDefinitions(): ?array
     {
+        if (empty($this->references)) {
+            return null;
+        }
+
         return \array_map(
             fn (ToolReference $reference): array => $reference->definition,
             $this->references

@@ -36,7 +36,7 @@ final readonly class CompletionChat implements ChatInterface
      * @throws ServiceIntegrationException
      */
     #[\Override]
-    public function completion(string $input, array $tools = []): string
+    public function completion(string $input, ?array $tools = null): string
     {
         return $this->client->completion($input, $this->completionConfig, $tools)->completion;
     }
@@ -45,7 +45,7 @@ final readonly class CompletionChat implements ChatInterface
      * @throws ServiceIntegrationException
      */
     #[\Override]
-    public function completionWithHistory(string $input, History $history, array $tools = []): string
+    public function completionWithHistory(string $input, History $history, ?array $tools = null): string
     {
         $history->append(new Message($input, Role::USER));
 

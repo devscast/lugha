@@ -69,7 +69,7 @@ final class OllamaClient extends Client implements HasEmbeddingSupport, HasCompl
     }
 
     #[\Override]
-    public function completion(History|string $input, CompletionConfig $config, array $tools = []): CompletionResponse
+    public function completion(History|string $input, CompletionConfig $config, ?array $tools = null): CompletionResponse
     {
         Assert::notEmpty($input);
         $this->buildReferences($tools);
