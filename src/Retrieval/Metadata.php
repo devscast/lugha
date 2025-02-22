@@ -40,17 +40,14 @@ class Metadata implements \JsonSerializable
         );
     }
 
-    /**
-     * @throws \JsonException
-     */
     #[\Override]
-    public function jsonSerialize(): string
+    public function jsonSerialize(): array
     {
-        return \json_encode([
+        return [
             'hash' => $this->hash,
             'sourceType' => $this->sourceType,
             'sourceName' => $this->sourceName,
             'chunkNumber' => $this->chunkNumber,
-        ], \JSON_THROW_ON_ERROR);
+        ];
     }
 }

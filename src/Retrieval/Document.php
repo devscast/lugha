@@ -48,16 +48,13 @@ class Document implements \Stringable, \JsonSerializable
         return \count($this->embeddings) !== 0;
     }
 
-    /**
-     * @throws \JsonException
-     */
     #[\Override]
-    public function jsonSerialize(): string
+    public function jsonSerialize(): array
     {
-        return \json_encode([
+        return [
             'content' => $this->content,
             'embeddings' => $this->embeddings,
             'metadata' => $this->metadata,
-        ], \JSON_THROW_ON_ERROR);
+        ];
     }
 }
