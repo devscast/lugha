@@ -24,8 +24,6 @@
     "require": {
         "php": ">=8.3",
         "symfony/http-client": "^7.2",
-        "symfony/serializer": "^7.2",
-        "symfony/property-access": "^7.2",
         "webmozart/assert": "^1.11",
         "league/commonmark": "^2.6",
         "smalot/pdfparser": "^2.10",
