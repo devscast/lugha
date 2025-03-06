@@ -40,7 +40,7 @@ class Document implements \Stringable, \JsonSerializable
     {
         return new self(
             $document['content'],
-            $document['embeddings'],
+            Vector::from($document['embeddings']['values']),
             Metadata::from($document['metadata']),
         );
     }
