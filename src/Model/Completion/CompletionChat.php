@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Model\Completion;
 
-use Devscast\Lugha\Exception\ServiceIntegrationException;
 use Devscast\Lugha\Model\Completion\Chat\History;
 use Devscast\Lugha\Model\Completion\Chat\Message;
 use Devscast\Lugha\Model\Completion\Chat\Role;
@@ -32,18 +31,12 @@ final readonly class CompletionChat implements ChatInterface
     ) {
     }
 
-    /**
-     * @throws ServiceIntegrationException
-     */
     #[\Override]
     public function completion(string $input, ?array $tools = null): string
     {
         return $this->client->completion($input, $this->completionConfig, $tools)->completion;
     }
 
-    /**
-     * @throws ServiceIntegrationException
-     */
     #[\Override]
     public function completionWithHistory(string $input, History $history, ?array $tools = null): string
     {

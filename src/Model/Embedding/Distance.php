@@ -47,9 +47,26 @@ enum Distance
      */
     case INNER_PRODUCT;
 
-    public function compute(array $a, array $b): float
+    /**
+     * Compute the distance or similarity between two vectors.
+     *
+     * This method calculates the distance or similarity between two vectors
+     * based on the selected distance metric. Supported metrics include:
+     * - **Cosine Similarity** (`Distance::COSINE`)
+     * - **Euclidean Distance (L2 Norm)** (`Distance::L2`)
+     * - **Manhattan Distance (L1 Norm)** (`Distance::L1`)
+     * - **Inner Product** (`Distance::INNER_PRODUCT`)
+     *
+     * @param Vector $a The first vector.
+     * @param Vector $b The second vector.
+     *
+     * @throws InvalidArgumentException If the vectors do not have the same dimension.
+     *
+     * @return float The computed distance or similarity score.
+     */
+    public function compute(Vector $a, Vector $b): float
     {
-        if (\count($a) !== \count($b)) {
+        if ($a->getDimension() !== $b->getDimension()) {
             throw new InvalidArgumentException('Vectors must have the same dimension.');
         }
 
@@ -61,12 +78,27 @@ enum Distance
         };
     }
 
-    private function cosine(array $a, array $b): float
+    /**
+     * Compute the cosine distance between two vectors.
+     *
+     * The cosine distance is derived from the cosine similarity, which measures the cosine
+     * of the angle between two vectors in a multi-dimensional space.
+     *
+     * A cosine distance of **0** means the vectors are identical in direction,
+     * while a cosine distance of **1** means they are completely dissimilar (orthogonal).
+     *
+     * @param Vector $a The first vector.
+     * @param Vector $b The second vector.
+     *
+     * @return float The cosine distance between the two vectors, ranging from 0 (similar) to 1 (dissimilar).
+     */
+    private function cosine(Vector $a, Vector $b): float
     {
         $dotProduct = $this->dotProduct($a, $b);
-        $x = $this->magnitude($a);
-        $y = $this->magnitude($b);
+        $x = $a->getMagnitude();
+        $y = $b->getMagnitude();
 
+        // Avoid division by zero in case one of the vectors has zero magnitude.
         if ($x * $y == 0) {
             return 0;
         }
@@ -74,23 +106,57 @@ enum Distance
         return 1 - $dotProduct / ($x * $y);
     }
 
-    private function l2(array $a, array $b): float
+    /**
+     * Compute the Euclidean distance (L2 norm) between two vectors.
+     *
+     * This metric measures the straight-line distance between two points in a multi-dimensional space.
+     * It is widely used in **machine learning, facial recognition, and clustering algorithms (e.g., K-Means)**.
+     *
+     * @param Vector $a The first vector.
+     * @param Vector $b The second vector.
+     *
+     * @return float The Euclidean distance between the two vectors.
+     */
+    private function l2(Vector $a, Vector $b): float
     {
-        return \sqrt(\array_sum(\array_map(fn (float $x, float $y): float => ($x - $y) ** 2, $a, $b)));
+        return \sqrt(\array_sum(\array_map(fn (float $x, float $y): float => ($x - $y) ** 2, $a->values, $b->values)));
     }
 
-    private function l1(array $a, array $b): float
+    /**
+     * Compute the Manhattan distance (L1 norm) between two vectors.
+     *
+     * This metric calculates the sum of the absolute differences between the corresponding components
+     * of two vectors. It is commonly used in **image processing and optimization problems where movements
+     * are restricted to orthogonal axes**.
+     *
+     * @param Vector $a The first vector.
+     * @param Vector $b The second vector.
+     *
+     * @return float The Manhattan distance between the two vectors.
+     */
+    private function l1(Vector $a, Vector $b): float
     {
-        return (float) \array_sum(\array_map(fn (float $x, float $y): float => \abs($x - $y), $a, $b));
+        return (float) \array_sum(\array_map(fn (float $x, float $y): float => \abs($x - $y), $a->values, $b->values));
     }
 
-    private function dotProduct(array $a, array $b): float
+    /**
+     * Compute the dot product (inner product) of two vectors.
+     *
+     * This metric measures the alignment between two vectors:
+     * - A high positive value means the vectors point in a similar direction.
+     * - A negative value means they point in opposite directions.
+     * - A value close to zero indicates near-orthogonality.
+     *
+     * The dot product is commonly used in **information retrieval (search engines),
+     * neural networks, and vector geometry**.
+     *
+     * @param Vector $a The first vector.
+     * @param Vector $b The second vector.
+     *
+     * @return float The dot product of the two vectors.
+     */
+    private function dotProduct(Vector $a, Vector $b): float
     {
-        return (float) \array_sum(\array_map(fn (float $x, float $y): float => $x * $y, $a, $b));
-    }
-
-    private function magnitude(array $vector): float
-    {
-        return \sqrt(\array_sum(\array_map(fn (float $x): float => $x * $x, $vector)));
+        return (float) \array_sum(\array_map(fn (float $x, float $y): float => $x * $y, $a->values, $b->values));
     }
 }

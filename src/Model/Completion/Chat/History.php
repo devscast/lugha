@@ -18,12 +18,19 @@ use Devscast\Lugha\Assert;
 /**
  * Class History.
  *
+ * This class manages a collection of messages, allowing for the retrieval, modification, and addition of
+ * messages within the history. The `History` class provides methods for filtering and appending messages,
+ * as well as merging histories.
+ *
+ * The class allows for extending the message history by appending new messages or merging two histories.
+ *
+ * @package YourNamespace
  * @author bernard-ng <bernard@devscast.tech>
  */
 class History
 {
     /**
-     * @param Message[] $messages
+     * @param Message[] $messages An array of Message objects to initialize the history.
      */
     private function __construct(
         private array $messages = []
@@ -32,13 +39,26 @@ class History
     }
 
     /**
-     * @param Message[] $messages
+     * Create a History instance from an array of Message objects.
+     *
+     * @param Message[] $messages The array of Message objects to create the history from.
+     *
+     * @return History A new History instance.
      */
     public static function fromMessages(array $messages): self
     {
         return new self($messages);
     }
 
+    /**
+     * Get the history of messages as an array.
+     *
+     * Optionally, excludes system instruction messages.
+     *
+     * @param bool $excludeSystemInstruction Whether to exclude system instruction messages.
+     *
+     * @return array The array of message data.
+     */
     public function getHistory(bool $excludeSystemInstruction = false): array
     {
         return \array_map(
@@ -50,7 +70,11 @@ class History
     }
 
     /**
+     * Get the system instruction message if it exists in the history.
+     *
      * @todo to be replaced with `array_find` in PHP 8.4
+     *
+     * @return Message|null The system instruction message, or null if not found.
      */
     public function getSystemInstruction(): ?Message
     {
@@ -65,6 +89,11 @@ class History
         return $instruction;
     }
 
+    /**
+     * Append a new message to the history.
+     *
+     * @param Message|null $message The message to append. If null, nothing is added.
+     */
     public function append(?Message $message): void
     {
         if ($message !== null) {
@@ -72,6 +101,11 @@ class History
         }
     }
 
+    /**
+     * Merge another history into the current history.
+     *
+     * @param History $history The history to merge.
+     */
     public function merge(self $history): void
     {
         $this->messages = \array_merge($this->messages, $history->messages);

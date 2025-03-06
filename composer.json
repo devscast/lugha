@@ -39,8 +39,11 @@
         "rector/rector": "^1.2"
     },
     "scripts": {
-        "lint": "vendor/bin/ecs check --ansi",
-        "lint-fix": "vendor/bin/ecs check --fix --ansi",
-        "test": "vendor/bin/phpunit"
+        "app:cs": [
+            "vendor/bin/ecs check --ansi",
+            "vendor/bin/phpstan analyse --ansi",
+            "vendor/bin/rector --dry-run --ansi"
+        ],
+        "app:test": "vendor/bin/phpunit"
     }
 }

@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Model\Completion;
 
-use Devscast\Lugha\Exception\ServiceIntegrationException;
 use Devscast\Lugha\Model\Completion\Chat\History;
 use Devscast\Lugha\Model\Completion\Chat\Message;
 use Devscast\Lugha\Model\Completion\Chat\Role;
@@ -26,18 +25,17 @@ use Devscast\Lugha\Retrieval\VectorStore\VectorStoreInterface;
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final readonly class RetrievalAugmentedChat implements RetrievalAugmentedInterface
+final class RetrievalAugmentedChat implements RetrievalAugmentedInterface
 {
+    private array $context = [];
+
     public function __construct(
-        private HasCompletionSupport $client,
-        private CompletionConfig $config,
-        private VectorStoreInterface $vectorStore,
+        private readonly HasCompletionSupport $client,
+        private readonly CompletionConfig $config,
+        private readonly VectorStoreInterface $vectorStore,
     ) {
     }
 
-    /**
-     * @throws ServiceIntegrationException
-     */
     #[\Override]
     public function augmentedCompletion(string $query, PromptTemplate $prompt): string
     {
@@ -51,9 +49,6 @@ final readonly class RetrievalAugmentedChat implements RetrievalAugmentedInterfa
         return $this->client->completion($history, $this->config)->completion;
     }
 
-    /**
-     * @throws ServiceIntegrationException
-     */
     #[\Override]
     public function augmentedCompletionWithHistory(string $query, PromptTemplate $prompt, History $history): string
     {
@@ -67,16 +62,22 @@ final readonly class RetrievalAugmentedChat implements RetrievalAugmentedInterfa
         return $this->client->completion($history, $this->config)->completion;
     }
 
+    #[\Override]
+    public function getContext(): array
+    {
+        return $this->context;
+    }
+
     private function createContext(string $query): string
     {
-        $documents = $this->vectorStore->similaritySearch(
+        $this->context = $this->vectorStore->similaritySearch(
             query: $query,
             k: $this->config->similarityK,
             distance: $this->config->similarityDistance
         );
 
         $context = '';
-        foreach ($documents as $document) {
+        foreach ($this->context as $document) {
             $context .= $document->content . "\n";
         }
 

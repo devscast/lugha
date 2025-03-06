@@ -44,7 +44,7 @@ abstract readonly class ClientFactory
     private static function ensureApiKeyDefined(Provider $provider, ProviderConfig $config): void
     {
         if ($config->apiKey === null && $provider !== Provider::OLLAMA) {
-            $apiKey = getenv($provider->getEnvName());
+            $apiKey = \getenv($provider->getEnvName());
 
             if (! \is_string($apiKey)) {
                 throw new RuntimeException(

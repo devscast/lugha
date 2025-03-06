@@ -16,12 +16,20 @@ namespace Devscast\Lugha\Model\Completion\Chat;
 use Devscast\Lugha\Assert;
 
 /**
- * Class Message.
+ * This class represents a message in a conversation or interaction. The message contains content (text),
+ * a role (such as the sender or receiver of the message), and optional information related to tool calls.
  *
+ * @package YourNamespace
  * @author bernard-ng <bernard@devscast.tech>
  */
 final readonly class Message implements \Stringable
 {
+    /**
+     * @param string $content The content of the message.
+     * @param Role $role The role of the sender (e.g., user, assistant).
+     * @param string|null $toolCallId The ID of the tool call (optional).
+     * @param array|null $toolCalls The tool calls related to the message (optional).
+     */
     public function __construct(
         public string $content,
         public Role $role = Role::USER,
@@ -31,12 +39,24 @@ final readonly class Message implements \Stringable
         Assert::notEmpty($content);
     }
 
+    /**
+     * Convert the message content to a string.
+     *
+     * @return string The message content.
+     */
     #[\Override]
     public function __toString(): string
     {
         return $this->content;
     }
 
+    /**
+     * Create a Message instance from an array response.
+     *
+     * @param array $message The message data array.
+     *
+     * @return Message A new Message instance.
+     */
     public static function fromResponse(array $message): self
     {
         return new self(
@@ -47,6 +67,11 @@ final readonly class Message implements \Stringable
         );
     }
 
+    /**
+     * Convert the message to an associative array.
+     *
+     * @return array The message represented as an array.
+     */
     public function toArray(): array
     {
         return \array_filter([

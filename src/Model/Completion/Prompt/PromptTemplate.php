@@ -14,21 +14,38 @@ declare(strict_types=1);
 namespace Devscast\Lugha\Model\Completion\Prompt;
 
 use Devscast\Lugha\Assert;
+use Devscast\Lugha\Exception\InvalidArgumentException;
 use Devscast\Lugha\Exception\IOException;
 use Devscast\Lugha\Exception\UnformattedPromptTemplateException;
 
 /**
- * Class PromptTemplate.
- * Lets you create a prompt template that can be formatted with values.
+ * A class that allows the creation and management of prompt templates by replacing placeholders
+ * with actual values. The templates can be created from a string or a file, and individual or multiple
+ * parameters can be set to format the prompt.
+ *
+ * The class implements the \Stringable interface, meaning it can be converted into a string,
+ * which will return the formatted prompt.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
 final class PromptTemplate implements \Stringable
 {
+    /**
+     * @var string The template string used for creating the prompt.
+     */
     private readonly string $template;
 
+    /**
+     * @var string|null The formatted prompt after setting parameters.
+     */
     private ?string $prompt = null;
 
+    /**
+     * @param string $template The template string to be used for prompt creation.
+     * @param array $values An associative array of values to replace placeholders in the template.
+     *
+     * @throws InvalidArgumentException If the template is empty.
+     */
     public function __construct(string $template, array $values = [])
     {
         Assert::notEmpty($template, 'Template cannot be empty');
@@ -40,7 +57,14 @@ final class PromptTemplate implements \Stringable
     }
 
     /**
-     * @throws UnformattedPromptTemplateException If the prompt has not been formatted yet
+     * Converts the prompt template to a string.
+     *
+     * This method returns the formatted prompt string after replacing placeholders
+     * with actual values. It throws an exception if the prompt has not been formatted.
+     *
+     * @return string The formatted prompt.
+     *
+     * @throws UnformattedPromptTemplateException If the prompt has not been formatted yet.
      */
     #[\Override]
     public function __toString(): string
@@ -53,11 +77,11 @@ final class PromptTemplate implements \Stringable
     }
 
     /**
-     * Create a new prompt from the given template.
+     * Creates a new PromptTemplate instance from a raw template string.
      *
-     * <code>
-     *     $template = PromptTemplate::from("Hello {context}");
-     * </code>
+     * @param string $template The template string to initialize the prompt.
+     *
+     * @return self The newly created PromptTemplate instance.
      */
     public static function from(string $template): self
     {
@@ -65,13 +89,13 @@ final class PromptTemplate implements \Stringable
     }
 
     /**
-     * Create a new prompt from the given file.
+     * Creates a new PromptTemplate instance from a template file.
      *
-     * <code>
-     *     $template = PromptTemplate::fromFile("/path/to/file.txt");
-     * </code>
+     * @param string $path The path to the file containing the template.
      *
-     * @throws IOException If the file cannot be read
+     * @return self The newly created PromptTemplate instance.
+     *
+     * @throws IOException If the template file cannot be read.
      */
     public static function fromFile(string $path): self
     {
@@ -84,14 +108,13 @@ final class PromptTemplate implements \Stringable
     }
 
     /**
-     * Format the prompt with the given values.
-     * The values should be an associative array where the key is the placeholder
+     * Sets multiple parameters in the template by replacing placeholders with values.
      *
-     * <code>
-     *     $template->setParameters(["{context}" => "some context..."]);
-     * </code>
+     * @param array $values An associative array where keys are placeholder names and values are the replacements.
      *
-     * @param array<string, string> $values
+     * @return self The updated PromptTemplate instance with replaced values.
+     *
+     * @throws InvalidArgumentException If the values array is empty.
      */
     public function setParameters(array $values): self
     {
@@ -107,12 +130,12 @@ final class PromptTemplate implements \Stringable
     }
 
     /**
-     * Format the prompt with a single given value.
-     * Useful when programmatically building the prompt
+     * Sets a single parameter in the template by replacing a placeholder with a value.
      *
-     * <code>
-     *     $template->setParameter(':username', 'bernard-ng')
-     * </code>
+     * @param string $name The placeholder name to be replaced.
+     * @param string $value The value to replace the placeholder with.
+     *
+     * @return self The updated PromptTemplate instance with the replaced value.
      */
     public function setParameter(string $name, string $value): self
     {

@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Devscast\Lugha\Tests\Retrieval\Loader\Reader;
 
 use Devscast\Lugha\Exception\FileNotFoundException;
-use Devscast\Lugha\Exception\UnsupportedFileException;
 use Devscast\Lugha\Retrieval\Loader\Reader\FileReader;
 use PHPUnit\Framework\TestCase;
 
@@ -41,12 +40,6 @@ final class FileReaderTest extends TestCase
 
         $this->assertSame('hello world', $text);
         $this->assertSame('helloworld', $pdf);
-    }
-
-    public function testCannotReadUnsupportedFile(): void
-    {
-        $this->expectException(UnsupportedFileException::class);
-        $content = $this->reader->readContent(__DIR__ . '/../../../fixtures/document.docx');
     }
 
     public function testCannotReadNonExistingFile(): void

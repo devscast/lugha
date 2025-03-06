@@ -19,6 +19,12 @@ use Devscast\Lugha\Model\Embedding\Distance;
 /**
  * Class CompletionConfig.
  *
+ * Configuration class for completion settings, defining the parameters for text generation models.
+ * This class holds the configuration needed to control aspects like model choice, temperature,
+ * token limits, and penalties during the text generation process. It also supports retrieval-augmented generation
+ * (RAG) with configurable similarity thresholds and distance metrics.
+ *
+ * The class references various AI platforms and model providers for generating text, including:
  * @see https://platform.openai.com/docs/api-reference/chat/object
  * @see https://ai.google.dev/gemini-api/docs/text-generation?lang=rest#configure
  * @see https://docs.mistral.ai/api/#tag/chat

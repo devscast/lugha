@@ -13,8 +13,10 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Retrieval\VectorStore\Store;
 
+use Devscast\Lugha\Assert;
 use Devscast\Lugha\Model\Embedding\Distance;
 use Devscast\Lugha\Model\Embedding\EmbeddingInterface;
+use Devscast\Lugha\Model\Embedding\Vector;
 use Devscast\Lugha\Retrieval\Document;
 use Devscast\Lugha\Retrieval\VectorStore\VectorStoreInterface;
 
@@ -25,6 +27,9 @@ use Devscast\Lugha\Retrieval\VectorStore\VectorStoreInterface;
  */
 class MemoryVectorStore implements VectorStoreInterface
 {
+    /**
+     * @param Document[] $pool
+     */
     public function __construct(
         protected readonly EmbeddingInterface $embedding,
         protected array $pool = []
@@ -45,6 +50,8 @@ class MemoryVectorStore implements VectorStoreInterface
     public function addDocuments(iterable $documents): void
     {
         $documents = iterator_to_array($documents);
+
+        /** @var Document $document */
         foreach ($documents as $index => $document) {
             if ($document->hasEmbeddings() === false) {
                 $documents[$index] = $this->embedding->embedDocument($document);
@@ -63,24 +70,24 @@ class MemoryVectorStore implements VectorStoreInterface
     }
 
     #[\Override]
-    public function similaritySearchByVector(array $embeddings, int $k = 4, Distance $distance = Distance::COSINE): array
+    public function similaritySearchByVector(Vector $vector, int $k = 4, Distance $distance = Distance::COSINE): array
     {
-        return $this->search($embeddings, $k, $distance);
+        return $this->search($vector, $k, $distance);
     }
 
     /**
      * @return array<int, Document>
      */
-    private function search(array $a, int $k, Distance $distance): array
+    private function search(Vector $vector, int $k, Distance $distance): array
     {
         $distances = [];
 
-        /**
-         * @var Document $document
-         */
         foreach ($this->pool as $index => $document) {
-            $score = $distance->compute($a, $document->embeddings);
-            $distances[$index] = $score;
+            if ($document->hasEmbeddings()) {
+                Assert::notNull($document->embeddings);
+                $score = $distance->compute($vector, $document->embeddings);
+                $distances[$index] = $score;
+            }
         }
 
         asort($distances); // Sort by distance (ascending).

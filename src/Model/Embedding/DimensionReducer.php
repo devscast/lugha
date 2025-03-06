@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Devscast\Lugha\Model\Embedding;
 
 use Devscast\Lugha\Assert;
+use Devscast\Lugha\Exception\InvalidArgumentException;
 
 /**
  * Class DimensionReducer.
@@ -23,60 +24,47 @@ use Devscast\Lugha\Assert;
 final readonly class DimensionReducer
 {
     /**
-     * Reduce the dimensions of a vector.
+     * Reduce the dimensions of a vector while preserving its essential characteristics.
      *
-     * @param array<int, float>|array<array<int, float>> $vector The vector to reduce.
-     * @param int $dimensions The number of dimensions to reduce to.
+     * This method ensures that the vector is truncated to the desired number of dimensions
+     * while maintaining numerical stability through L2 normalization.
      *
-     * @return array The reduced vector.
+     * @param Vector $vector The input vector to be reduced.
+     * @param int $dimensions The target number of dimensions.
+     *
+     * @throws InvalidArgumentException If the dimensions parameter is not a positive integer.
+     * @throws InvalidArgumentException If the vector contains non-float values.
+     *
+     * @return Vector The reduced and normalized vector.
      */
-    public function reduce(array $vector, int $dimensions): array
+    public function reduce(Vector $vector, int $dimensions): Vector
     {
         Assert::positiveInteger($dimensions);
-
-        if ($this->isMultiDimensional($vector)) {
-            Assert::allIsArray($vector);
-            Assert::allCount($vector, \count($vector[0]));
-            if (\count($vector[0]) <= $dimensions) {
-                return $vector;
-            }
-
-            $vector = \array_map(fn (array $v): array => \array_slice($v, 0, $dimensions), $vector);
-        } else {
-            Assert::allFloat($vector);
-            if (\count($vector) <= $dimensions) {
-                return $vector;
-            }
-
-            $vector = \array_slice($vector, 0, $dimensions);
+        if ($vector->getDimension() <= $dimensions) {
+            return $vector;
         }
 
-        return $this->normalizeL2($vector);
+        $reducedValues = \array_slice($vector->values, 0, $dimensions);
+        return $this->normalizeL2(Vector::from($reducedValues));
     }
 
-    private function normalizeL2(array $vector): array
+    /**
+     * Apply L2 normalization to a vector.
+     *
+     * L2 normalization scales the vector so that its magnitude (Euclidean norm) becomes 1,
+     * unless the magnitude is zero, in which case the vector remains unchanged.
+     *
+     * @param Vector $vector The vector to normalize.
+     *
+     * @return Vector The L2-normalized vector.
+     */
+    private function normalizeL2(Vector $vector): Vector
     {
-        if ($this->isMultiDimensional($vector) === false) {
-            $norm = $this->magnitude($vector);
+        $norm = $vector->getMagnitude();
 
-            return match (true) {
-                $norm == 0 => $vector,
-                default => \array_map(fn (float $x): float => $x / $norm, $vector)
-            };
-        }
-        return \array_map(function (array $v): array {
-            $norm = $this->magnitude($v);
-            return $norm == 0 ? $v : \array_map(fn (float $x): float => $x / $norm, $v);
-        }, $vector);
-    }
-
-    private function isMultiDimensional(array $vector): bool
-    {
-        return \count($vector) !== \count($vector, COUNT_RECURSIVE);
-    }
-
-    private function magnitude(array $vector): float
-    {
-        return \sqrt(\array_sum(\array_map(fn (float $x): float => $x * $x, $vector)));
+        return match (true) {
+            $norm == 0 => $vector, // Avoid division by zero.
+            default => Vector::from(\array_map(fn (float $x): float => $x / $norm, $vector->values))
+        };
     }
 }

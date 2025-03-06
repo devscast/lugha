@@ -53,15 +53,18 @@ class FilesystemVectorStore extends MemoryVectorStore
             throw new IOException($this->path);
         }
 
-        /** @var array<array{content: string, embeddings: array, metadata: array}> $data */
-        $data = json_decode($content, true);
+        /** @var array $data */
+        $data = \json_decode($content, true);
         $this->pool = \array_map(fn (array $document) => Document::from($document), $data);
     }
 
+    /**
+     * @throws  IOException if the file cannot be written to
+     */
     private function write(): void
     {
-        $data = json_encode($this->pool, JSON_PRETTY_PRINT);
-        $written = file_put_contents($this->path, $data);
+        $data = \json_encode($this->pool, JSON_PRETTY_PRINT);
+        $written = \file_put_contents($this->path, $data);
 
         if ($written === false) {
             throw new IOException($this->path);

@@ -16,13 +16,13 @@ namespace Devscast\Lugha\Retrieval\Loader\Reader;
 use Devscast\Lugha\Exception\IOException;
 
 /**
- * Class TxtReader.
+ * Class RawReader.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final readonly class TxtReader extends AbstractReader
+final readonly class RawReader extends AbstractReader
 {
-    public const string SUPPORTED_EXTENSIONS_PATTERN = '/txt/';
+    public const string SUPPORTED_EXTENSIONS_PATTERN = '/.*/';
 
     #[\Override]
     public function readContent(string $path, bool $skipExtensionCheck = false): string

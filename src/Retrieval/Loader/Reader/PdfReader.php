@@ -31,6 +31,10 @@ final readonly class PdfReader extends AbstractReader
 
     public function __construct()
     {
+        if (class_exists(Parser::class) === false) {
+            throw new \RuntimeException('The "smalot/pdfparser" package is required to read PDF files.');
+        }
+
         $this->config = new Config();
 
         // It won't retain image content anymore, but will use less memory too.

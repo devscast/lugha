@@ -25,6 +25,7 @@ use League\CommonMark\MarkdownConverter;
  * Class MarkdownOutputParser.
  *
  * @see https://commonmark.thephpleague.com/
+ *
  * @author bernard-ng <bernard@devscast.tech>
  */
 final readonly class MarkdownOutputParser implements OutputParserInterface
@@ -33,6 +34,10 @@ final readonly class MarkdownOutputParser implements OutputParserInterface
 
     public function __construct(array $config = [])
     {
+        if (class_exists(Environment::class) === false) {
+            throw new \RuntimeException('The "league/commonmark" package is required to parse markdown output.');
+        }
+
         $environment = new Environment([
             'html_input' => 'strip',
             'allow_unsafe_links' => false,
@@ -60,7 +65,7 @@ final readonly class MarkdownOutputParser implements OutputParserInterface
     }
 
     /**
-     * @throws CommonMarkException
+     * @throws CommonMarkException If the markdown output cannot be parsed.
      */
     #[\Override]
     public function __invoke(string $output): string

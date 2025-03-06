@@ -15,23 +15,22 @@ namespace Devscast\Lugha\Tests\Retrieval\Loader\Reader;
 
 use Devscast\Lugha\Exception\FileNotFoundException;
 use Devscast\Lugha\Exception\IOException;
-use Devscast\Lugha\Exception\UnsupportedFileException;
-use Devscast\Lugha\Retrieval\Loader\Reader\TxtReader;
+use Devscast\Lugha\Retrieval\Loader\Reader\RawReader;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class TxtReaderTest.
+ * Class RawReaderTest.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final class TxtReaderTest extends TestCase
+final class RawReaderTest extends TestCase
 {
-    private TxtReader $reader;
+    private RawReader $reader;
 
     #[\Override]
     protected function setUp(): void
     {
-        $this->reader = new TxtReader();
+        $this->reader = new RawReader();
         parent::setUp();
     }
 
@@ -54,11 +53,5 @@ final class TxtReaderTest extends TestCase
 
         $this->expectException(IOException::class);
         $content = $this->reader->readContent('/tmp/test.txt');
-    }
-
-    public function testReadContentOnUnsupportedFile(): void
-    {
-        $this->expectException(UnsupportedFileException::class);
-        $content = $this->reader->readContent(__DIR__ . '/../../../fixtures/document.pdf');
     }
 }

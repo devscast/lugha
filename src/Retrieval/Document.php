@@ -13,9 +13,11 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Retrieval;
 
+use Devscast\Lugha\Model\Embedding\Vector;
+
 /**
  * Class Document.
- * Represents a document that can be indexed and searched.
+ * Represents a document that can be embedded, indexed and searched.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
@@ -23,7 +25,7 @@ class Document implements \Stringable, \JsonSerializable
 {
     public function __construct(
         public string $content,
-        public array $embeddings = [],
+        public ?Vector $embeddings = null,
         public ?Metadata $metadata = null,
     ) {
     }
@@ -45,7 +47,7 @@ class Document implements \Stringable, \JsonSerializable
 
     public function hasEmbeddings(): bool
     {
-        return \count($this->embeddings) !== 0;
+        return $this->embeddings !== null;
     }
 
     #[\Override]

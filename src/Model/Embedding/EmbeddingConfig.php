@@ -14,9 +14,14 @@ declare(strict_types=1);
 namespace Devscast\Lugha\Model\Embedding;
 
 use Devscast\Lugha\Assert;
+use Devscast\Lugha\Exception\InvalidArgumentException;
 
 /**
  * Class EmbeddingConfig.
+ * Configuration class for embedding generation.
+ *
+ * This class defines the parameters required to generate vector embeddings,
+ * including the model selection, dimensionality, encoding format, and additional settings.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
@@ -27,6 +32,10 @@ final readonly class EmbeddingConfig
      * @param int|null $dimensions The dimensionality of the embeddings to generate.
      * @param string $encodingFormat The encoding format to use for the embeddings.
      * @param array $additionalParameters Additional parameters to pass to the model.
+     *
+     * @throws InvalidArgumentException If the model name is empty.
+     * @throws InvalidArgumentException If the dimensions value is not a positive integer or null.
+     * @throws InvalidArgumentException If the encoding format is not 'float' or 'base64'.
      */
     public function __construct(
         public string $model,

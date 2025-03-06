@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Model\Embedding;
 
-use Devscast\Lugha\Exception\ServiceIntegrationException;
 use Devscast\Lugha\Provider\Service\HasEmbeddingSupport;
 use Devscast\Lugha\Retrieval\Document;
 
@@ -30,9 +29,6 @@ final readonly class Embedder implements EmbeddingInterface
     ) {
     }
 
-    /**
-     * @throws ServiceIntegrationException
-     */
     #[\Override]
     public function embedDocuments(iterable $documents): iterable
     {
@@ -41,26 +37,20 @@ final readonly class Embedder implements EmbeddingInterface
         }
     }
 
-    /**
-     * @throws ServiceIntegrationException
-     */
     #[\Override]
     public function embedDocument(Document $document): Document
     {
-        $document->embeddings = $this->client->embeddings(
-            prompt: $document->content,
-            config: $this->config
-        )->embedding;
+        $values = $this->client->embeddings($document->content, $this->config)->embedding;
+        $document->embeddings = Vector::from($values);
 
         return $document;
     }
 
-    /**
-     * @throws ServiceIntegrationException
-     */
     #[\Override]
-    public function embedQuery(string $query): array
+    public function embedQuery(string $query): Vector
     {
-        return $this->client->embeddings($query, $this->config)->embedding;
+        $values = $this->client->embeddings($query, $this->config)->embedding;
+
+        return Vector::from($values);
     }
 }

@@ -15,6 +15,7 @@ namespace Devscast\Lugha\Tests\Model\Embedding;
 
 use Devscast\Lugha\Exception\InvalidArgumentException;
 use Devscast\Lugha\Model\Embedding\Distance;
+use Devscast\Lugha\Model\Embedding\Vector;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -30,16 +31,16 @@ final class DistanceTest extends TestCase
         $this->expectExceptionMessage('Vectors must have the same dimension.');
 
         $distance = Distance::COSINE;
-        $a = [2, 4, 1, 3];
-        $b = [3, 5, 2];
+        $a = Vector::from([2.0, 4.0, 1.0, 3.0]);
+        $b = Vector::from([3.0, 5.0, 2.0]);
 
         $distance->compute($a, $b);
     }
 
     public function testDifferentVectorDistances(): void
     {
-        $a = [2, 4, 1, 3];
-        $b = [3, 5, 2, 1];
+        $a = Vector::from([2.0, 4.0, 1.0, 3.0]);
+        $b = Vector::from([3.0, 5.0, 2.0, 1.0]);
 
         $this->assertEquals(0.0937, \round(Distance::COSINE->compute($a, $b), 4));
         $this->assertEquals(2.6458, \round(Distance::L2->compute($a, $b), 4));
@@ -49,8 +50,8 @@ final class DistanceTest extends TestCase
 
     public function testSimilarVectorDistances(): void
     {
-        $a = [2, 4, 1, 3];
-        $b = [2, 4, 1, 2];
+        $a = Vector::from([2.0, 4.0, 1.0, 3.0]);
+        $b = Vector::from([2.0, 4.0, 1.0, 2.0]);
 
         $this->assertEquals(0.0141, \round(Distance::COSINE->compute($a, $b), 4));
         $this->assertEquals(1.0, \round(Distance::L2->compute($a, $b), 4));
@@ -60,8 +61,8 @@ final class DistanceTest extends TestCase
 
     public function testSameVectorDistances(): void
     {
-        $a = [2, 4, 1, 3];
-        $b = [2, 4, 1, 3];
+        $a = Vector::from([2.0, 4.0, 1.0, 3.0]);
+        $b = Vector::from([2.0, 4.0, 1.0, 3.0]);
 
         $this->assertEquals(0.0, \round(Distance::COSINE->compute($a, $b), 4));
         $this->assertEquals(0.0, \round(Distance::L2->compute($a, $b), 4));

@@ -40,13 +40,13 @@ final readonly class FileReader extends AbstractReader
     }
 
     /**
-     * @return array<int, AbstractReader>
+     * @return AbstractReader[]
      */
     private function getSupportedReaders(): array
     {
         return [
-            new TxtReader(),
             new PdfReader(),
+            new RawReader(),
         ];
     }
 }
