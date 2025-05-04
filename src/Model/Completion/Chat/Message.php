@@ -19,7 +19,6 @@ use Devscast\Lugha\Assert;
  * This class represents a message in a conversation or interaction. The message contains content (text),
  * a role (such as the sender or receiver of the message), and optional information related to tool calls.
  *
- * @package YourNamespace
  * @author bernard-ng <bernard@devscast.tech>
  */
 final readonly class Message implements \Stringable

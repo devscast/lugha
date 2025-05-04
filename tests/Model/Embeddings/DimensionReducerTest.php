@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Tests\Model\Embedding;
+namespace Devscast\Lugha\Tests\Model\Embeddings;
 
-use Devscast\Lugha\Model\Embedding\DimensionReducer;
-use Devscast\Lugha\Model\Embedding\Vector;
+use Devscast\Lugha\Model\Embeddings\DimensionReducer;
+use Devscast\Lugha\Model\Embeddings\Vector;
 use PHPUnit\Framework\TestCase;
 
 /**

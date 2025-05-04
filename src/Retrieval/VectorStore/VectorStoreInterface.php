@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Retrieval\VectorStore;
 
-use Devscast\Lugha\Model\Embedding\Distance;
-use Devscast\Lugha\Model\Embedding\Vector;
+use Devscast\Lugha\Model\Embeddings\Distance;
+use Devscast\Lugha\Model\Embeddings\Vector;
 use Devscast\Lugha\Retrieval\Document;
 
 /**
@@ -25,7 +25,6 @@ use Devscast\Lugha\Retrieval\Document;
  * and searching using vectors. The `similaritySearch` and `similaritySearchByVector` methods
  * allow you to search for documents based on similarity, using either a text query or a vector representation.
  *
- * @package YourNamespace
  * @author bernard-ng <bernard@devscast.tech>
  */
 interface VectorStoreInterface

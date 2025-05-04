@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Tests\Model\Embedding;
+namespace Devscast\Lugha\Tests\Model\Embeddings;
 
 use Devscast\Lugha\Exception\InvalidArgumentException;
-use Devscast\Lugha\Model\Embedding\Distance;
-use Devscast\Lugha\Model\Embedding\Vector;
+use Devscast\Lugha\Model\Embeddings\Distance;
+use Devscast\Lugha\Model\Embeddings\Vector;
 use PHPUnit\Framework\TestCase;
 
 /**

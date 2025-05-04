@@ -11,14 +11,14 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Retrieval\VectorStore\Store;
+namespace Devscast\Lugha\Retrieval\VectorStore;
 
 use Devscast\Lugha\Assert;
-use Devscast\Lugha\Model\Embedding\Distance;
-use Devscast\Lugha\Model\Embedding\EmbeddingInterface;
-use Devscast\Lugha\Model\Embedding\Vector;
+use Devscast\Lugha\Exception\ServiceIntegrationException;
+use Devscast\Lugha\Model\Embeddings\Distance;
+use Devscast\Lugha\Model\Embeddings\EmbeddingsGeneratorInterface;
+use Devscast\Lugha\Model\Embeddings\Vector;
 use Devscast\Lugha\Retrieval\Document;
-use Devscast\Lugha\Retrieval\VectorStore\VectorStoreInterface;
 
 /**
  * Class MemoryVectorStore.
@@ -31,21 +31,27 @@ class MemoryVectorStore implements VectorStoreInterface
      * @param Document[] $pool
      */
     public function __construct(
-        protected readonly EmbeddingInterface $embedding,
+        protected readonly EmbeddingsGeneratorInterface $embeddingsGenerator,
         protected array $pool = []
     ) {
     }
 
+    /**
+     * @throws ServiceIntegrationException
+     */
     #[\Override]
     public function addDocument(Document $document): void
     {
         if ($document->hasEmbeddings() === false) {
-            $document = $this->embedding->embedDocument($document);
+            $document = $this->embeddingsGenerator->embedDocument($document);
         }
 
         $this->pool[] = $document;
     }
 
+    /**
+     * @throws ServiceIntegrationException
+     */
     #[\Override]
     public function addDocuments(iterable $documents): void
     {
@@ -54,17 +60,20 @@ class MemoryVectorStore implements VectorStoreInterface
         /** @var Document $document */
         foreach ($documents as $index => $document) {
             if ($document->hasEmbeddings() === false) {
-                $documents[$index] = $this->embedding->embedDocument($document);
+                $documents[$index] = $this->embeddingsGenerator->embedDocument($document);
             }
         }
 
         $this->pool = array_merge($this->pool, $documents);
     }
 
+    /**
+     * @throws ServiceIntegrationException
+     */
     #[\Override]
     public function similaritySearch(string $query, int $k = 4, Distance $distance = Distance::COSINE): array
     {
-        $queryEmbeddings = $this->embedding->embedQuery($query);
+        $queryEmbeddings = $this->embeddingsGenerator->embedQuery($query);
 
         return $this->search($queryEmbeddings, $k, $distance);
     }

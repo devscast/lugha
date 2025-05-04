@@ -15,7 +15,7 @@ namespace Devscast\Lugha\Provider\Service\Client;
 
 use Devscast\Lugha\Assert;
 use Devscast\Lugha\Exception\ServiceIntegrationException;
-use Devscast\Lugha\Model\Embedding\EmbeddingConfig;
+use Devscast\Lugha\Model\Embeddings\EmbeddingsConfig;
 use Devscast\Lugha\Model\Reranking\RankedDocument;
 use Devscast\Lugha\Model\Reranking\RerankingConfig;
 use Devscast\Lugha\Provider\Provider;
@@ -78,7 +78,7 @@ final class VoyagerClient extends Client implements HasRerankingSupport, HasEmbe
     }
 
     #[\Override]
-    public function embeddings(string $prompt, EmbeddingConfig $config): EmbeddingResponse
+    public function embeddings(string $prompt, EmbeddingsConfig $config): EmbeddingResponse
     {
         Assert::notEmpty($prompt);
 

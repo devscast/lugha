@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="https://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <embeddable name="Devscast\Lugha\Retrieval\Metadata">
+        <field name="hash" type="string" column="hash" length="255" nullable="true"/>
+        <field name="sourceType" type="string" column="source_type" length="255" nullable="true"/>
+        <field name="sourceName" type="string" column="source_name" length="255" nullable="true"/>
+        <field name="chunkNumber" type="integer" column="chunk_number" nullable="true"/>
+    </embeddable>
+</doctrine-mapping>

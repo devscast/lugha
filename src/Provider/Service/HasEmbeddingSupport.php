@@ -15,7 +15,7 @@ namespace Devscast\Lugha\Provider\Service;
 
 use Devscast\Lugha\Exception\InvalidArgumentException;
 use Devscast\Lugha\Exception\ServiceIntegrationException;
-use Devscast\Lugha\Model\Embedding\EmbeddingConfig;
+use Devscast\Lugha\Model\Embeddings\EmbeddingsConfig;
 use Devscast\Lugha\Provider\Response\EmbeddingResponse;
 
 /**
@@ -27,10 +27,10 @@ interface HasEmbeddingSupport
 {
     /**
      * @param string $prompt The prompt to use for relevance scoring.
-     * @param EmbeddingConfig $config The configuration to use for embeddings.
+     * @param EmbeddingsConfig $config The configuration to use for embeddings.
      *
      * @throws ServiceIntegrationException when any error occurs during the request.
      * @throws InvalidArgumentException when the prompt is empty.
      */
-    public function embeddings(string $prompt, EmbeddingConfig $config): EmbeddingResponse;
+    public function embeddings(string $prompt, EmbeddingsConfig $config): EmbeddingResponse;
 }

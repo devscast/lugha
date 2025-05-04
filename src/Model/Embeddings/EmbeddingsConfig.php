@@ -11,13 +11,13 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Model\Embedding;
+namespace Devscast\Lugha\Model\Embeddings;
 
 use Devscast\Lugha\Assert;
 use Devscast\Lugha\Exception\InvalidArgumentException;
 
 /**
- * Class EmbeddingConfig.
+ * Class EmbeddingsConfig.
  * Configuration class for embedding generation.
  *
  * This class defines the parameters required to generate vector embeddings,
@@ -25,7 +25,7 @@ use Devscast\Lugha\Exception\InvalidArgumentException;
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final readonly class EmbeddingConfig
+final readonly class EmbeddingsConfig
 {
     /**
      * @param string $model The model to use for generating the embeddings.

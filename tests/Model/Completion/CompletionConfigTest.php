@@ -6,7 +6,7 @@ namespace Devscast\Lugha\Tests\Model\Completion;
 
 use Devscast\Lugha\Exception\InvalidArgumentException;
 use Devscast\Lugha\Model\Completion\CompletionConfig;
-use Devscast\Lugha\Model\Embedding\Distance;
+use Devscast\Lugha\Model\Embeddings\Distance;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Retrieval;
 
-use Devscast\Lugha\Model\Embedding\Vector;
+use Devscast\Lugha\Model\Embeddings\Vector;
 
 /**
  * Class Document.
@@ -26,7 +26,7 @@ class Document implements \Stringable, \JsonSerializable
     public function __construct(
         public string $content,
         public ?Vector $embeddings = null,
-        public ?Metadata $metadata = null,
+        public Metadata $metadata = new Metadata(),
     ) {
     }
 
@@ -40,7 +40,7 @@ class Document implements \Stringable, \JsonSerializable
     {
         return new self(
             $document['content'],
-            Vector::from($document['embeddings']['values']),
+            Vector::from($document['embeddings']),
             Metadata::from($document['metadata']),
         );
     }

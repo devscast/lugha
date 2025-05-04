@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Retrieval\VectorStore\Store;
+namespace Devscast\Lugha\Retrieval\VectorStore;
 
 use Devscast\Lugha\Exception\IOException;
-use Devscast\Lugha\Model\Embedding\EmbeddingInterface;
+use Devscast\Lugha\Model\Embeddings\EmbeddingsGeneratorInterface;
 use Devscast\Lugha\Retrieval\Document;
 
 /**
@@ -26,7 +26,7 @@ class FilesystemVectorStore extends MemoryVectorStore
 {
     public function __construct(
         private readonly string $path,
-        EmbeddingInterface $embedding,
+        EmbeddingsGeneratorInterface $embedding,
     ) {
         parent::__construct($embedding);
         $this->read();

@@ -11,9 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Model\Embedding;
+namespace Devscast\Lugha\Model\Embeddings;
 
 use Devscast\Lugha\Assert;
+use Devscast\Lugha\Exception\InvalidArgumentException;
 
 /**
  * Class Vector.
@@ -37,7 +38,12 @@ final readonly class Vector implements \Stringable, \JsonSerializable
     #[\Override]
     public function __toString(): string
     {
-        return \implode(',', $this->values);
+        return \sprintf('[%s]', \implode(',', $this->values));
+    }
+
+    public function toString(): string
+    {
+        return (string) $this;
     }
 
     /**
@@ -45,6 +51,31 @@ final readonly class Vector implements \Stringable, \JsonSerializable
      */
     public static function from(array $values): self
     {
+        return new self($values);
+    }
+
+    /**
+     * Create a Vector instance from a string representation.
+     *
+     * The string should be in the format "[x1,x2,x3,...,xn]",
+     * where x1, x2, ..., xn are float values.
+     *
+     * @throws InvalidArgumentException if the string is empty or not in the correct format.
+     *
+     * @return self A new Vector instance.
+     */
+    public static function fromString(string $value): self
+    {
+        Assert::notEmpty($value, 'Value cannot be empty');
+        Assert::regex($value, '/^\[(\d+(\.\d+)?(,\s*\d+(\.\d+)?)*)?\]$/', 'Invalid vector string format');
+
+        $values = \array_map(
+            callback: \floatval(...),
+            array: \explode(
+                separator: ',',
+                string: \str_replace(['[', ']'], '', $value))
+        );
+
         return new self($values);
     }
 
@@ -68,8 +99,6 @@ final readonly class Vector implements \Stringable, \JsonSerializable
     #[\Override]
     public function jsonSerialize(): array
     {
-        return [
-            'values' => $this->values,
-        ];
+        return $this->values;
     }
 }

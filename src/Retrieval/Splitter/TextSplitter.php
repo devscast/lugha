@@ -80,8 +80,8 @@ final readonly class TextSplitter implements SplitterInterface
         foreach ($this->splitText($document->content) as $index => $split) {
             yield new Document($split, metadata: new Metadata(
                 hash: \md5($split),
-                sourceType: $document->metadata?->sourceType,
-                sourceName: $document->metadata?->sourceName,
+                sourceType: $document->metadata->sourceType,
+                sourceName: $document->metadata->sourceName,
                 chunkNumber: $index,
             ));
         }

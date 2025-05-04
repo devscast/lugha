@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Model\Embedding;
+namespace Devscast\Lugha\Model\Embeddings;
 
 use Devscast\Lugha\Assert;
 use Devscast\Lugha\Exception\InvalidArgumentException;

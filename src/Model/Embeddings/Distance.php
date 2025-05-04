@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Model\Embedding;
+namespace Devscast\Lugha\Model\Embeddings;
 
 use Devscast\Lugha\Exception\InvalidArgumentException;
 
@@ -21,31 +21,31 @@ use Devscast\Lugha\Exception\InvalidArgumentException;
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-enum Distance
+enum Distance: string
 {
     /**
      * L1 distance.
      * @see https://en.wikipedia.org/wiki/Taxicab_geometry
      */
-    case L1;
+    case L1 = 'L1_DISTANCE';
 
     /**
      * L2 distance.
      * @see https://en.wikipedia.org/wiki/Euclidean_distance
      */
-    case L2;
+    case L2 = 'L2_DISTANCE';
 
     /**
      * Cosine similarity.
      * @see https://en.wikipedia.org/wiki/Cosine_similarity
      */
-    case COSINE;
+    case COSINE = 'COSINE_SIMILARITY';
 
     /**
      * Inner product.
      * @see https://en.wikipedia.org/wiki/Dot_product
      */
-    case INNER_PRODUCT;
+    case INNER_PRODUCT = 'INNER_PRODUCT';
 
     /**
      * Compute the distance or similarity between two vectors.

@@ -24,7 +24,6 @@ use Devscast\Lugha\Assert;
  *
  * The class allows for extending the message history by appending new messages or merging two histories.
  *
- * @package YourNamespace
  * @author bernard-ng <bernard@devscast.tech>
  */
 class History

@@ -17,7 +17,7 @@ use Devscast\Lugha\Assert;
 use Devscast\Lugha\Exception\ServiceIntegrationException;
 use Devscast\Lugha\Model\Completion\Chat\History;
 use Devscast\Lugha\Model\Completion\CompletionConfig;
-use Devscast\Lugha\Model\Embedding\EmbeddingConfig;
+use Devscast\Lugha\Model\Embeddings\EmbeddingsConfig;
 use Devscast\Lugha\Provider\Provider;
 use Devscast\Lugha\Provider\Response\CompletionResponse;
 use Devscast\Lugha\Provider\Response\EmbeddingResponse;
@@ -44,7 +44,7 @@ final class OllamaClient extends Client implements HasEmbeddingSupport, HasCompl
     protected Provider $provider = Provider::OLLAMA;
 
     #[\Override]
-    public function embeddings(string $prompt, EmbeddingConfig $config): EmbeddingResponse
+    public function embeddings(string $prompt, EmbeddingsConfig $config): EmbeddingResponse
     {
         Assert::notEmpty($prompt);
 

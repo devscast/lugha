@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Devscast\Lugha\Model\Completion;
 
 use Devscast\Lugha\Assert;
-use Devscast\Lugha\Model\Embedding\Distance;
+use Devscast\Lugha\Model\Embeddings\Distance;
 
 /**
  * Class CompletionConfig.

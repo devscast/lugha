@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Tests\Model\Embedding;
+namespace Devscast\Lugha\Tests\Model\Embeddings;
 
-use Devscast\Lugha\Model\Embedding\Vector;
+use Devscast\Lugha\Model\Embeddings\Vector;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -36,7 +36,7 @@ final class VectorTest extends TestCase
         $values = [1.01, 2.4, 3.01];
         $vector = new Vector($values);
 
-        $this->assertSame('1.01,2.4,3.01', (string) $vector);
+        $this->assertSame('[1.01,2.4,3.01]', (string) $vector);
     }
 
     public function testFrom(): void
@@ -69,8 +69,6 @@ final class VectorTest extends TestCase
         $values = [1.0, 2.0, 3.0];
         $vector = new Vector($values);
 
-        $this->assertSame([
-            'values' => $values,
-        ], $vector->jsonSerialize());
+        $this->assertSame($values, $vector->jsonSerialize());
     }
 }

@@ -11,16 +11,16 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Model\Embedding;
+namespace Devscast\Lugha\Model\Embeddings;
 
 use Devscast\Lugha\Exception\ServiceIntegrationException;
 use Devscast\Lugha\Retrieval\Document;
 
 /**
- * Interface EmbeddingInterface.
+ * Interface EmbeddingsGeneratorInterface.
  * Handles the embedding of documents and queries using an embedding client.
  *
- * The `Embedder` class interacts with a client that supports embeddings to transform textual
+ * The `EmbeddingsGenerator` class interacts with a client that supports embeddings to transform textual
  * content into vector representations. These embeddings are useful for **machine learning,
  * natural language processing (NLP), and similarity searches**.
  *
@@ -30,7 +30,7 @@ use Devscast\Lugha\Retrieval\Document;
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-interface EmbeddingInterface
+interface EmbeddingsGeneratorInterface
 {
     /**
      * Embed multiple documents and return them as an iterable of embedded documents.

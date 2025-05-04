@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Model\Embedding;
+namespace Devscast\Lugha\Model\Embeddings;
 
 use Devscast\Lugha\Provider\Service\HasEmbeddingSupport;
 use Devscast\Lugha\Retrieval\Document;
@@ -21,11 +21,11 @@ use Devscast\Lugha\Retrieval\Document;
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final readonly class Embedder implements EmbeddingInterface
+final readonly class EmbeddingsGenerator implements EmbeddingsGeneratorInterface
 {
     public function __construct(
         private HasEmbeddingSupport $client,
-        private EmbeddingConfig $config
+        private EmbeddingsConfig $config
     ) {
     }
 
