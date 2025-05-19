@@ -28,7 +28,7 @@ final class InnerProduct extends DistanceFunctionNode
     #[\Override]
     public function getSql(SqlWalker $sqlWalker): string
     {
-        return sprintf(
+        return \sprintf(
             '(%s <#> %s) * -1',
             $this->firstArgument->dispatch($sqlWalker),
             $this->secondArgument->dispatch($sqlWalker)

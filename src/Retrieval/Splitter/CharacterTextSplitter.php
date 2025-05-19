@@ -17,12 +17,11 @@ use Devscast\Lugha\Retrieval\Document;
 use Devscast\Lugha\Retrieval\Metadata;
 
 /**
- * Class TextSplitter.
- * Represents a text splitter that can be used to split text into chunks.
+ * Class CharacterTextSplitter.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final readonly class TextSplitter implements SplitterInterface
+final readonly class CharacterTextSplitter implements SplitterInterface
 {
     public function __construct(
         public int $chunkSize = 200,

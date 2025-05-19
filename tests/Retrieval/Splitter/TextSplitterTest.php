@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Tests\Retrieval\Splitter;
 
-use Devscast\Lugha\Retrieval\Splitter\TextSplitter;
+use Devscast\Lugha\Retrieval\Splitter\CharacterTextSplitter;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -25,7 +25,7 @@ class TextSplitterTest extends TestCase
 {
     public function testSingleChunkNoSeparator(): void
     {
-        $splitter = new TextSplitter(200);
+        $splitter = new CharacterTextSplitter(200);
         $text = 'This is a short text that does not exceed the chunk size.';
         $chunks = iterator_to_array($splitter->splitText($text));
 
@@ -35,7 +35,7 @@ class TextSplitterTest extends TestCase
 
     public function testChunksWithOverlap(): void
     {
-        $splitter = new TextSplitter(10, 5);
+        $splitter = new CharacterTextSplitter(10, 5);
         $text = 'abcdefghijklmnopqrstuvwxyz';
         $expectedChunks = [
             'abcdefghij',
@@ -52,7 +52,7 @@ class TextSplitterTest extends TestCase
 
     public function testEmptyText(): void
     {
-        $splitter = new TextSplitter(200);
+        $splitter = new CharacterTextSplitter(200);
         $text = '';
         $chunks = iterator_to_array($splitter->splitText($text));
 
@@ -61,7 +61,7 @@ class TextSplitterTest extends TestCase
 
     public function testVerySmallChunkSize(): void
     {
-        $splitter = new TextSplitter(5);
+        $splitter = new CharacterTextSplitter(5);
         $text = 'This is a test.';
         $expectedChunks = [
             'This ',

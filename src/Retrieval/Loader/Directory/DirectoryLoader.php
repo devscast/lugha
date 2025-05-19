@@ -18,8 +18,8 @@ use Devscast\Lugha\Retrieval\Loader\LoaderInterface;
 use Devscast\Lugha\Retrieval\Loader\Reader\AbstractReader;
 use Devscast\Lugha\Retrieval\Loader\Reader\FileReader;
 use Devscast\Lugha\Retrieval\Metadata;
+use Devscast\Lugha\Retrieval\Splitter\CharacterTextSplitter;
 use Devscast\Lugha\Retrieval\Splitter\SplitterInterface;
-use Devscast\Lugha\Retrieval\Splitter\TextSplitter;
 
 /**
  * Class DirectoryLoader.
@@ -63,7 +63,7 @@ readonly class DirectoryLoader implements LoaderInterface
      */
     #[\Override]
     public function loadAndSplit(
-        SplitterInterface $splitter = new TextSplitter(),
+        SplitterInterface $splitter = new CharacterTextSplitter(),
         AbstractReader $reader = new FileReader()
     ): iterable {
         foreach ($this->load($reader) as $document) {

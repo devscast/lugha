@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Devscast\Lugha\Model\Embeddings;
 
-use Devscast\Lugha\Provider\Service\HasEmbeddingSupport;
+use Devscast\Lugha\Provider\Service\HasEmbeddingsSupport;
 use Devscast\Lugha\Retrieval\Document;
 
 /**
@@ -24,33 +24,41 @@ use Devscast\Lugha\Retrieval\Document;
 final readonly class EmbeddingsGenerator implements EmbeddingsGeneratorInterface
 {
     public function __construct(
-        private HasEmbeddingSupport $client,
-        private EmbeddingsConfig $config
+        private HasEmbeddingsSupport $client,
+        private EmbeddingsConfig $config,
+        private DimensionReducer $dimensionReducer = new DimensionReducer()
     ) {
     }
 
     #[\Override]
-    public function embedDocuments(iterable $documents): iterable
+    public function embedDocuments(iterable $documents, ?int $dimensions = null): iterable
     {
         foreach ($documents as $document) {
-            yield $this->embedDocument($document);
+            yield $this->embedDocument($document, $dimensions);
         }
     }
 
     #[\Override]
-    public function embedDocument(Document $document): Document
+    public function embedDocument(Document $document, ?int $dimensions = null): Document
     {
-        $values = $this->client->embeddings($document->content, $this->config)->embedding;
-        $document->embeddings = Vector::from($values);
+        $values = $this->client->embeddings($document->content, $this->config)->embeddings;
+        $vector = Vector::from($values);
+
+        $document->embeddings = $dimensions !== null
+            ? $this->dimensionReducer->reduce($vector, $dimensions)
+            : $vector;
 
         return $document;
     }
 
     #[\Override]
-    public function embedQuery(string $query): Vector
+    public function embedQuery(string $query, ?int $dimensions = null): Vector
     {
-        $values = $this->client->embeddings($query, $this->config)->embedding;
+        $values = $this->client->embeddings($query, $this->config)->embeddings;
+        $vector = Vector::from($values);
 
-        return Vector::from($values);
+        return $dimensions !== null
+            ? $this->dimensionReducer->reduce($vector, $dimensions)
+            : $vector;
     }
 }

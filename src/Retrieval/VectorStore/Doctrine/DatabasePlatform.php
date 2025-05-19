@@ -16,8 +16,8 @@ namespace Devscast\Lugha\Retrieval\VectorStore\Doctrine;
 use Devscast\Lugha\Model\Embeddings\Distance;
 use Devscast\Lugha\Retrieval\VectorStore\Doctrine\Query\MariaDB;
 use Devscast\Lugha\Retrieval\VectorStore\Doctrine\Query\PostgresSQL;
-use Doctrine\DBAL\Platforms\MariaDBPlatform;
-use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
+use Doctrine\DBAL\Platforms\MariaDb1010Platform;
+use Doctrine\DBAL\Platforms\PostgreSQL120Platform;
 
 /**
  * Class DatabasePlatform.
@@ -26,8 +26,8 @@ use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
  */
 enum DatabasePlatform: string
 {
-    case MariaDB = MariaDBPlatform::class;
-    case PostgresSQL = PostgreSQLPlatform::class;
+    case MariaDB = MariaDb1010Platform::class;
+    case PostgresSQL = PostgreSQL120Platform::class;
 
     public function distanceFunctions(): array
     {

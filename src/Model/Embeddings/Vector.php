@@ -46,6 +46,22 @@ final readonly class Vector implements \Stringable, \JsonSerializable
         return (string) $this;
     }
 
+    public function to32Bit(): string
+    {
+        $binary = '';
+        foreach ($this->values as $float) {
+            $binary .= pack('f', $float); // 'f' = 32-bit float
+        }
+
+        /** @var array $unpacked */
+        $unpacked = unpack('H*', $binary);
+
+        /** @var string $hex */
+        $hex = $unpacked[1];
+
+        return sprintf('%s', $hex);
+    }
+
     /**
      * @param float[] $values
      */

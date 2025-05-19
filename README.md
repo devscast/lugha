@@ -50,7 +50,7 @@ $embeddings = $client->embeddings(
         model: 'text-embedding-004',
         dimensions: 512
     )
-)->embedding;
+)->embeddings;
 ```
 
 ### Completion

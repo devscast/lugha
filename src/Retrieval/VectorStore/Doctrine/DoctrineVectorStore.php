@@ -19,21 +19,22 @@ use Devscast\Lugha\Model\Embeddings\Distance;
 use Devscast\Lugha\Model\Embeddings\EmbeddingsGeneratorInterface;
 use Devscast\Lugha\Model\Embeddings\Vector;
 use Devscast\Lugha\Retrieval\Document;
+use Devscast\Lugha\Retrieval\VectorStore\Doctrine\Entity\Embeddings;
 use Devscast\Lugha\Retrieval\VectorStore\VectorStoreInterface;
 use Doctrine\DBAL\Exception;
-use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Class DoctrineVectorStore.
+ *
+ * @template T of Embeddings
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
 readonly class DoctrineVectorStore implements VectorStoreInterface
 {
     /**
-     * @template T of DocumentEntity
-     *
      * @param class-string<T> $entityClassName
      *
      ** @throws Exception if the platform is not supported
@@ -44,17 +45,11 @@ readonly class DoctrineVectorStore implements VectorStoreInterface
         private string $entityClassName,
         private EmbeddingsGeneratorInterface $embeddingsGenerator
     ) {
-        if (! interface_exists(EntityManagerInterface::class)) {
+        if (! \interface_exists(EntityManagerInterface::class)) {
             throw new \RuntimeException('The "doctrine/orm" package is required to use this feature.');
         }
 
         $platform = $this->entityManager->getConnection()->getDatabasePlatform();
-
-        if (! in_array(VectorType::NAME, Type::getTypesMap(), true)) {
-            Type::addType(VectorType::NAME, VectorType::class);
-            $platform->registerDoctrineTypeMapping(VectorType::NAME, VectorType::NAME);
-        }
-
         foreach (DatabasePlatform::from($platform::class)->distanceFunctions() as $distance => $class) {
             $this->entityManager->getConfiguration()->addCustomStringFunction($distance, $class);
         }
@@ -97,11 +92,12 @@ readonly class DoctrineVectorStore implements VectorStoreInterface
     #[\Override]
     public function similaritySearchByVector(Vector $vector, int $k = 4, Distance $distance = Distance::COSINE): array
     {
+        /** @var EntityRepository<T> $repository */
         $repository = $this->entityManager->getRepository($this->entityClassName);
 
-        /** @var DocumentEntity[] $results */
+        /** @var Embeddings[] $results */
         $results = $repository->createQueryBuilder('d')
-            ->orderBy(sprintf('%s(d.embeddings, :vector)', $distance->value), 'ASC')
+            ->orderBy(\sprintf('%s(d.embeddings, :vector)', $distance->value), 'ASC')
             ->setParameter('vector', $vector->toString())
             ->setMaxResults($k)
             ->getQuery()
@@ -112,14 +108,14 @@ readonly class DoctrineVectorStore implements VectorStoreInterface
 
     /**
      * @throws ServiceIntegrationException if the embedding service fails
-     * @throws RuntimeException if the document is not an instance of DocumentEntity
+     * @throws RuntimeException if the document is not an instance of Embeddings
      */
     private function persist(Document $document): void
     {
-        if (! $document instanceof DocumentEntity) {
+        if (! $document instanceof Embeddings) {
             throw new RuntimeException(\sprintf(
                 'The document must be an instance of %s.',
-                DocumentEntity::class
+                Embeddings::class
             ));
         }
 

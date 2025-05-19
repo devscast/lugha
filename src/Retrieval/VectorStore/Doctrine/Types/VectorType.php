@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Retrieval\VectorStore\Doctrine;
+namespace Devscast\Lugha\Retrieval\VectorStore\Doctrine\Types;
 
-use Devscast\Lugha\Exception\InvalidArgumentException;
 use Devscast\Lugha\Model\Embeddings\Vector;
+use Devscast\Lugha\Retrieval\VectorStore\Doctrine\DatabasePlatform;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
@@ -27,7 +27,7 @@ use Doctrine\DBAL\Types\Type;
  */
 final class VectorType extends Type
 {
-    public const string NAME = 'vector';
+    public const string NAME = 'lugha_vector';
 
     #[\Override]
     public function getName(): string
@@ -38,7 +38,13 @@ final class VectorType extends Type
     #[\Override]
     public function getMappedDatabaseTypes(AbstractPlatform $platform): array
     {
-        return [self::NAME];
+        return ['vector'];
+    }
+
+    #[\Override]
+    public function canRequireSQLConversion(): bool
+    {
+        return true;
     }
 
     /**
@@ -59,17 +65,12 @@ final class VectorType extends Type
         }
 
         if (! isset($column['length'])) {
-            throw new Exception(\sprintf(
-                'Column "%s" should have a length',
-                \get_debug_type($column['name']),
-            ));
+            // @phpstan-ignore-next-line
+            throw new Exception(\sprintf('Column "%s" should have a length', $column['name']));
         }
 
         if (! is_int($column['length']) || $column['length'] <= 0) {
-            throw new Exception(\sprintf(
-                'Column "%s" should have a positive integer length',
-                \get_debug_type($column['name'])
-            ));
+            throw new Exception(\sprintf('Column "%s" should have a positive integer length', $column['name']));
         }
 
         return match ($databasePlatform) {
@@ -82,23 +83,19 @@ final class VectorType extends Type
      * @throws ConversionException if the value cannot be converted
      */
     #[\Override]
-    public function convertToPHPValue(mixed $value, AbstractPlatform $platform): ?Vector
+    public function convertToPHPValue(mixed $value, AbstractPlatform $platform): Vector
     {
         if ($value === null) {
-            return null;
+            throw ConversionException::conversionFailed($value, $this->getName());
         }
 
         try {
-            if (\is_array($value)) {
-                return Vector::from($value);
-            }
-
-            if (! \is_string($value)) {
-                throw ConversionException::conversionFailedInvalidType($value, $this->getName(), ['null', 'string', 'array']);
-            }
-            return Vector::fromString($value);
-
-        } catch (InvalidArgumentException $e) {
+            return match (true) {
+                \is_array($value) => Vector::from($value),
+                \is_string($value) => Vector::fromString($value),
+                $value instanceof Vector => $value,
+            };
+        } catch (\Throwable $e) {
             throw ConversionException::conversionFailed($value, $this->getName(), $e);
         }
     }
@@ -107,21 +104,25 @@ final class VectorType extends Type
      * @throws ConversionException if the value cannot be converted
      */
     #[\Override]
-    public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): ?string
+    public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): string
     {
-        $databasePlatform = DatabasePlatform::from($platform::class);
-
         if ($value === null) {
-            return null;
+            throw ConversionException::conversionFailed($value, $this->getName());
         }
 
-        if ($value instanceof Vector) {
-            return match ($databasePlatform) {
-                DatabasePlatform::MariaDB => \sprintf('Vec_FromText(%s)', $value->toString()),
+        try {
+            $value = match (true) {
+                \is_array($value) => Vector::from($value),
+                \is_string($value) => Vector::fromString($value),
+                $value instanceof Vector => $value,
+            };
+
+            return match (DatabasePlatform::from($platform::class)) {
+                DatabasePlatform::MariaDB => \sprintf("Vec_FromText('%s')", $value->toString()),
                 default => $value->toString()
             };
+        } catch (\Throwable $e) {
+            throw ConversionException::conversionFailed($value, $this->getName(), $e);
         }
-
-        throw ConversionException::conversionFailedInvalidType($value, $this->getName(), ['null', Vector::class]);
     }
 }

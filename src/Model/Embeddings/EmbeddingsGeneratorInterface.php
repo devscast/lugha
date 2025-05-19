@@ -43,7 +43,7 @@ interface EmbeddingsGeneratorInterface
      *
      * @throws ServiceIntegrationException If an error occurs during the embedding process.
      */
-    public function embedDocuments(iterable $documents): iterable;
+    public function embedDocuments(iterable $documents, ?int $dimensions = null): iterable;
 
     /**
      * Embed a single document by converting its content into a vector representation.
@@ -55,7 +55,7 @@ interface EmbeddingsGeneratorInterface
      *
      * @throws ServiceIntegrationException If an error occurs while obtaining the embedding.
      */
-    public function embedDocument(Document $document): Document;
+    public function embedDocument(Document $document, ?int $dimensions = null): Document;
 
     /**
      * Embed a query string into a vector representation.
@@ -69,5 +69,5 @@ interface EmbeddingsGeneratorInterface
      *
      * @throws ServiceIntegrationException If an error occurs while obtaining the embedding.
      */
-    public function embedQuery(string $query): Vector;
+    public function embedQuery(string $query, ?int $dimensions = null): Vector;
 }

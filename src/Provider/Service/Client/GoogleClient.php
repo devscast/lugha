@@ -20,10 +20,10 @@ use Devscast\Lugha\Model\Completion\CompletionConfig;
 use Devscast\Lugha\Model\Embeddings\EmbeddingsConfig;
 use Devscast\Lugha\Provider\Provider;
 use Devscast\Lugha\Provider\Response\CompletionResponse;
-use Devscast\Lugha\Provider\Response\EmbeddingResponse;
+use Devscast\Lugha\Provider\Response\EmbeddingsResponse;
 use Devscast\Lugha\Provider\Service\Client;
 use Devscast\Lugha\Provider\Service\HasCompletionSupport;
-use Devscast\Lugha\Provider\Service\HasEmbeddingSupport;
+use Devscast\Lugha\Provider\Service\HasEmbeddingsSupport;
 
 /**
  * Class GoogleClient.
@@ -33,14 +33,14 @@ use Devscast\Lugha\Provider\Service\HasEmbeddingSupport;
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final class GoogleClient extends Client implements HasEmbeddingSupport, HasCompletionSupport
+final class GoogleClient extends Client implements HasEmbeddingsSupport, HasCompletionSupport
 {
     protected const string BASE_URI = 'https://generativelanguage.googleapis.com/v1beta/';
 
     protected Provider $provider = Provider::GOOGLE;
 
     #[\Override]
-    public function embeddings(string $prompt, EmbeddingsConfig $config): EmbeddingResponse
+    public function embeddings(string $prompt, EmbeddingsConfig $config): EmbeddingsResponse
     {
         Assert::notEmpty($prompt);
 
@@ -58,10 +58,10 @@ final class GoogleClient extends Client implements HasEmbeddingSupport, HasCompl
                 ],
             ])->toArray();
 
-            return new EmbeddingResponse(
+            return new EmbeddingsResponse(
                 provider: $this->provider,
                 model: $config->model,
-                embedding: $response['embedding']['values'],
+                embeddings: $response['embedding']['values'],
                 providerResponse: $this->config->providerResponse ? $response : [],
             );
         } catch (\Throwable $e) {

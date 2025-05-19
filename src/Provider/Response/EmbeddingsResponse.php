@@ -16,16 +16,16 @@ namespace Devscast\Lugha\Provider\Response;
 use Devscast\Lugha\Provider\Provider;
 
 /**
- * Class EmbeddingResponse.
+ * Class EmbeddingsResponse.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final readonly class EmbeddingResponse
+final readonly class EmbeddingsResponse
 {
     public function __construct(
         public Provider $provider,
         public string $model,
-        public array $embedding,
+        public array $embeddings,
         public array $providerResponse = [],
     ) {
     }

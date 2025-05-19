@@ -19,10 +19,10 @@ use Devscast\Lugha\Model\Embeddings\EmbeddingsConfig;
 use Devscast\Lugha\Model\Reranking\RankedDocument;
 use Devscast\Lugha\Model\Reranking\RerankingConfig;
 use Devscast\Lugha\Provider\Provider;
-use Devscast\Lugha\Provider\Response\EmbeddingResponse;
+use Devscast\Lugha\Provider\Response\EmbeddingsResponse;
 use Devscast\Lugha\Provider\Response\RerankingResponse;
 use Devscast\Lugha\Provider\Service\Client;
-use Devscast\Lugha\Provider\Service\HasEmbeddingSupport;
+use Devscast\Lugha\Provider\Service\HasEmbeddingsSupport;
 use Devscast\Lugha\Provider\Service\HasRerankingSupport;
 use Devscast\Lugha\Retrieval\Document;
 
@@ -34,7 +34,7 @@ use Devscast\Lugha\Retrieval\Document;
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final class VoyagerClient extends Client implements HasRerankingSupport, HasEmbeddingSupport
+final class VoyagerClient extends Client implements HasRerankingSupport, HasEmbeddingsSupport
 {
     protected const string BASE_URI = 'https://api.voyageai.com/v1/';
 
@@ -78,7 +78,7 @@ final class VoyagerClient extends Client implements HasRerankingSupport, HasEmbe
     }
 
     #[\Override]
-    public function embeddings(string $prompt, EmbeddingsConfig $config): EmbeddingResponse
+    public function embeddings(string $prompt, EmbeddingsConfig $config): EmbeddingsResponse
     {
         Assert::notEmpty($prompt);
 
@@ -92,10 +92,10 @@ final class VoyagerClient extends Client implements HasRerankingSupport, HasEmbe
                 ],
             ])->toArray();
 
-            return new EmbeddingResponse(
+            return new EmbeddingsResponse(
                 provider: $this->provider,
                 model: $config->model,
-                embedding: $response['embeddings'][0]
+                embeddings: $response['embeddings'][0]
             );
         } catch (\Throwable $e) {
             throw new ServiceIntegrationException('Unable to generate embeddings.', previous: $e);

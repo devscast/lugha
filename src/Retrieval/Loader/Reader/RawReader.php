@@ -32,12 +32,10 @@ final readonly class RawReader extends AbstractReader
             $this->ensureFileExists($path);
         }
 
-        $content = \file_get_contents($path);
-
-        if ($content === false) {
-            throw new IOException($path);
+        try {
+            return $this->filesystem->readFile($path);
+        } catch (\Throwable $e) {
+            throw new IOException($path, previous: $e);
         }
-
-        return $content;
     }
 }

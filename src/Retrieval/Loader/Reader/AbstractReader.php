@@ -16,6 +16,7 @@ namespace Devscast\Lugha\Retrieval\Loader\Reader;
 use Devscast\Lugha\Exception\FileNotFoundException;
 use Devscast\Lugha\Exception\IOException;
 use Devscast\Lugha\Exception\UnsupportedFileException;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
 
 /**
@@ -29,6 +30,11 @@ abstract readonly class AbstractReader
      * Supported extensions regex pattern
      */
     public const string SUPPORTED_EXTENSIONS_PATTERN = '';
+
+    public function __construct(
+        protected Filesystem $filesystem = new Filesystem(),
+    ) {
+    }
 
     /**
      * @throws UnsupportedFileException If the file extension is not supported and the check is not skipped.
@@ -53,7 +59,7 @@ abstract readonly class AbstractReader
 
     final public function ensureFileExists(string $path): void
     {
-        if (\file_exists($path) === false) {
+        if ($this->filesystem->exists($path) === false) {
             throw new FileNotFoundException($path);
         }
 

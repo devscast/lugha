@@ -20,12 +20,12 @@ use Devscast\Lugha\Model\Completion\CompletionConfig;
 use Devscast\Lugha\Model\Embeddings\EmbeddingsConfig;
 use Devscast\Lugha\Provider\Provider;
 use Devscast\Lugha\Provider\Response\CompletionResponse;
-use Devscast\Lugha\Provider\Response\EmbeddingResponse;
+use Devscast\Lugha\Provider\Response\EmbeddingsResponse;
 use Devscast\Lugha\Provider\Service\Client;
 use Devscast\Lugha\Provider\Service\Common\OpenAICompatibilitySupport;
 use Devscast\Lugha\Provider\Service\Common\ToolCallingSupport;
 use Devscast\Lugha\Provider\Service\HasCompletionSupport;
-use Devscast\Lugha\Provider\Service\HasEmbeddingSupport;
+use Devscast\Lugha\Provider\Service\HasEmbeddingsSupport;
 
 /**
  * Class MistralClient.
@@ -35,7 +35,7 @@ use Devscast\Lugha\Provider\Service\HasEmbeddingSupport;
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final class MistralClient extends Client implements HasEmbeddingSupport, HasCompletionSupport
+final class MistralClient extends Client implements HasEmbeddingsSupport, HasCompletionSupport
 {
     use ToolCallingSupport;
     use OpenAICompatibilitySupport;
@@ -45,7 +45,7 @@ final class MistralClient extends Client implements HasEmbeddingSupport, HasComp
     protected Provider $provider = Provider::MISTRAL;
 
     #[\Override]
-    public function embeddings(string $prompt, EmbeddingsConfig $config): EmbeddingResponse
+    public function embeddings(string $prompt, EmbeddingsConfig $config): EmbeddingsResponse
     {
         Assert::notEmpty($prompt);
 
@@ -59,10 +59,10 @@ final class MistralClient extends Client implements HasEmbeddingSupport, HasComp
                 ],
             ])->toArray();
 
-            return new EmbeddingResponse(
+            return new EmbeddingsResponse(
                 provider: $this->provider,
                 model: $config->model,
-                embedding: $response['data'][0]['embedding'],
+                embeddings: $response['data'][0]['embedding'],
                 providerResponse: $this->config->providerResponse ? $response : [],
             );
         } catch (\Throwable $e) {

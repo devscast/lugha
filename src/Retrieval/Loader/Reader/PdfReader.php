@@ -15,6 +15,7 @@ namespace Devscast\Lugha\Retrieval\Loader\Reader;
 
 use Devscast\Lugha\Exception\IOException;
 use Smalot\PdfParser\{Config, Parser};
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Class PdfReader.
@@ -29,8 +30,10 @@ final readonly class PdfReader extends AbstractReader
 
     private Parser $parser;
 
-    public function __construct()
-    {
+    public function __construct(
+        Filesystem $filesystem = new Filesystem()
+    ) {
+        parent::__construct($filesystem);
         if (class_exists(Parser::class) === false) {
             throw new \RuntimeException('The "smalot/pdfparser" package is required to read PDF files.');
         }

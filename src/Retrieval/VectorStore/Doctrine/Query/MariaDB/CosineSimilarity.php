@@ -28,7 +28,7 @@ final class CosineSimilarity extends DistanceFunctionNode
     #[\Override]
     public function getSql(SqlWalker $sqlWalker): string
     {
-        return sprintf(
+        return \sprintf(
             'VEC_DISTANCE_COSINE(%s, %s)',
             $this->firstArgument->dispatch($sqlWalker),
             $this->secondArgument->dispatch($sqlWalker)

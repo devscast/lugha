@@ -22,7 +22,7 @@ use Devscast\Lugha\Provider\Provider;
  * @author bernard-ng <bernard@devscast.tech>
  */
 #[\Attribute(\Attribute::TARGET_CLASS)]
-readonly class ToolDefinition
+final readonly class ToolDefinition
 {
     /**
      * @param array<ToolParameter> $parameters

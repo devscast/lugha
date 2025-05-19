@@ -16,8 +16,8 @@ namespace Devscast\Lugha\Retrieval\Loader;
 use Devscast\Lugha\Retrieval\Document;
 use Devscast\Lugha\Retrieval\Loader\Reader\AbstractReader;
 use Devscast\Lugha\Retrieval\Loader\Reader\FileReader;
+use Devscast\Lugha\Retrieval\Splitter\CharacterTextSplitter;
 use Devscast\Lugha\Retrieval\Splitter\SplitterInterface;
-use Devscast\Lugha\Retrieval\Splitter\TextSplitter;
 
 /**
  * Interface LoaderInterface.
@@ -35,7 +35,7 @@ interface LoaderInterface
      * @return iterable<Document>
      */
     public function loadAndSplit(
-        SplitterInterface $splitter = new TextSplitter(),
+        SplitterInterface $splitter = new CharacterTextSplitter(),
         AbstractReader $reader = new FileReader()
     ): iterable;
 }

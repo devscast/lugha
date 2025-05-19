@@ -53,11 +53,11 @@ abstract class DistanceFunctionNode extends FunctionNode
         $parser->match(TokenType::T_COMMA);
 
         $secondArgument = $parser->StringExpression();
-        if (is_string($secondArgument)) {
+        if (\is_string($secondArgument)) {
             throw new \TypeError(
-                sprintf(
+                \sprintf(
                     'Expected second argument to be a Node or Subselect, got %s',
-                    get_debug_type($secondArgument)
+                    \get_debug_type($secondArgument)
                 )
             );
         }

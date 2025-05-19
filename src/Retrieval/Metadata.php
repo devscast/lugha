@@ -40,6 +40,18 @@ class Metadata implements \JsonSerializable
         );
     }
 
+    public static function tryFrom(string $value): ?self
+    {
+        /** @var array|null $metadata */
+        $metadata = \json_decode($value, true);
+
+        if ($metadata === null) {
+            return null;
+        }
+
+        return self::from($metadata);
+    }
+
     #[\Override]
     public function jsonSerialize(): array
     {

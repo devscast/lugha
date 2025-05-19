@@ -55,7 +55,7 @@ class MemoryVectorStore implements VectorStoreInterface
     #[\Override]
     public function addDocuments(iterable $documents): void
     {
-        $documents = iterator_to_array($documents);
+        $documents = \iterator_to_array($documents);
 
         /** @var Document $document */
         foreach ($documents as $index => $document) {
@@ -64,7 +64,7 @@ class MemoryVectorStore implements VectorStoreInterface
             }
         }
 
-        $this->pool = array_merge($this->pool, $documents);
+        $this->pool = \array_merge($this->pool, $documents);
     }
 
     /**
@@ -99,7 +99,7 @@ class MemoryVectorStore implements VectorStoreInterface
             }
         }
 
-        asort($distances); // Sort by distance (ascending).
+        \asort($distances); // Sort by distance (ascending).
         $topK = \array_slice(\array_keys($distances), 0, $k, true);
 
         return \array_map(fn (int $index) => $this->pool[$index], $topK);
