@@ -6,8 +6,9 @@
 [![Total Downloads](https://poser.pugx.org/devscast/lugha/downloads)](https://packagist.org/packages/devscast/lugha)
 [![License](https://poser.pugx.org/devscast/lugha/license)](https://packagist.org/packages/devscast/lugha)
 
-> [!NOTE]  
-> Work in progress.
+> [!IMPORTANT]  
+> **Lugha is abandoned in favor of Symfony AI** - [github.com/symfony/ai](https://github.com/symfony/ai).
+> Please use the new repository for all future development, issues, and contributions.
 
 Lugha from Swahili meaning "Language" is a PHP Generative AI Framework that provides a simple and easy way to interact with various AI providers.
 The main idea is to provide a unified provider-agnostic API for AI models, making it easier to switch between providers.
