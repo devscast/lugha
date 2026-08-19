@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Retrieval\VectorStore\Doctrine\Types;
+namespace Ngandu\Lugha\Retrieval\VectorStore\Doctrine\Types;
 
-use Devscast\Lugha\Retrieval\Metadata;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
+use Ngandu\Lugha\Retrieval\Metadata;
 
 /**
  * Class MetadataType.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 final class MetadataType extends Type
 {

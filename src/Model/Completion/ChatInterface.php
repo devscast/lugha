@@ -3,7 +3,7 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Model\Completion;
+namespace Ngandu\Lugha\Model\Completion;
 
-use Devscast\Lugha\Exception\ServiceIntegrationException;
-use Devscast\Lugha\Model\Completion\Chat\History;
+use Ngandu\Lugha\Exception\ServiceIntegrationException;
+use Ngandu\Lugha\Model\Completion\Chat\History;
 
 /**
  * Interface ChatInterface.
@@ -23,7 +23,7 @@ use Devscast\Lugha\Model\Completion\Chat\History;
  * This interface defines the methods required for a system that supports chat-like completions,
  * including the ability to generate responses based on an input query and maintain conversation history.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 interface ChatInterface
 {

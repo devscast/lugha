@@ -3,7 +3,7 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,18 +11,18 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Provider\Service;
+namespace Ngandu\Lugha\Provider\Service;
 
-use Devscast\Lugha\Exception\InvalidArgumentException;
-use Devscast\Lugha\Exception\ServiceIntegrationException;
-use Devscast\Lugha\Model\Reranking\RerankingConfig;
-use Devscast\Lugha\Provider\Response\RerankingResponse;
-use Devscast\Lugha\Retrieval\Document;
+use Ngandu\Lugha\Exception\InvalidArgumentException;
+use Ngandu\Lugha\Exception\ServiceIntegrationException;
+use Ngandu\Lugha\Model\Reranking\RerankingConfig;
+use Ngandu\Lugha\Provider\Response\RerankingResponse;
+use Ngandu\Lugha\Retrieval\Document;
 
 /**
  * Interface HasRerankingSupport.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 interface HasRerankingSupport
 {

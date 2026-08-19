@@ -3,7 +3,7 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,17 +11,17 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Retrieval\VectorStore\Doctrine\Query\MariaDB;
+namespace Ngandu\Lugha\Retrieval\VectorStore\Doctrine\Query\MariaDB;
 
-use Devscast\Lugha\Retrieval\VectorStore\Doctrine\Query\DistanceFunctionNode;
 use Doctrine\ORM\Query\SqlWalker;
+use Ngandu\Lugha\Retrieval\VectorStore\Doctrine\Query\DistanceFunctionNode;
 
 /**
  * Class L2Distance.
  *
  * @see https://mariadb.com/kb/en/vec_distance_euclidean/
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 final class L2Distance extends DistanceFunctionNode
 {
@@ -38,5 +38,5 @@ final class L2Distance extends DistanceFunctionNode
 
 \class_alias(
     L2Distance::class,
-    'Devscast\Lugha\Retrieval\VectorStore\Doctrine\Operations\MariaDB\EuclideanDistance',
+    'Ngandu\Lugha\Retrieval\VectorStore\Doctrine\Operations\MariaDB\EuclideanDistance',
 );

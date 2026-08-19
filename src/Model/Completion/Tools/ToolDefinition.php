@@ -3,7 +3,7 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Model\Completion\Tools;
+namespace Ngandu\Lugha\Model\Completion\Tools;
 
-use Devscast\Lugha\Assert;
-use Devscast\Lugha\Provider\Provider;
+use Ngandu\Lugha\Assert;
+use Ngandu\Lugha\Provider\Provider;
 
 /**
  * Class ToolDefinition.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 #[\Attribute(\Attribute::TARGET_CLASS)]
 final readonly class ToolDefinition

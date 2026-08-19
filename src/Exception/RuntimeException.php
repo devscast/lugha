@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Exception;
+namespace Ngandu\Lugha\Exception;
 
 /**
  * Class RuntimeException.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 final class RuntimeException extends \RuntimeException
 {

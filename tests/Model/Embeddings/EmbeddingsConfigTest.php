@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Tests\Model\Embeddings;
+namespace Ngandu\Lugha\Tests\Model\Embeddings;
 
-use Devscast\Lugha\Exception\InvalidArgumentException;
-use Devscast\Lugha\Model\Embeddings\EmbeddingsConfig;
+use Ngandu\Lugha\Exception\InvalidArgumentException;
+use Ngandu\Lugha\Model\Embeddings\EmbeddingsConfig;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class EmbeddingsConfigTest.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 final class EmbeddingsConfigTest extends TestCase
 {

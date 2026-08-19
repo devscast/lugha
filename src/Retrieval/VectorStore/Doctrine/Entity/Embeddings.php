@@ -3,7 +3,7 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,20 +11,20 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Retrieval\VectorStore\Doctrine\Entity;
+namespace Ngandu\Lugha\Retrieval\VectorStore\Doctrine\Entity;
 
-use Devscast\Lugha\Model\Embeddings\Vector;
-use Devscast\Lugha\Retrieval\Document;
-use Devscast\Lugha\Retrieval\Metadata;
-use Devscast\Lugha\Retrieval\VectorStore\Doctrine\Types\MetadataType;
-use Devscast\Lugha\Retrieval\VectorStore\Doctrine\Types\VectorType;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Ngandu\Lugha\Model\Embeddings\Vector;
+use Ngandu\Lugha\Retrieval\Document;
+use Ngandu\Lugha\Retrieval\Metadata;
+use Ngandu\Lugha\Retrieval\VectorStore\Doctrine\Types\MetadataType;
+use Ngandu\Lugha\Retrieval\VectorStore\Doctrine\Types\VectorType;
 
 /**
  * Class Embeddings.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 class Embeddings extends Document
 {

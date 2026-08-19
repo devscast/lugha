@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Tests\Model\Completion;
+namespace Ngandu\Lugha\Tests\Model\Completion;
 
-use Devscast\Lugha\Exception\InvalidArgumentException;
-use Devscast\Lugha\Model\Completion\CompletionConfig;
-use Devscast\Lugha\Model\Embeddings\Distance;
+use Ngandu\Lugha\Exception\InvalidArgumentException;
+use Ngandu\Lugha\Model\Completion\CompletionConfig;
+use Ngandu\Lugha\Model\Embeddings\Distance;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class CompletionConfigTest.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 final class CompletionConfigTest extends TestCase
 {

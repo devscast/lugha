@@ -1,25 +1,30 @@
 {
-    "name": "devscast/lugha",
+    "name": "ngandu-dev/lugha",
     "description": "Lugha is a PHP Generative AI framework to build chatbot, RAG systems and AI-powered applications",
     "keywords": ["ai", "chatbot", "rag", "llm", "generative", "openai", "embeddings", "nlp"],
     "type": "library",
     "license": "MIT",
+    "homepage": "https://github.com/ngandu-dev/lugha",
     "autoload": {
         "psr-4": {
-            "Devscast\\Lugha\\": "src/"
+            "Ngandu\\Lugha\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Devscast\\Lugha\\Tests\\": "tests/"
+            "Ngandu\\Lugha\\Tests\\": "tests/"
         }
     },
     "authors": [
         {
             "name": "bernard-ng",
-            "email": "bernard@devscast.tech"
+            "email": "bernard@ngandu.dev"
         }
     ],
+    "support": {
+        "issues": "https://github.com/ngandu-dev/lugha/issues",
+        "source": "https://github.com/ngandu-dev/lugha"
+    },
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
@@ -45,11 +50,10 @@
         "doctrine/dbal": "^3.9"
     },
     "scripts": {
-        "app:cs": [
-            "php vendor/bin/ecs check --ansi",
-            "php -dmemory_limit=-1 vendor/bin/phpstan analyse --ansi",
-            "php vendor/bin/rector --dry-run --ansi"
-        ],
-        "app:test": "vendor/bin/phpunit"
+        "format": ["php vendor/bin/ecs check --fix --ansi", "php vendor/bin/rector process --ansi"],
+        "lint": ["php vendor/bin/ecs check --ansi", "php vendor/bin/rector process --dry-run --ansi"],
+        "typecheck": "php -dmemory_limit=-1 vendor/bin/phpstan analyse --ansi",
+        "test": "php vendor/bin/phpunit --colors=always",
+        "quality": ["@lint", "@typecheck", "@test"]
     }
 }

@@ -3,7 +3,7 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Model\Completion\Parser;
+namespace Ngandu\Lugha\Model\Completion\Parser;
 
 /**
  * Interface OutputParserInterface.
@@ -22,7 +22,7 @@ namespace Devscast\Lugha\Model\Completion\Parser;
  * For example, you may want to parse the output of a model that returns a JSON string or Markdown text.
  * The implementing classes will define how to handle and process different types of model outputs.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 interface OutputParserInterface
 {

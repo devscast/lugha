@@ -3,7 +3,7 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Retrieval\VectorStore;
+namespace Ngandu\Lugha\Retrieval\VectorStore;
 
-use Devscast\Lugha\Model\Embeddings\Distance;
-use Devscast\Lugha\Model\Embeddings\Vector;
-use Devscast\Lugha\Retrieval\Document;
+use Ngandu\Lugha\Model\Embeddings\Distance;
+use Ngandu\Lugha\Model\Embeddings\Vector;
+use Ngandu\Lugha\Retrieval\Document;
 
 /**
  * Interface VectorStoreInterface.
@@ -25,7 +25,7 @@ use Devscast\Lugha\Retrieval\Document;
  * and searching using vectors. The `similaritySearch` and `similaritySearchByVector` methods
  * allow you to search for documents based on similarity, using either a text query or a vector representation.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 interface VectorStoreInterface
 {

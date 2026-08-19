@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Provider\Service\Common;
+namespace Ngandu\Lugha\Provider\Service\Common;
 
-use Devscast\Lugha\Exception\ServiceIntegrationException;
-use Devscast\Lugha\Model\Completion\Chat\History;
-use Devscast\Lugha\Model\Completion\Chat\Message;
-use Devscast\Lugha\Model\Completion\CompletionConfig;
-use Devscast\Lugha\Provider\Response\CompletionResponse;
+use Ngandu\Lugha\Exception\ServiceIntegrationException;
+use Ngandu\Lugha\Model\Completion\Chat\History;
+use Ngandu\Lugha\Model\Completion\Chat\Message;
+use Ngandu\Lugha\Model\Completion\CompletionConfig;
+use Ngandu\Lugha\Provider\Response\CompletionResponse;
 
 /**
  * Trait OpenAICompatibilitySupport.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 trait OpenAICompatibilitySupport
 {

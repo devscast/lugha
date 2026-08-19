@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Model\Completion\Parser;
+namespace Ngandu\Lugha\Model\Completion\Parser;
 
 /**
  * Class JsonOutputParser.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 final readonly class JsonOutputParser implements OutputParserInterface
 {

@@ -3,7 +3,7 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Model\Reranking;
+namespace Ngandu\Lugha\Model\Reranking;
 
-use Devscast\Lugha\Assert;
-use Devscast\Lugha\Exception\InvalidArgumentException;
+use Ngandu\Lugha\Assert;
+use Ngandu\Lugha\Exception\InvalidArgumentException;
 
 /**
  * Class RerankingConfig.
@@ -23,7 +23,7 @@ use Devscast\Lugha\Exception\InvalidArgumentException;
  * This class defines the settings required for reranking search results or embeddings,
  * specifying the model, the number of top results to return, and any additional parameters.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 final readonly class RerankingConfig
 {

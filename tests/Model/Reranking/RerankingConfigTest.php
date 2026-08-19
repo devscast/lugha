@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Tests\Model\Reranking;
+namespace Ngandu\Lugha\Tests\Model\Reranking;
 
-use Devscast\Lugha\Exception\InvalidArgumentException;
-use Devscast\Lugha\Model\Reranking\RerankingConfig;
+use Ngandu\Lugha\Exception\InvalidArgumentException;
+use Ngandu\Lugha\Model\Reranking\RerankingConfig;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class RerankingConfigTest.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 final class RerankingConfigTest extends TestCase
 {

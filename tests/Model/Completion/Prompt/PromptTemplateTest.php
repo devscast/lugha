@@ -3,7 +3,7 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,17 +11,17 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Tests\Model\Completion\Prompt;
+namespace Ngandu\Lugha\Tests\Model\Completion\Prompt;
 
-use Devscast\Lugha\Exception\InvalidArgumentException;
-use Devscast\Lugha\Exception\UnformattedPromptTemplateException;
-use Devscast\Lugha\Model\Completion\Prompt\PromptTemplate;
+use Ngandu\Lugha\Exception\InvalidArgumentException;
+use Ngandu\Lugha\Exception\UnformattedPromptTemplateException;
+use Ngandu\Lugha\Model\Completion\Prompt\PromptTemplate;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class PromptTemplateTest.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 final class PromptTemplateTest extends TestCase
 {

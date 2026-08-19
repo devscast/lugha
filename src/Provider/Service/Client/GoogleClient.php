@@ -3,7 +3,7 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,19 +11,19 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Provider\Service\Client;
+namespace Ngandu\Lugha\Provider\Service\Client;
 
-use Devscast\Lugha\Assert;
-use Devscast\Lugha\Exception\ServiceIntegrationException;
-use Devscast\Lugha\Model\Completion\Chat\History;
-use Devscast\Lugha\Model\Completion\CompletionConfig;
-use Devscast\Lugha\Model\Embeddings\EmbeddingsConfig;
-use Devscast\Lugha\Provider\Provider;
-use Devscast\Lugha\Provider\Response\CompletionResponse;
-use Devscast\Lugha\Provider\Response\EmbeddingsResponse;
-use Devscast\Lugha\Provider\Service\Client;
-use Devscast\Lugha\Provider\Service\HasCompletionSupport;
-use Devscast\Lugha\Provider\Service\HasEmbeddingsSupport;
+use Ngandu\Lugha\Assert;
+use Ngandu\Lugha\Exception\ServiceIntegrationException;
+use Ngandu\Lugha\Model\Completion\Chat\History;
+use Ngandu\Lugha\Model\Completion\CompletionConfig;
+use Ngandu\Lugha\Model\Embeddings\EmbeddingsConfig;
+use Ngandu\Lugha\Provider\Provider;
+use Ngandu\Lugha\Provider\Response\CompletionResponse;
+use Ngandu\Lugha\Provider\Response\EmbeddingsResponse;
+use Ngandu\Lugha\Provider\Service\Client;
+use Ngandu\Lugha\Provider\Service\HasCompletionSupport;
+use Ngandu\Lugha\Provider\Service\HasEmbeddingsSupport;
 
 /**
  * Class GoogleClient.
@@ -31,7 +31,7 @@ use Devscast\Lugha\Provider\Service\HasEmbeddingsSupport;
  * @see https://ai.google.dev/api
  * @see https://ai.google.dev/gemini-api/docs/embeddings#curl
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 final class GoogleClient extends Client implements HasEmbeddingsSupport, HasCompletionSupport
 {

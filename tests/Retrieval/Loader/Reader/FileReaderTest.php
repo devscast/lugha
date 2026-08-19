@@ -3,7 +3,7 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,16 +11,16 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Tests\Retrieval\Loader\Reader;
+namespace Ngandu\Lugha\Tests\Retrieval\Loader\Reader;
 
-use Devscast\Lugha\Exception\FileNotFoundException;
-use Devscast\Lugha\Retrieval\Loader\Reader\FileReader;
+use Ngandu\Lugha\Exception\FileNotFoundException;
+use Ngandu\Lugha\Retrieval\Loader\Reader\FileReader;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class FileReaderTest.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 final class FileReaderTest extends TestCase
 {

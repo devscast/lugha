@@ -3,7 +3,7 @@
 /*
  *  This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Exception;
+namespace Ngandu\Lugha\Exception;
 
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
@@ -19,7 +19,7 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 /**
  * Class ServiceIntegrationException.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 class ServiceIntegrationException extends \Exception
 {

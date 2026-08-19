@@ -3,7 +3,7 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,19 +11,19 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Retrieval\VectorStore\Doctrine\Types;
+namespace Ngandu\Lugha\Retrieval\VectorStore\Doctrine\Types;
 
-use Devscast\Lugha\Model\Embeddings\Vector;
-use Devscast\Lugha\Retrieval\VectorStore\Doctrine\DatabasePlatform;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
+use Ngandu\Lugha\Model\Embeddings\Vector;
+use Ngandu\Lugha\Retrieval\VectorStore\Doctrine\DatabasePlatform;
 
 /**
  * Class VectorType.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 final class VectorType extends Type
 {

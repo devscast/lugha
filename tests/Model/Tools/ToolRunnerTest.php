@@ -3,24 +3,24 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Devscast\Lugha\Tests\Model\Tools;
+namespace Ngandu\Lugha\Tests\Model\Tools;
 
-use Devscast\Lugha\Exception\InvalidArgumentException;
-use Devscast\Lugha\Model\Completion\Tools\ToolReference;
-use Devscast\Lugha\Model\Completion\Tools\ToolRunner;
-use Devscast\Lugha\Tests\Model\Tools\Stubs\WeatherProvider;
+use Ngandu\Lugha\Exception\InvalidArgumentException;
+use Ngandu\Lugha\Model\Completion\Tools\ToolReference;
+use Ngandu\Lugha\Model\Completion\Tools\ToolRunner;
+use Ngandu\Lugha\Tests\Model\Tools\Stubs\WeatherProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class ToolRunnerTest.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 class ToolRunnerTest extends TestCase
 {

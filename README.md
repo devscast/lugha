@@ -1,10 +1,10 @@
 # Lugha - yet another PHP Generative AI Framework
 
-![Lint](https://github.com/devscast/lugha/actions/workflows/lint.yml/badge.svg)
-![Test](https://github.com/devscast/lugha/actions/workflows/test.yml/badge.svg)
-[![Latest Stable Version](https://poser.pugx.org/devscast/lugha/version)](https://packagist.org/packages/devscast/lugha)
-[![Total Downloads](https://poser.pugx.org/devscast/lugha/downloads)](https://packagist.org/packages/devscast/lugha)
-[![License](https://poser.pugx.org/devscast/lugha/license)](https://packagist.org/packages/devscast/lugha)
+[![Latest Stable Version](https://poser.pugx.org/ngandu-dev/lugha/version)](https://packagist.org/packages/ngandu-dev/lugha)
+[![Total Downloads](https://poser.pugx.org/ngandu-dev/lugha/downloads)](https://packagist.org/packages/ngandu-dev/lugha)
+[![Quality](https://github.com/ngandu-dev/lugha/actions/workflows/quality.yml/badge.svg)](https://github.com/ngandu-dev/lugha/actions/workflows/quality.yml)
+[![Tests](https://github.com/ngandu-dev/lugha/actions/workflows/test.yml/badge.svg)](https://github.com/ngandu-dev/lugha/actions/workflows/test.yml)
+[![License](https://poser.pugx.org/ngandu-dev/lugha/license)](https://packagist.org/packages/ngandu-dev/lugha)
 
 > [!IMPORTANT]  
 > **Lugha is abandoned in favor of Symfony AI** - [github.com/symfony/ai](https://github.com/symfony/ai).
@@ -15,6 +15,17 @@ The main idea is to provide a unified provider-agnostic API for AI models, makin
 
 This project is highly inspired by [LangChain](https://www.langchain.com/) and [LLPhant](https://github.com/theodo-group/LLPhant/), designed 
 for Chatbot, RAG (Retrieval-Augmented Generation) based applications with integration of Embeddings, Completion and Reranking models.
+
+## Features
+
+- Provider-agnostic completion, embeddings, and reranking APIs
+- Chat history and tool calling
+- Document loaders, retrieval, and vector stores
+
+## Requirements
+
+- PHP 8.3 or later
+- Composer 2
 
 *supported providers:*
 
@@ -33,7 +44,7 @@ for Chatbot, RAG (Retrieval-Augmented Generation) based applications with integr
 
 ## Installation
 ```bash
-composer require devscast/lugha
+composer require ngandu-dev/lugha
 ```
 
 ## Usage
@@ -131,8 +142,28 @@ $reRankedDocuments = $client->reranking(
 )->documents;
 ```
 
+## Development
+
+```bash
+composer install
+composer format
+composer quality
+```
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) before opening an issue or pull request.
+
+## Security
+
+Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
+
+## License
+
+Released under the [MIT License](LICENSE).
+
 ## Contributors
 
-<a href="https://github.com/devscast/lugha/graphs/contributors" title="show all contributors">
-  <img src="https://contrib.rocks/image?repo=devscast/lugha" alt="contributors"/>
+<a href="https://github.com/ngandu-dev/lugha/graphs/contributors" title="Show all contributors">
+  <img src="https://contrib.rocks/image?repo=ngandu-dev/lugha" alt="Contributors" />
 </a>

@@ -3,7 +3,7 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,18 +11,18 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Retrieval\Loader;
+namespace Ngandu\Lugha\Retrieval\Loader;
 
-use Devscast\Lugha\Retrieval\Document;
-use Devscast\Lugha\Retrieval\Loader\Reader\AbstractReader;
-use Devscast\Lugha\Retrieval\Loader\Reader\FileReader;
-use Devscast\Lugha\Retrieval\Splitter\CharacterTextSplitter;
-use Devscast\Lugha\Retrieval\Splitter\SplitterInterface;
+use Ngandu\Lugha\Retrieval\Document;
+use Ngandu\Lugha\Retrieval\Loader\Reader\AbstractReader;
+use Ngandu\Lugha\Retrieval\Loader\Reader\FileReader;
+use Ngandu\Lugha\Retrieval\Splitter\CharacterTextSplitter;
+use Ngandu\Lugha\Retrieval\Splitter\SplitterInterface;
 
 /**
  * Interface LoaderInterface.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 interface LoaderInterface
 {

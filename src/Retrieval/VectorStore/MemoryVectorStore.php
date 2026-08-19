@@ -3,7 +3,7 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,19 +11,19 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Retrieval\VectorStore;
+namespace Ngandu\Lugha\Retrieval\VectorStore;
 
-use Devscast\Lugha\Assert;
-use Devscast\Lugha\Exception\ServiceIntegrationException;
-use Devscast\Lugha\Model\Embeddings\Distance;
-use Devscast\Lugha\Model\Embeddings\EmbeddingsGeneratorInterface;
-use Devscast\Lugha\Model\Embeddings\Vector;
-use Devscast\Lugha\Retrieval\Document;
+use Ngandu\Lugha\Assert;
+use Ngandu\Lugha\Exception\ServiceIntegrationException;
+use Ngandu\Lugha\Model\Embeddings\Distance;
+use Ngandu\Lugha\Model\Embeddings\EmbeddingsGeneratorInterface;
+use Ngandu\Lugha\Model\Embeddings\Vector;
+use Ngandu\Lugha\Retrieval\Document;
 
 /**
  * Class MemoryVectorStore.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 class MemoryVectorStore implements VectorStoreInterface
 {

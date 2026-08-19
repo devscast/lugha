@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Provider\Service\Client;
+namespace Ngandu\Lugha\Provider\Service\Client;
 
-use Devscast\Lugha\Assert;
-use Devscast\Lugha\Exception\ServiceIntegrationException;
-use Devscast\Lugha\Model\Completion\Chat\History;
-use Devscast\Lugha\Model\Completion\CompletionConfig;
-use Devscast\Lugha\Provider\Provider;
-use Devscast\Lugha\Provider\Response\CompletionResponse;
-use Devscast\Lugha\Provider\Service\Client;
-use Devscast\Lugha\Provider\Service\Common\OpenAICompatibilitySupport;
-use Devscast\Lugha\Provider\Service\Common\ToolCallingSupport;
-use Devscast\Lugha\Provider\Service\HasCompletionSupport;
+use Ngandu\Lugha\Assert;
+use Ngandu\Lugha\Exception\ServiceIntegrationException;
+use Ngandu\Lugha\Model\Completion\Chat\History;
+use Ngandu\Lugha\Model\Completion\CompletionConfig;
+use Ngandu\Lugha\Provider\Provider;
+use Ngandu\Lugha\Provider\Response\CompletionResponse;
+use Ngandu\Lugha\Provider\Service\Client;
+use Ngandu\Lugha\Provider\Service\Common\OpenAICompatibilitySupport;
+use Ngandu\Lugha\Provider\Service\Common\ToolCallingSupport;
+use Ngandu\Lugha\Provider\Service\HasCompletionSupport;
 
 /**
  * Class DeepSeekClient.
@@ -21,7 +21,7 @@ use Devscast\Lugha\Provider\Service\HasCompletionSupport;
  * @see https://api-docs.deepseek.com/api/deepseek-api
  * @see https://api-docs.deepseek.com/api/create-chat-completion
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 final class DeepSeekClient extends Client implements HasCompletionSupport
 {

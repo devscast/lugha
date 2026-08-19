@@ -3,7 +3,7 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Retrieval;
+namespace Ngandu\Lugha\Retrieval;
 
-use Devscast\Lugha\Model\Embeddings\Vector;
+use Ngandu\Lugha\Model\Embeddings\Vector;
 
 /**
  * Class Document.
  * Represents a document that can be embedded, indexed and searched.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 class Document implements \Stringable, \JsonSerializable
 {

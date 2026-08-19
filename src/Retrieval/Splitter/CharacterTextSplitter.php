@@ -3,7 +3,7 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Retrieval\Splitter;
+namespace Ngandu\Lugha\Retrieval\Splitter;
 
-use Devscast\Lugha\Retrieval\Document;
-use Devscast\Lugha\Retrieval\Metadata;
+use Ngandu\Lugha\Retrieval\Document;
+use Ngandu\Lugha\Retrieval\Metadata;
 
 /**
  * Class CharacterTextSplitter.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 final readonly class CharacterTextSplitter implements SplitterInterface
 {

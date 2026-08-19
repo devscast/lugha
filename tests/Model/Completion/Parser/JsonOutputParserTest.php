@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Tests\Model\Completion\Parser;
+namespace Ngandu\Lugha\Tests\Model\Completion\Parser;
 
-use Devscast\Lugha\Model\Completion\Parser\JsonOutputParser;
+use Ngandu\Lugha\Model\Completion\Parser\JsonOutputParser;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class JsonOutputParserTest.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 final class JsonOutputParserTest extends TestCase
 {

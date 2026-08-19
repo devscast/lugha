@@ -3,7 +3,7 @@
 /*
  *  This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,17 +11,17 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Provider\Service;
+namespace Ngandu\Lugha\Provider\Service;
 
-use Devscast\Lugha\Exception\ServiceIntegrationException;
-use Devscast\Lugha\Model\Completion\Chat\History;
-use Devscast\Lugha\Model\Completion\CompletionConfig;
-use Devscast\Lugha\Provider\Response\CompletionResponse;
+use Ngandu\Lugha\Exception\ServiceIntegrationException;
+use Ngandu\Lugha\Model\Completion\Chat\History;
+use Ngandu\Lugha\Model\Completion\CompletionConfig;
+use Ngandu\Lugha\Provider\Response\CompletionResponse;
 
 /**
  * Interface HasCompletionSupport.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 interface HasCompletionSupport
 {

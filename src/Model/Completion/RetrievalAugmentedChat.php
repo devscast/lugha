@@ -3,7 +3,7 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,19 +11,19 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Model\Completion;
+namespace Ngandu\Lugha\Model\Completion;
 
-use Devscast\Lugha\Model\Completion\Chat\History;
-use Devscast\Lugha\Model\Completion\Chat\Message;
-use Devscast\Lugha\Model\Completion\Chat\Role;
-use Devscast\Lugha\Model\Completion\Prompt\PromptTemplate;
-use Devscast\Lugha\Provider\Service\HasCompletionSupport;
-use Devscast\Lugha\Retrieval\VectorStore\VectorStoreInterface;
+use Ngandu\Lugha\Model\Completion\Chat\History;
+use Ngandu\Lugha\Model\Completion\Chat\Message;
+use Ngandu\Lugha\Model\Completion\Chat\Role;
+use Ngandu\Lugha\Model\Completion\Prompt\PromptTemplate;
+use Ngandu\Lugha\Provider\Service\HasCompletionSupport;
+use Ngandu\Lugha\Retrieval\VectorStore\VectorStoreInterface;
 
 /**
  * Class RetrievalAugmentedChatter.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 final class RetrievalAugmentedChat implements RetrievalAugmentedInterface
 {

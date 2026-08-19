@@ -3,7 +3,7 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Model\Completion;
+namespace Ngandu\Lugha\Model\Completion;
 
-use Devscast\Lugha\Exception\ServiceIntegrationException;
-use Devscast\Lugha\Model\Completion\Chat\History;
-use Devscast\Lugha\Model\Completion\Prompt\PromptTemplate;
-use Devscast\Lugha\Retrieval\Document;
+use Ngandu\Lugha\Exception\ServiceIntegrationException;
+use Ngandu\Lugha\Model\Completion\Chat\History;
+use Ngandu\Lugha\Model\Completion\Prompt\PromptTemplate;
+use Ngandu\Lugha\Retrieval\Document;
 
 /**
  * Interface RetrievalAugmentedInterface.
@@ -31,7 +31,7 @@ use Devscast\Lugha\Retrieval\Document;
  * - Keeping track of query history for improved context.
  * - Retrieving relevant context for a given query.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 interface RetrievalAugmentedInterface
 {

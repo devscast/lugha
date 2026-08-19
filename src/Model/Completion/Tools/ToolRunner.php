@@ -3,7 +3,7 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,14 +11,14 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Model\Completion\Tools;
+namespace Ngandu\Lugha\Model\Completion\Tools;
 
-use Devscast\Lugha\Exception\InvalidArgumentException;
-use Devscast\Lugha\Exception\RuntimeException;
-use Devscast\Lugha\Model\Completion\Chat\Message;
-use Devscast\Lugha\Model\Completion\Chat\Role;
-use Devscast\Lugha\Model\Completion\Chat\ToolCalled;
-use Devscast\Lugha\Provider\Provider;
+use Ngandu\Lugha\Exception\InvalidArgumentException;
+use Ngandu\Lugha\Exception\RuntimeException;
+use Ngandu\Lugha\Model\Completion\Chat\Message;
+use Ngandu\Lugha\Model\Completion\Chat\Role;
+use Ngandu\Lugha\Model\Completion\Chat\ToolCalled;
+use Ngandu\Lugha\Provider\Provider;
 
 /**
  * Class ToolBuilder.
@@ -27,7 +27,7 @@ use Devscast\Lugha\Provider\Provider;
  * and retrieving the associated tool definitions. It allows for managing tools, invoking them
  * with the correct arguments, and handling exceptions that may arise during execution.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 abstract class ToolRunner
 {

@@ -3,7 +3,7 @@
 /*
  *  This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,19 +11,19 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Provider\Service\Common;
+namespace Ngandu\Lugha\Provider\Service\Common;
 
-use Devscast\Lugha\Assert;
-use Devscast\Lugha\Model\Completion\Chat\History;
-use Devscast\Lugha\Model\Completion\Chat\Message;
-use Devscast\Lugha\Model\Completion\Chat\ToolCalled;
-use Devscast\Lugha\Model\Completion\Tools\ToolReference;
-use Devscast\Lugha\Model\Completion\Tools\ToolRunner;
+use Ngandu\Lugha\Assert;
+use Ngandu\Lugha\Model\Completion\Chat\History;
+use Ngandu\Lugha\Model\Completion\Chat\Message;
+use Ngandu\Lugha\Model\Completion\Chat\ToolCalled;
+use Ngandu\Lugha\Model\Completion\Tools\ToolReference;
+use Ngandu\Lugha\Model\Completion\Tools\ToolRunner;
 
 /**
  * Trait ToolCallingSupport.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 trait ToolCallingSupport
 {

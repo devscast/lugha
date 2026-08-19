@@ -3,7 +3,7 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Model\Embeddings;
+namespace Ngandu\Lugha\Model\Embeddings;
 
-use Devscast\Lugha\Assert;
-use Devscast\Lugha\Exception\InvalidArgumentException;
+use Ngandu\Lugha\Assert;
+use Ngandu\Lugha\Exception\InvalidArgumentException;
 
 /**
  * Class EmbeddingsConfig.
@@ -23,7 +23,7 @@ use Devscast\Lugha\Exception\InvalidArgumentException;
  * This class defines the parameters required to generate vector embeddings,
  * including the model selection, dimensionality, encoding format, and additional settings.
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 final readonly class EmbeddingsConfig
 {

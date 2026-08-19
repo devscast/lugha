@@ -3,7 +3,7 @@
 /*
  * This file is part of the Lugha package.
  *
- * (c) Bernard Ngandu <bernard@devscast.tech>
+ * (c) Bernard Ngandu <bernard@ngandu.dev>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,20 +11,20 @@
 
 declare(strict_types=1);
 
-namespace Devscast\Lugha\Provider\Service\Client;
+namespace Ngandu\Lugha\Provider\Service\Client;
 
-use Devscast\Lugha\Assert;
-use Devscast\Lugha\Exception\ServiceIntegrationException;
-use Devscast\Lugha\Model\Embeddings\EmbeddingsConfig;
-use Devscast\Lugha\Model\Reranking\RankedDocument;
-use Devscast\Lugha\Model\Reranking\RerankingConfig;
-use Devscast\Lugha\Provider\Provider;
-use Devscast\Lugha\Provider\Response\EmbeddingsResponse;
-use Devscast\Lugha\Provider\Response\RerankingResponse;
-use Devscast\Lugha\Provider\Service\Client;
-use Devscast\Lugha\Provider\Service\HasEmbeddingsSupport;
-use Devscast\Lugha\Provider\Service\HasRerankingSupport;
-use Devscast\Lugha\Retrieval\Document;
+use Ngandu\Lugha\Assert;
+use Ngandu\Lugha\Exception\ServiceIntegrationException;
+use Ngandu\Lugha\Model\Embeddings\EmbeddingsConfig;
+use Ngandu\Lugha\Model\Reranking\RankedDocument;
+use Ngandu\Lugha\Model\Reranking\RerankingConfig;
+use Ngandu\Lugha\Provider\Provider;
+use Ngandu\Lugha\Provider\Response\EmbeddingsResponse;
+use Ngandu\Lugha\Provider\Response\RerankingResponse;
+use Ngandu\Lugha\Provider\Service\Client;
+use Ngandu\Lugha\Provider\Service\HasEmbeddingsSupport;
+use Ngandu\Lugha\Provider\Service\HasRerankingSupport;
+use Ngandu\Lugha\Retrieval\Document;
 
 /**
  * Class VoyagerClient.
@@ -32,7 +32,7 @@ use Devscast\Lugha\Retrieval\Document;
  * @see https://docs.voyageai.com/docs/reranker
  * @see https://docs.voyageai.com/docs/embeddings
  *
- * @author bernard-ng <bernard@devscast.tech>
+ * @author bernard-ng <bernard@ngandu.dev>
  */
 final class VoyagerClient extends Client implements HasRerankingSupport, HasEmbeddingsSupport
 {
