@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file. The project follows [Semantic Versioning](https://semver.org/).
 
+## 1.0.1
+
+### Fixed
+
+- Published the finalized migration with immutable source and distribution references for Packagist.
+
 ## 1.0.0
 
 ### Changed
